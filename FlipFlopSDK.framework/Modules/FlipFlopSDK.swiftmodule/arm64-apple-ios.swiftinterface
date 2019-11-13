@@ -1,0 +1,2773 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.1.2 (swiftlang-1100.0.278 clang-1100.0.33.9)
+// swift-module-flags: -target arm64-apple-ios11.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name FlipFlopSDK
+import AVFoundation
+import AVKit
+import AWSS3
+import AudioToolbox
+import CoreFoundation
+import CoreImage
+import CoreMedia
+import CoreVideo
+import Dispatch
+@_exported import FlipFlopSDK
+import Foundation
+import GLKit
+import Metal
+import MetalKit
+import MetalPerformanceShaders
+import Network
+import QuartzCore
+import Swift
+import SwiftGRPC
+import SwiftProtobuf
+import UIKit
+import VideoToolbox
+public struct MachUtil {
+  public static let nanosPerUsec: Swift.UInt64
+  public static let nanosPerMsec: Swift.UInt64
+  public static let nanosPerSec: Swift.UInt64
+  public static func nanosToAbs(_ nanos: Swift.UInt64) -> Swift.UInt64
+  public static func absToNanos(_ abs: Swift.UInt64) -> Swift.UInt64
+}
+public class SaturationBlend : FlipFlopSDK.BasicOperation {
+  public init()
+  override public init(vertexFunctionName: Swift.String? = super, fragmentFunctionName: Swift.String, numberOfInputs: Swift.UInt = super, operationName: Swift.String = #file)
+  @objc deinit
+}
+public class SketchFilter : FlipFlopSDK.TextureSamplingOperation {
+  public var edgeStrength: Swift.Float {
+    get
+    set
+  }
+  public init()
+  override public init(vertexFunctionName: Swift.String? = super, fragmentFunctionName: Swift.String, numberOfInputs: Swift.UInt = super, operationName: Swift.String = #file)
+  @objc deinit
+}
+public class ToonFilter : FlipFlopSDK.TextureSamplingOperation {
+  public var threshold: Swift.Float {
+    get
+    set
+  }
+  public var quantizationLevels: Swift.Float {
+    get
+    set
+  }
+  public init()
+  override public init(vertexFunctionName: Swift.String? = super, fragmentFunctionName: Swift.String, numberOfInputs: Swift.UInt = super, operationName: Swift.String = #file)
+  @objc deinit
+}
+public func defaultVertexFunctionNameForInputs(_ inputCount: Swift.UInt) -> Swift.String
+open class BasicOperation : FlipFlopSDK.ImageProcessingOperation {
+  final public let maximumInputs: Swift.UInt
+  final public let targets: FlipFlopSDK.TargetContainer
+  final public let sources: FlipFlopSDK.SourceContainer
+  public var activatePassthroughOnNextFrame: Swift.Bool
+  public var uniformSettings: FlipFlopSDK.ShaderUniformSettings
+  public var useMetalPerformanceShaders: Swift.Bool {
+    get
+    set
+  }
+  public init(vertexFunctionName: Swift.String? = nil, fragmentFunctionName: Swift.String, numberOfInputs: Swift.UInt = 1, operationName: Swift.String = #file)
+  public func transmitPreviousImage(to target: FlipFlopSDK.ImageConsumer, atIndex: Swift.UInt)
+  public func newTextureAvailable(_ texture: FlipFlopSDK.Texture, fromSourceIndex: Swift.UInt)
+  @objc deinit
+}
+public class ConsoleAppender : FlipFlopSDK.LogboardAppender {
+  public init()
+  public func append(_ logboard: FlipFlopSDK.Logboard, level: FlipFlopSDK.Logboard.Level, message: [Any], file: Swift.StaticString, function: Swift.StaticString, line: Swift.Int)
+  public func append(_ logboard: FlipFlopSDK.Logboard, level: FlipFlopSDK.Logboard.Level, format: Swift.String, arguments: Swift.CVarArg, file: Swift.StaticString, function: Swift.StaticString, line: Swift.Int)
+  @objc deinit
+}
+public enum FLVTagType : Swift.UInt8 {
+  case audio
+  case video
+  case data
+  public typealias RawValue = Swift.UInt8
+  public init?(rawValue: Swift.UInt8)
+  public var rawValue: Swift.UInt8 {
+    get
+  }
+}
+public protocol FLVTag : Swift.CustomDebugStringConvertible {
+  var tagType: FlipFlopSDK.FLVTagType { get set }
+  var dataSize: Swift.UInt32 { get set }
+  var timestamp: Swift.UInt32 { get set }
+  var timestampExtended: Swift.UInt8 { get set }
+  var streamId: Swift.UInt32 { get set }
+  var offset: Swift.UInt64 { get set }
+  init()
+  mutating func readData(_ fileHandler: Foundation.FileHandle)
+}
+extension FLVTag {
+  public var debugDescription: Swift.String {
+    get
+  }
+}
+public struct FLVDataTag : FlipFlopSDK.FLVTag {
+  public var tagType: FlipFlopSDK.FLVTagType
+  public var dataSize: Swift.UInt32
+  public var timestamp: Swift.UInt32
+  public var timestampExtended: Swift.UInt8
+  public var streamId: Swift.UInt32
+  public var offset: Swift.UInt64
+  public init()
+  mutating public func readData(_ fileHandler: Foundation.FileHandle)
+}
+public struct FLVAudioTag : FlipFlopSDK.FLVTag {
+  public var tagType: FlipFlopSDK.FLVTagType
+  public var dataSize: Swift.UInt32
+  public var timestamp: Swift.UInt32
+  public var timestampExtended: Swift.UInt8
+  public var streamId: Swift.UInt32
+  public var offset: Swift.UInt64
+  public var codec: FlipFlopSDK.FLVAudioCodec
+  public var soundRate: FlipFlopSDK.FLVSoundRate
+  public var soundSize: FlipFlopSDK.FLVSoundSize
+  public var soundType: FlipFlopSDK.FLVSoundType
+  public init()
+  mutating public func readData(_ fileHandler: Foundation.FileHandle)
+}
+public struct FLVVideoTag : FlipFlopSDK.FLVTag {
+  public var tagType: FlipFlopSDK.FLVTagType
+  public var dataSize: Swift.UInt32
+  public var timestamp: Swift.UInt32
+  public var timestampExtended: Swift.UInt8
+  public var streamId: Swift.UInt32
+  public var offset: Swift.UInt64
+  public var frameType: FlipFlopSDK.FLVFrameType
+  public var codec: FlipFlopSDK.FLVVideoCodec
+  public var avcPacketType: FlipFlopSDK.FLVAVCPacketType
+  public var compositionTime: Swift.Int32
+  public init()
+  mutating public func readData(_ fileHandler: Foundation.FileHandle)
+}
+public protocol AVRecorderDelegate : AnyObject {
+  var moviesDirectory: Foundation.URL { get }
+  func rotateFile(_ recorder: FlipFlopSDK.AVRecorder, withPresentationTimeStamp: CoreMedia.CMTime, mediaType: AVFoundation.AVMediaType)
+  func getPixelBufferAdaptor(_ recorder: FlipFlopSDK.AVRecorder, withWriterInput: AVFoundation.AVAssetWriterInput?) -> AVFoundation.AVAssetWriterInputPixelBufferAdaptor?
+  func getWriterInput(_ recorder: FlipFlopSDK.AVRecorder, mediaType: AVFoundation.AVMediaType, sourceFormatHint: CoreMedia.CMFormatDescription?) -> AVFoundation.AVAssetWriterInput?
+  func didStartRunning(_ recorder: FlipFlopSDK.AVRecorder)
+  func didStopRunning(_ recorder: FlipFlopSDK.AVRecorder)
+  func didFinishWriting(_ recorder: FlipFlopSDK.AVRecorder)
+}
+@objc open class AVRecorder : ObjectiveC.NSObject {
+  public static let defaultOutputSettings: [AVFoundation.AVMediaType : [Swift.String : Any]]
+  open var writer: AVFoundation.AVAssetWriter?
+  open var fileName: Swift.String?
+  weak open var delegate: FlipFlopSDK.AVRecorderDelegate?
+  open var writerInputs: [AVFoundation.AVMediaType : AVFoundation.AVAssetWriterInput]
+  open var outputSettings: [AVFoundation.AVMediaType : [Swift.String : Any]]
+  open var pixelBufferAdaptor: AVFoundation.AVAssetWriterInputPixelBufferAdaptor?
+  final public let lockQueue: Dispatch.DispatchQueue
+  public var isRunning: FlipFlopSDK.Atomic<Swift.Bool> {
+    get
+    }
+  @objc override dynamic public init()
+  @objc deinit
+}
+extension AVRecorder : FlipFlopSDK.Running {
+  public func startRunning()
+  public func stopRunning()
+}
+@objc open class DefaultAVRecorderDelegate : ObjectiveC.NSObject {
+  public enum FileType {
+    case mp4
+    case mov
+    public var AVFileType: AVFoundation.AVFileType {
+      get
+    }
+    public var fileExtension: Swift.String {
+      get
+    }
+    public static func == (a: FlipFlopSDK.DefaultAVRecorderDelegate.FileType, b: FlipFlopSDK.DefaultAVRecorderDelegate.FileType) -> Swift.Bool
+    public var hashValue: Swift.Int {
+      get
+    }
+    public func hash(into hasher: inout Swift.Hasher)
+  }
+  public static let shared: FlipFlopSDK.DefaultAVRecorderDelegate
+  open var duration: Swift.Int64
+  open var dateFormat: Swift.String
+  public var fileType: FlipFlopSDK.DefaultAVRecorderDelegate.FileType {
+    get
+    }
+  open var moviesDirectory: Foundation.URL {
+    get
+    set
+  }
+  public init(fileType: FlipFlopSDK.DefaultAVRecorderDelegate.FileType = .mp4)
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc extension DefaultAVRecorderDelegate : FlipFlopSDK.AVRecorderDelegate {
+  @objc dynamic open func rotateFile(_ recorder: FlipFlopSDK.AVRecorder, withPresentationTimeStamp: CoreMedia.CMTime, mediaType: AVFoundation.AVMediaType)
+  @objc dynamic open func getPixelBufferAdaptor(_ recorder: FlipFlopSDK.AVRecorder, withWriterInput: AVFoundation.AVAssetWriterInput?) -> AVFoundation.AVAssetWriterInputPixelBufferAdaptor?
+  @objc dynamic open func getWriterInput(_ recorder: FlipFlopSDK.AVRecorder, mediaType: AVFoundation.AVMediaType, sourceFormatHint: CoreMedia.CMFormatDescription?) -> AVFoundation.AVAssetWriterInput?
+  @objc dynamic open func didFinishWriting(_ recorder: FlipFlopSDK.AVRecorder)
+  @objc dynamic open func didStartRunning(_ recorder: FlipFlopSDK.AVRecorder)
+  @objc dynamic open func didStopRunning(_ recorder: FlipFlopSDK.AVRecorder)
+}
+public struct RTMPStreamInfo {
+  public var byteCount: Swift.Int64 {
+    get
+    }
+  public var resourceName: Swift.String? {
+    get
+    }
+  public var currentBytesPerSecond: Swift.Int32 {
+    get
+    }
+}
+extension RTMPStreamInfo : Swift.CustomDebugStringConvertible {
+  public var debugDescription: Swift.String {
+    get
+  }
+}
+@objc open class RTMPStream : FlipFlopSDK.NetStream {
+  public enum Code : Swift.String {
+    case bufferEmpty
+    case bufferFlush
+    case bufferFull
+    case connectClosed
+    case connectFailed
+    case connectRejected
+    case connectSuccess
+    case drmUpdateNeeded
+    case failed
+    case multicastStreamReset
+    case pauseNotify
+    case playFailed
+    case playFileStructureInvalid
+    case playInsufficientBW
+    case playNoSupportedTrackFound
+    case playReset
+    case playStart
+    case playStop
+    case playStreamNotFound
+    case playTransition
+    case playUnpublishNotify
+    case publishBadName
+    case publishIdle
+    case publishStart
+    case recordAlreadyExists
+    case recordFailed
+    case recordNoAccess
+    case recordStart
+    case recordStop
+    case recordDiskQuotaExceeded
+    case secondScreenStart
+    case secondScreenStop
+    case seekFailed
+    case seekInvalidTime
+    case seekNotify
+    case stepNotify
+    case unpauseNotify
+    case unpublishSuccess
+    case videoDimensionChange
+    public var level: Swift.String {
+      get
+    }
+    public typealias RawValue = Swift.String
+    public init?(rawValue: Swift.String)
+    public var rawValue: Swift.String {
+      get
+    }
+  }
+  public enum PlayTransition : Swift.String {
+    case append
+    case appendAndWait
+    case reset
+    case resume
+    case stop
+    case swap
+    case `switch`
+    public typealias RawValue = Swift.String
+    public init?(rawValue: Swift.String)
+    public var rawValue: Swift.String {
+      get
+    }
+  }
+  public struct PlayOption : Swift.CustomDebugStringConvertible {
+    public var len: Swift.Double
+    public var offset: Swift.Double
+    public var oldStreamName: Swift.String
+    public var start: Swift.Double
+    public var streamName: Swift.String
+    public var transition: FlipFlopSDK.RTMPStream.PlayTransition
+    public var debugDescription: Swift.String {
+      get
+    }
+  }
+  public enum HowToPublish : Swift.String {
+    case record
+    case append
+    case appendWithGap
+    case live
+    case localRecord
+    public typealias RawValue = Swift.String
+    public init?(rawValue: Swift.String)
+    public var rawValue: Swift.String {
+      get
+    }
+  }
+  public static let defaultAudioBitrate: Swift.UInt32
+  public static let defaultVideoBitrate: Swift.UInt32
+  weak open var delegate: FlipFlopSDK.RTMPStreamDelegate?
+  open var info: FlipFlopSDK.RTMPStreamInfo {
+    get
+    }
+  open var objectEncoding: Swift.UInt8 {
+    get
+    }
+  @objc dynamic open var currentFPS: Swift.UInt16 {
+    get
+    }
+  open var soundTransform: FlipFlopSDK.SoundTransform {
+    get
+    set
+  }
+  open var receiveAudio: Swift.Bool {
+    get
+    set
+  }
+  open var receiveVideo: Swift.Bool {
+    get
+    set
+  }
+  open var paused: Swift.Bool {
+    get
+    set
+  }
+  public init(connection: FlipFlopSDK.RTMPConnection)
+  @objc deinit
+  open func play(_ arguments: Any?...)
+  open func seek(_ offset: Swift.Double)
+  open func publish(_ name: Swift.String?, type: FlipFlopSDK.RTMPStream.HowToPublish = .live)
+  open func close()
+  open func send(handlerName: Swift.String, arguments: Any?...)
+  open func appendFile(_ file: Foundation.URL, completionHandler: FlipFlopSDK.MP4Sampler.Handler? = nil)
+  @objc override dynamic public init()
+}
+extension RTMPStream : FlipFlopSDK.IEventDispatcher {
+  public func addEventListener(_ type: FlipFlopSDK.Event.Name, selector: ObjectiveC.Selector, observer: Swift.AnyObject? = nil, useCapture: Swift.Bool = false)
+  public func removeEventListener(_ type: FlipFlopSDK.Event.Name, selector: ObjectiveC.Selector, observer: Swift.AnyObject? = nil, useCapture: Swift.Bool = false)
+  public func dispatch(event: FlipFlopSDK.Event)
+  public func dispatch(_ type: FlipFlopSDK.Event.Name, bubbles: Swift.Bool, data: Any?)
+}
+public struct TimestampFlags : Swift.OptionSet {
+  public let rawValue: Swift.UInt32
+  public init(rawValue: Swift.UInt32)
+  public static let valid: FlipFlopSDK.TimestampFlags
+  public static let hasBeenRounded: FlipFlopSDK.TimestampFlags
+  public static let positiveInfinity: FlipFlopSDK.TimestampFlags
+  public static let negativeInfinity: FlipFlopSDK.TimestampFlags
+  public static let indefinite: FlipFlopSDK.TimestampFlags
+  public typealias Element = FlipFlopSDK.TimestampFlags
+  public typealias ArrayLiteralElement = FlipFlopSDK.TimestampFlags
+  public typealias RawValue = Swift.UInt32
+}
+public struct Timestamp : Swift.Comparable {
+  public init(value: Swift.Int64, timescale: Swift.Int32, flags: FlipFlopSDK.TimestampFlags, epoch: Swift.Int64)
+  public static let zero: FlipFlopSDK.Timestamp
+}
+public func == (x: FlipFlopSDK.Timestamp, y: FlipFlopSDK.Timestamp) -> Swift.Bool
+public func < (x: FlipFlopSDK.Timestamp, y: FlipFlopSDK.Timestamp) -> Swift.Bool
+public class StretchDistortion : FlipFlopSDK.BasicOperation {
+  public var center: FlipFlopSDK.Position {
+    get
+    set
+  }
+  public init()
+  override public init(vertexFunctionName: Swift.String? = super, fragmentFunctionName: Swift.String, numberOfInputs: Swift.UInt = super, operationName: Swift.String = #file)
+  @objc deinit
+}
+@objc @available(iOS 9.0, *)
+open class MTHKView : MetalKit.MTKView {
+  public var videoGravity: AVFoundation.AVLayerVideoGravity
+  @objc dynamic public init(frame: CoreGraphics.CGRect)
+  @objc required dynamic public init(coder aDecoder: Foundation.NSCoder)
+  @objc override dynamic open func awakeFromNib()
+  open func attachStream(_ stream: FlipFlopSDK.NetStream?)
+  @objc override dynamic public init(frame frameRect: CoreGraphics.CGRect, device: Metal.MTLDevice?)
+  @objc deinit
+}
+@available(iOS 9.0, *)
+extension MTHKView : MetalKit.MTKViewDelegate {
+  @objc dynamic public func mtkView(_ view: MetalKit.MTKView, drawableSizeWillChange size: CoreGraphics.CGSize)
+  @objc dynamic public func draw(in view: MetalKit.MTKView)
+}
+public struct FFUser {
+  public let userID: Swift.String
+  public var userName: Swift.String
+  public var avatarProfileURL: Swift.String
+  public init(userID: Swift.String, userName: Swift.String, avatarProfileURL: Swift.String)
+}
+extension FFUser : Swift.CustomStringConvertible {
+  public var description: Swift.String {
+    get
+  }
+}
+@objc open class GLHKView : GLKit.GLKView {
+  public static var defaultBackgroundColor: UIKit.UIColor
+  open var videoGravity: AVFoundation.AVLayerVideoGravity
+  @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
+  @objc override dynamic open func awakeFromNib()
+  open func attachStream(_ stream: FlipFlopSDK.NetStream?)
+  @objc override dynamic public init(frame: CoreGraphics.CGRect, context: OpenGLES.EAGLContext)
+  @objc deinit
+}
+extension GLHKView : GLKit.GLKViewDelegate {
+  @objc dynamic public func glkView(_ view: GLKit.GLKView, drawIn rect: CoreGraphics.CGRect)
+}
+public class HardLightBlend : FlipFlopSDK.BasicOperation {
+  public init()
+  override public init(vertexFunctionName: Swift.String? = super, fragmentFunctionName: Swift.String, numberOfInputs: Swift.UInt = super, operationName: Swift.String = #file)
+  @objc deinit
+}
+public class Luminance : FlipFlopSDK.BasicOperation {
+  public init()
+  override public init(vertexFunctionName: Swift.String? = super, fragmentFunctionName: Swift.String, numberOfInputs: Swift.UInt = super, operationName: Swift.String = #file)
+  @objc deinit
+}
+public let kASUndefined: FlipFlopSDK.ASUndefined
+public typealias ASObject = [Swift.String : Any?]
+@objc final public class ASUndefined : ObjectiveC.NSObject {
+  @objc override final public var description: Swift.String {
+    @objc get
+  }
+  @objc deinit
+}
+public struct ASTypedObject {
+  public typealias TypedObjectDecoder = (Swift.String, FlipFlopSDK.ASObject) throws -> Any
+  public static func register(typeNamed name: Swift.String, decoder: @escaping FlipFlopSDK.ASTypedObject.TypedObjectDecoder)
+  public static func register<T>(type: T.Type, named name: Swift.String) where T : Swift.Decodable
+  public static func unregister(typeNamed name: Swift.String)
+}
+public struct ASArray {
+  public var length: Swift.Int {
+    get
+  }
+  public init(count: Swift.Int)
+  public init(data: [Any?])
+}
+extension ASArray : Swift.ExpressibleByArrayLiteral {
+  public init(arrayLiteral elements: Any?...)
+  public subscript(i: Any) -> Any? {
+    get
+    set
+  }
+  public typealias ArrayLiteralElement = Any?
+}
+extension ASArray : Swift.CustomDebugStringConvertible {
+  public var debugDescription: Swift.String {
+    get
+  }
+}
+extension ASArray : Swift.Equatable {
+  public static func == (lhs: FlipFlopSDK.ASArray, rhs: FlipFlopSDK.ASArray) -> Swift.Bool
+}
+@objc final public class ASXMLDocument : ObjectiveC.NSObject {
+  @objc override final public var description: Swift.String {
+    @objc get
+  }
+  public init(data: Swift.String)
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc final public class ASXML : ObjectiveC.NSObject {
+  @objc override final public var description: Swift.String {
+    @objc get
+  }
+  public init(data: Swift.String)
+  @objc override dynamic public init()
+  @objc deinit
+}
+public class AlphaBlend : FlipFlopSDK.BasicOperation {
+  public var mix: Swift.Float {
+    get
+    set
+  }
+  public init()
+  override public init(vertexFunctionName: Swift.String? = super, fragmentFunctionName: Swift.String, numberOfInputs: Swift.UInt = super, operationName: Swift.String = #file)
+  @objc deinit
+}
+public class ExclusionBlend : FlipFlopSDK.BasicOperation {
+  public init()
+  override public init(vertexFunctionName: Swift.String? = super, fragmentFunctionName: Swift.String, numberOfInputs: Swift.UInt = super, operationName: Swift.String = #file)
+  @objc deinit
+}
+public class LinearBurnBlend : FlipFlopSDK.BasicOperation {
+  public init()
+  override public init(vertexFunctionName: Swift.String? = super, fragmentFunctionName: Swift.String, numberOfInputs: Swift.UInt = super, operationName: Swift.String = #file)
+  @objc deinit
+}
+public class SwirlDistortion : FlipFlopSDK.BasicOperation {
+  public var radius: Swift.Float {
+    get
+    set
+  }
+  public var angle: Swift.Float {
+    get
+    set
+  }
+  public var center: FlipFlopSDK.Position {
+    get
+    set
+  }
+  public init()
+  override public init(vertexFunctionName: Swift.String? = super, fragmentFunctionName: Swift.String, numberOfInputs: Swift.UInt = super, operationName: Swift.String = #file)
+  @objc deinit
+}
+public class ThresholdSketchFilter : FlipFlopSDK.TextureSamplingOperation {
+  public var edgeStrength: Swift.Float {
+    get
+    set
+  }
+  public var threshold: Swift.Float {
+    get
+    set
+  }
+  public init()
+  override public init(vertexFunctionName: Swift.String? = super, fragmentFunctionName: Swift.String, numberOfInputs: Swift.UInt = super, operationName: Swift.String = #file)
+  @objc deinit
+}
+public class LookupFilter : FlipFlopSDK.BasicOperation {
+  public var intensity: Swift.Float {
+    get
+    set
+  }
+  public var lookupImage: FlipFlopSDK.PictureInput? {
+    get
+    set
+  }
+  public init()
+  override public init(vertexFunctionName: Swift.String? = super, fragmentFunctionName: Swift.String, numberOfInputs: Swift.UInt = super, operationName: Swift.String = #file)
+  @objc deinit
+}
+public struct HTTPRequest {
+  public static let separator: Swift.UInt8
+  public var uri: Swift.String
+  public var method: Swift.String
+  public var version: Swift.String
+  public var headerFields: [Swift.String : Swift.String]
+  public var body: Foundation.Data?
+}
+public protocol ImageSource {
+  var targets: FlipFlopSDK.TargetContainer { get }
+  func transmitPreviousImage(to target: FlipFlopSDK.ImageConsumer, atIndex: Swift.UInt)
+}
+public protocol ImageConsumer : AnyObject {
+  var maximumInputs: Swift.UInt { get }
+  var sources: FlipFlopSDK.SourceContainer { get }
+  func newTextureAvailable(_ texture: FlipFlopSDK.Texture, fromSourceIndex: Swift.UInt)
+}
+public protocol ImageProcessingOperation : FlipFlopSDK.ImageConsumer, FlipFlopSDK.ImageSource {
+}
+infix operator --> : AdditionPrecedence
+@discardableResult
+public func --> <T>(source: FlipFlopSDK.ImageSource, destination: T) -> T where T : FlipFlopSDK.ImageConsumer
+extension ImageSource {
+  public func addTarget(_ target: FlipFlopSDK.ImageConsumer, atTargetIndex: Swift.UInt? = nil)
+  public func removeAllTargets()
+  public func updateTargetsWithTexture(_ texture: FlipFlopSDK.Texture)
+}
+extension ImageConsumer {
+  public func addSource(_ source: FlipFlopSDK.ImageSource) -> Swift.UInt?
+  public func setSource(_ source: FlipFlopSDK.ImageSource, atIndex: Swift.UInt)
+  public func removeSourceAtIndex(_ index: Swift.UInt)
+}
+public class TargetContainer : Swift.Sequence {
+  public init()
+  public func append(_ target: FlipFlopSDK.ImageConsumer, indexAtTarget: Swift.UInt)
+  public func makeIterator() -> Swift.AnyIterator<(FlipFlopSDK.ImageConsumer, Swift.UInt)>
+  public func removeAll()
+  @objc deinit
+  public typealias Element = (FlipFlopSDK.ImageConsumer, Swift.UInt)
+  public typealias Iterator = Swift.AnyIterator<(FlipFlopSDK.ImageConsumer, Swift.UInt)>
+}
+public class SourceContainer {
+  public init()
+  public func append(_ source: FlipFlopSDK.ImageSource, maximumInputs: Swift.UInt) -> Swift.UInt?
+  public func insert(_ source: FlipFlopSDK.ImageSource, atIndex: Swift.UInt, maximumInputs: Swift.UInt) -> Swift.UInt
+  public func removeAtIndex(_ index: Swift.UInt)
+  @objc deinit
+}
+public class ImageRelay : FlipFlopSDK.ImageProcessingOperation {
+  public var newImageCallback: ((FlipFlopSDK.Texture) -> ())?
+  final public let sources: FlipFlopSDK.SourceContainer
+  final public let targets: FlipFlopSDK.TargetContainer
+  final public let maximumInputs: Swift.UInt
+  public var preventRelay: Swift.Bool
+  public init()
+  public func transmitPreviousImage(to target: FlipFlopSDK.ImageConsumer, atIndex: Swift.UInt)
+  public func newTextureAvailable(_ texture: FlipFlopSDK.Texture, fromSourceIndex: Swift.UInt)
+  public func relayTextureOnward(_ texture: FlipFlopSDK.Texture)
+  @objc deinit
+}
+public enum SamplingFrequency : Swift.UInt8 {
+  case hz96000
+  case hz88200
+  case hz64000
+  case hz48000
+  case hz44100
+  case hz32000
+  case hz24000
+  case hz22050
+  case hz16000
+  case hz12000
+  case hz11025
+  case hz8000
+  case hz7350
+  public var sampleRate: Swift.Float64 {
+    get
+  }
+  public init(sampleRate: Swift.Float64)
+  public typealias RawValue = Swift.UInt8
+  public init?(rawValue: Swift.UInt8)
+  public var rawValue: Swift.UInt8 {
+    get
+  }
+}
+public class SolidColorGenerator : FlipFlopSDK.ImageGenerator {
+  public func renderColor(_ color: FlipFlopSDK.Color)
+  override public init(size: FlipFlopSDK.Size)
+  @objc deinit
+}
+public class ColorBurnBlend : FlipFlopSDK.BasicOperation {
+  public init()
+  override public init(vertexFunctionName: Swift.String? = super, fragmentFunctionName: Swift.String, numberOfInputs: Swift.UInt = super, operationName: Swift.String = #file)
+  @objc deinit
+}
+public protocol LogboardAppender {
+  func append(_ logboard: FlipFlopSDK.Logboard, level: FlipFlopSDK.Logboard.Level, message: [Any], file: Swift.StaticString, function: Swift.StaticString, line: Swift.Int)
+  func append(_ logboard: FlipFlopSDK.Logboard, level: FlipFlopSDK.Logboard.Level, format: Swift.String, arguments: Swift.CVarArg, file: Swift.StaticString, function: Swift.StaticString, line: Swift.Int)
+}
+public class SepiaToneFilter : FlipFlopSDK.ColorMatrixFilter {
+  override public init()
+  @objc deinit
+}
+public enum FLVSoundSize : Swift.UInt8 {
+  case snd8bit
+  case snd16bit
+  public typealias RawValue = Swift.UInt8
+  public init?(rawValue: Swift.UInt8)
+  public var rawValue: Swift.UInt8 {
+    get
+  }
+}
+public class SourceOverBlend : FlipFlopSDK.BasicOperation {
+  public init()
+  override public init(vertexFunctionName: Swift.String? = super, fragmentFunctionName: Swift.String, numberOfInputs: Swift.UInt = super, operationName: Swift.String = #file)
+  @objc deinit
+}
+public class AmatorkaFilter : FlipFlopSDK.LookupFilter {
+  override public init()
+  @objc deinit
+}
+public class Vignette : FlipFlopSDK.BasicOperation {
+  public var center: FlipFlopSDK.Position {
+    get
+    set
+  }
+  public var color: FlipFlopSDK.Color {
+    get
+    set
+  }
+  public var start: Swift.Float {
+    get
+    set
+  }
+  public var end: Swift.Float {
+    get
+    set
+  }
+  public init()
+  override public init(vertexFunctionName: Swift.String? = super, fragmentFunctionName: Swift.String, numberOfInputs: Swift.UInt = super, operationName: Swift.String = #file)
+  @objc deinit
+}
+public enum FLVAVCPacketType : Swift.UInt8 {
+  case seq
+  case nal
+  case eos
+  public typealias RawValue = Swift.UInt8
+  public init?(rawValue: Swift.UInt8)
+  public var rawValue: Swift.UInt8 {
+    get
+  }
+}
+public struct DeviceUtil {
+  public static func device(withPosition: AVFoundation.AVCaptureDevice.Position) -> AVFoundation.AVCaptureDevice?
+  public static func device(withLocalizedName: Swift.String, mediaType: AVFoundation.AVMediaType) -> AVFoundation.AVCaptureDevice?
+}
+public typealias PlatformImageType = UIKit.UIImage
+public enum PictureFileFormat {
+  case png
+  case jpeg
+  public static func == (a: FlipFlopSDK.PictureFileFormat, b: FlipFlopSDK.PictureFileFormat) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+  public func hash(into hasher: inout Swift.Hasher)
+}
+public class PictureOutput : FlipFlopSDK.ImageConsumer {
+  public var encodedImageAvailableCallback: ((Foundation.Data) -> ())?
+  public var encodedImageFormat: FlipFlopSDK.PictureFileFormat
+  public var imageAvailableCallback: ((FlipFlopSDK.PlatformImageType) -> ())?
+  public var onlyCaptureNextFrame: Swift.Bool
+  public var keepImageAroundForSynchronousCapture: Swift.Bool
+  final public let sources: FlipFlopSDK.SourceContainer
+  final public let maximumInputs: Swift.UInt
+  public init()
+  @objc deinit
+  public func saveNextFrameToURL(_ url: Foundation.URL, format: FlipFlopSDK.PictureFileFormat)
+  public func newTextureAvailable(_ texture: FlipFlopSDK.Texture, fromSourceIndex: Swift.UInt)
+}
+extension ImageSource {
+  public func saveNextFrameToURL(_ url: Foundation.URL, format: FlipFlopSDK.PictureFileFormat)
+}
+extension UIImage {
+  public func filterWithOperation<T>(_ operation: T) -> FlipFlopSDK.PlatformImageType where T : FlipFlopSDK.ImageProcessingOperation
+  public func filterWithPipeline(_ pipeline: (FlipFlopSDK.PictureInput, FlipFlopSDK.PictureOutput) -> ()) -> FlipFlopSDK.PlatformImageType
+}
+public class AVMixer {
+  public static let bufferEmpty: Foundation.Notification.Name
+  public static let defaultFPS: Swift.Float64
+  public static let defaultVideoSettings: [Foundation.NSString : Swift.AnyObject]
+  public enum Option : Swift.String, FlipFlopSDK.KeyPathRepresentable, Swift.CaseIterable {
+    case fps
+    case sessionPreset
+    case continuousAutofocus
+    case continuousExposure
+    case preferredVideoStabilizationMode
+    public var keyPath: Swift.AnyKeyPath {
+      get
+    }
+    public typealias RawValue = Swift.String
+    public typealias AllCases = [FlipFlopSDK.AVMixer.Option]
+    public static var allCases: [FlipFlopSDK.AVMixer.Option] {
+      get
+    }
+    public init?(rawValue: Swift.String)
+    public var rawValue: Swift.String {
+      get
+    }
+  }
+  public var session: AVFoundation.AVCaptureSession {
+    get
+    set
+  }
+  public var recorder: FlipFlopSDK.AVRecorder! {
+    get
+  }
+  @objc deinit
+  public init()
+  public func dispose()
+}
+extension AVMixer {
+  public func startEncoding(delegate: Any)
+  public func stopEncoding()
+}
+extension AVMixer {
+  public func startPlaying(_ audioEngine: AVFoundation.AVAudioEngine?)
+  public func stopPlaying()
+}
+extension AVMixer : FlipFlopSDK.Running {
+  public var isRunning: FlipFlopSDK.Atomic<Swift.Bool> {
+    get
+  }
+  public func startRunning()
+  public func stopRunning()
+}
+public class MissEtikateFilter : FlipFlopSDK.LookupFilter {
+  override public init()
+  @objc deinit
+}
+@objc open class AudioEffect : ObjectiveC.NSObject {
+  open func execute(_ buffer: CoreAudio.UnsafeMutableAudioBufferListPointer?, format: CoreAudioTypes.AudioStreamBasicDescription?)
+  @objc override dynamic public init()
+  @objc deinit
+}
+public protocol ScreenCaptureOutputPixelBufferDelegate : AnyObject {
+  func didSet(size: CoreGraphics.CGSize)
+  func output(pixelBuffer: CoreVideo.CVPixelBuffer, withPresentationTime: CoreMedia.CMTime)
+}
+@objc open class ScreenCaptureSession : ObjectiveC.NSObject {
+  public var enabledScale: Swift.Bool
+  public var frameInterval: Swift.Int
+  public var attributes: [Foundation.NSString : ObjectiveC.NSObject] {
+    get
+  }
+  weak public var delegate: FlipFlopSDK.ScreenCaptureOutputPixelBufferDelegate?
+  public var isRunning: FlipFlopSDK.Atomic<Swift.Bool> {
+    get
+    }
+  public var afterScreenUpdates: Swift.Bool
+  public init(shared: UIKit.UIApplication)
+  public init(viewToCapture: UIKit.UIView)
+  @objc public func onScreen(_ displayLink: QuartzCore.CADisplayLink)
+  open func onScreenProcess(_ displayLink: QuartzCore.CADisplayLink)
+  @objc override dynamic public init()
+  @objc deinit
+}
+extension ScreenCaptureSession : FlipFlopSDK.Running {
+  public func startRunning()
+  public func stopRunning()
+}
+public class iOSBlur : FlipFlopSDK.OperationGroup {
+  public var blurRadiusInPixels: Swift.Float {
+    get
+    set
+  }
+  public var saturation: Swift.Float {
+    get
+    set
+  }
+  public var rangeReductionFactor: Swift.Float {
+    get
+    set
+  }
+  override public init()
+  @objc deinit
+}
+public struct HTTPResponse : Swift.ExpressibleByDictionaryLiteral {
+  public typealias Key = Swift.String
+  public typealias Value = Swift.String
+  public var version: Swift.String
+  public var statusCode: Swift.String
+  public var headerFields: [Swift.String : Swift.String]
+  public var body: Foundation.Data?
+  public init(dictionaryLiteral elements: (FlipFlopSDK.HTTPResponse.Key, FlipFlopSDK.HTTPResponse.Value)...)
+}
+@objc open class NetStream : ObjectiveC.NSObject {
+  public var mixer: FlipFlopSDK.AVMixer {
+    get
+    }
+  final public let lockQueue: Dispatch.DispatchQueue
+  @objc deinit
+  open var metadata: [Swift.String : Any?]
+  open var context: CoreImage.CIContext? {
+    get
+    set
+  }
+  open var torch: Swift.Bool {
+    get
+    set
+  }
+  open var audioSettings: FlipFlopSDK.Setting<FlipFlopSDK.AudioConverter, FlipFlopSDK.AudioConverter.Option> {
+    get
+    set
+  }
+  open var videoSettings: FlipFlopSDK.Setting<FlipFlopSDK.H264Encoder, FlipFlopSDK.H264Encoder.Option> {
+    get
+    set
+  }
+  open var captureSettings: FlipFlopSDK.Setting<FlipFlopSDK.AVMixer, FlipFlopSDK.AVMixer.Option> {
+    get
+    set
+  }
+  open var recorderSettings: [AVFoundation.AVMediaType : [Swift.String : Any]] {
+    get
+    set
+  }
+  open func attachCamera(_ camera: AVFoundation.AVCaptureDevice?, onError: ((Foundation.NSError) -> Swift.Void)? = nil)
+  open func attachAudio(_ audio: AVFoundation.AVCaptureDevice?, automaticallyConfiguresApplicationAudioSession: Swift.Bool = false, onError: ((Foundation.NSError) -> Swift.Void)? = nil)
+  open func setPointOfInterest(_ focus: CoreGraphics.CGPoint, exposure: CoreGraphics.CGPoint)
+  open func appendSampleBuffer(_ sampleBuffer: CoreMedia.CMSampleBuffer, withType: AVFoundation.AVMediaType, options: [ObjectiveC.NSObject : Swift.AnyObject]? = nil)
+  open func registerVideoEffect(_ effect: FlipFlopSDK.VideoEffect) -> Swift.Bool
+  open func unregisterVideoEffect(_ effect: FlipFlopSDK.VideoEffect) -> Swift.Bool
+  open func registerAudioEffect(_ effect: FlipFlopSDK.AudioEffect) -> Swift.Bool
+  open func unregisterAudioEffect(_ effect: FlipFlopSDK.AudioEffect) -> Swift.Bool
+  open func dispose()
+  @objc override dynamic public init()
+}
+public class CGAColorspaceFilter : FlipFlopSDK.BasicOperation {
+  public init()
+  override public init(vertexFunctionName: Swift.String? = super, fragmentFunctionName: Swift.String, numberOfInputs: Swift.UInt = super, operationName: Swift.String = #file)
+  @objc deinit
+}
+public class HighPassFilter : FlipFlopSDK.OperationGroup {
+  public var strength: Swift.Float {
+    get
+    set
+  }
+  override public init()
+  @objc deinit
+}
+extension Logboard {
+  public struct Data {
+    public var date: Foundation.Date
+    public var level: FlipFlopSDK.Logboard.Level
+    public var identifier: Swift.String
+    public var file: Swift.String
+    public var line: Swift.Int
+    public var function: Swift.String
+    public var message: Swift.String
+    public init?(_ data: Foundation.Data)
+  }
+}
+extension Logboard.Data : Swift.CustomStringConvertible {
+  public var description: Swift.String {
+    get
+  }
+}
+public class SubtractBlend : FlipFlopSDK.BasicOperation {
+  public init()
+  override public init(vertexFunctionName: Swift.String? = super, fragmentFunctionName: Swift.String, numberOfInputs: Swift.UInt = super, operationName: Swift.String = #file)
+  @objc deinit
+}
+public class DissolveBlend : FlipFlopSDK.BasicOperation {
+  public var mix: Swift.Float {
+    get
+    set
+  }
+  public init()
+  override public init(vertexFunctionName: Swift.String? = super, fragmentFunctionName: Swift.String, numberOfInputs: Swift.UInt = super, operationName: Swift.String = #file)
+  @objc deinit
+}
+public class HueAdjustment : FlipFlopSDK.BasicOperation {
+  public var hue: Swift.Float {
+    get
+    set
+  }
+  public init()
+  override public init(vertexFunctionName: Swift.String? = super, fragmentFunctionName: Swift.String, numberOfInputs: Swift.UInt = super, operationName: Swift.String = #file)
+  @objc deinit
+}
+public class MultiplyBlend : FlipFlopSDK.BasicOperation {
+  public init()
+  override public init(vertexFunctionName: Swift.String? = super, fragmentFunctionName: Swift.String, numberOfInputs: Swift.UInt = super, operationName: Swift.String = #file)
+  @objc deinit
+}
+open class RTMPSharedObject : FlipFlopSDK.EventDispatcher {
+  public static func getRemote(withName: Swift.String, remotePath: Swift.String, persistence: Swift.Bool) -> FlipFlopSDK.RTMPSharedObject
+  open var objectEncoding: Swift.UInt8 {
+    get
+    }
+  open var data: [Swift.String : Any?] {
+    get
+    }
+  open func setProperty(_ name: Swift.String, _ value: Any?)
+  open func connect(_ rtmpConnection: FlipFlopSDK.RTMPConnection)
+  open func clear()
+  open func close()
+  override public init()
+  override public init(target: Swift.AnyObject)
+  @objc deinit
+}
+extension RTMPSharedObject : Swift.CustomDebugStringConvertible {
+  public var debugDescription: Swift.String {
+    get
+  }
+}
+public class LightenBlend : FlipFlopSDK.BasicOperation {
+  public init()
+  override public init(vertexFunctionName: Swift.String? = super, fragmentFunctionName: Swift.String, numberOfInputs: Swift.UInt = super, operationName: Swift.String = #file)
+  @objc deinit
+}
+public class HueBlend : FlipFlopSDK.BasicOperation {
+  public init()
+  override public init(vertexFunctionName: Swift.String? = super, fragmentFunctionName: Swift.String, numberOfInputs: Swift.UInt = super, operationName: Swift.String = #file)
+  @objc deinit
+}
+public class KuwaharaRadius3Filter : FlipFlopSDK.BasicOperation {
+  public init()
+  override public init(vertexFunctionName: Swift.String? = super, fragmentFunctionName: Swift.String, numberOfInputs: Swift.UInt = super, operationName: Swift.String = #file)
+  @objc deinit
+}
+public class Logboard {
+  public static let dateFormatter: Foundation.DateFormatter
+  public enum Level : Swift.Int, Swift.CustomStringConvertible {
+    case trace
+    case debug
+    case info
+    case warn
+    case error
+    public init?(string: Swift.String)
+    public var description: Swift.String {
+      get
+    }
+    public typealias RawValue = Swift.Int
+    public init?(rawValue: Swift.Int)
+    public var rawValue: Swift.Int {
+      get
+    }
+  }
+  public static func with(_ identifier: Swift.String) -> FlipFlopSDK.Logboard
+  final public let identifier: Swift.String
+  public var level: FlipFlopSDK.Logboard.Level
+  public var appender: FlipFlopSDK.LogboardAppender
+  public init(_ identifier: Swift.String)
+  public func isEnabledFor(level: FlipFlopSDK.Logboard.Level) -> Swift.Bool
+  public func trace(_ message: Any..., file: Swift.StaticString = #file, function: Swift.StaticString = #function, line: Swift.Int = #line)
+  public func trace(format: Swift.String, arguments: Swift.CVarArg, file: Swift.StaticString = #file, function: Swift.StaticString = #function, line: Swift.Int = #line)
+  public func debug(_ message: Any..., file: Swift.StaticString = #file, function: Swift.StaticString = #function, line: Swift.Int = #line)
+  public func debug(format: Swift.String, arguments: Swift.CVarArg, file: Swift.StaticString = #file, function: Swift.StaticString = #function, line: Swift.Int = #line)
+  public func info(_ message: Any..., file: Swift.StaticString = #file, function: Swift.StaticString = #function, line: Swift.Int = #line)
+  public func info(format: Swift.String, arguments: Swift.CVarArg, file: Swift.StaticString = #file, function: Swift.StaticString = #function, line: Swift.Int = #line)
+  public func warn(_ message: Any..., file: Swift.StaticString = #file, function: Swift.StaticString = #function, line: Swift.Int = #line)
+  public func warn(format: Swift.String, arguments: Swift.CVarArg, file: Swift.StaticString = #file, function: Swift.StaticString = #function, line: Swift.Int = #line)
+  public func error(_ message: Any..., file: Swift.StaticString = #file, function: Swift.StaticString = #function, line: Swift.Int = #line)
+  public func error(format: Swift.String, arguments: Swift.CVarArg, file: Swift.StaticString = #file, function: Swift.StaticString = #function, line: Swift.Int = #line)
+  @objc deinit
+}
+public protocol AudioConverterDelegate : AnyObject {
+  func didSetFormatDescription(audio formatDescription: CoreMedia.CMFormatDescription?)
+  func sampleOutput(audio data: CoreAudio.UnsafeMutableAudioBufferListPointer, presentationTimeStamp: CoreMedia.CMTime)
+}
+public class AudioConverter {
+  public enum Option : Swift.String, FlipFlopSDK.KeyPathRepresentable {
+    case muted
+    case bitrate
+    case sampleRate
+    case actualBitrate
+    public var keyPath: Swift.AnyKeyPath {
+      get
+    }
+    public typealias RawValue = Swift.String
+    public typealias AllCases = [FlipFlopSDK.AudioConverter.Option]
+    public static var allCases: [FlipFlopSDK.AudioConverter.Option] {
+      get
+    }
+    public init?(rawValue: Swift.String)
+    public var rawValue: Swift.String {
+      get
+    }
+  }
+  public static let minimumBitrate: Swift.UInt32
+  public static let defaultBitrate: Swift.UInt32
+  public static let defaultChannels: Swift.UInt32
+  public static let defaultSampleRate: Swift.Double
+  public static let defaultMaximumBuffers: Swift.Int
+  public static let defaultBufferListSize: Swift.Int
+  public var destination: FlipFlopSDK.AudioConverter.Destination
+  weak public var delegate: FlipFlopSDK.AudioConverterDelegate?
+  public var isRunning: FlipFlopSDK.Atomic<Swift.Bool> {
+    get
+    }
+  public var settings: FlipFlopSDK.Setting<FlipFlopSDK.AudioConverter, FlipFlopSDK.AudioConverter.Option> {
+    get
+    set
+  }
+  public init()
+  public func encodeBytes(_ bytes: Swift.UnsafeMutableRawPointer?, count: Swift.Int, presentationTimeStamp: CoreMedia.CMTime)
+  public func encodeSampleBuffer(_ sampleBuffer: CoreMedia.CMSampleBuffer)
+  @objc deinit
+}
+extension AudioConverter : FlipFlopSDK.Running {
+  public func startRunning()
+  public func stopRunning()
+}
+open class ByteArray {
+  public enum Error : Swift.Error {
+    case eof
+    case parse
+    public static func == (a: FlipFlopSDK.ByteArray.Error, b: FlipFlopSDK.ByteArray.Error) -> Swift.Bool
+    public var hashValue: Swift.Int {
+      get
+    }
+    public func hash(into hasher: inout Swift.Hasher)
+  }
+  open var length: Swift.Int {
+    get
+    set
+  }
+  open var position: Swift.Int
+  open var bytesAvailable: Swift.Int {
+    get
+  }
+  open subscript(i: Swift.Int) -> Swift.UInt8 {
+    get
+    set
+  }
+  open func readUInt8() throws -> Swift.UInt8
+  @discardableResult
+  open func writeUInt8(_ value: Swift.UInt8) -> Self
+  open func readInt8() throws -> Swift.Int8
+  @discardableResult
+  open func writeInt8(_ value: Swift.Int8) -> Self
+  open func readUInt16() throws -> Swift.UInt16
+  @discardableResult
+  open func writeUInt16(_ value: Swift.UInt16) -> Self
+  open func readInt16() throws -> Swift.Int16
+  @discardableResult
+  open func writeInt16(_ value: Swift.Int16) -> Self
+  open func readUInt24() throws -> Swift.UInt32
+  @discardableResult
+  open func writeUInt24(_ value: Swift.UInt32) -> Self
+  open func readUInt32() throws -> Swift.UInt32
+  @discardableResult
+  open func writeUInt32(_ value: Swift.UInt32) -> Self
+  open func readInt32() throws -> Swift.Int32
+  @discardableResult
+  open func writeInt32(_ value: Swift.Int32) -> Self
+  open func readDouble() throws -> Swift.Double
+  @discardableResult
+  open func writeDouble(_ value: Swift.Double) -> Self
+  open func readFloat() throws -> Swift.Float
+  @discardableResult
+  open func writeFloat(_ value: Swift.Float) -> Self
+  open func readUTF8() throws -> Swift.String
+  @discardableResult
+  open func writeUTF8(_ value: Swift.String) throws -> Self
+  open func readUTF8Bytes(_ length: Swift.Int) throws -> Swift.String
+  @discardableResult
+  open func writeUTF8Bytes(_ value: Swift.String) -> Self
+  open func readBytes(_ length: Swift.Int) throws -> Foundation.Data
+  @discardableResult
+  open func writeBytes(_ value: Foundation.Data) -> Self
+  @discardableResult
+  open func clear() -> Self
+  @objc deinit
+}
+extension ByteArray : Swift.CustomDebugStringConvertible {
+  public var debugDescription: Swift.String {
+    get
+  }
+}
+open class Responder {
+  public typealias Handler = ([Any?]) -> Swift.Void
+  public init(result: @escaping FlipFlopSDK.Responder.Handler, status: FlipFlopSDK.Responder.Handler? = nil)
+  @objc deinit
+}
+open class RTMPConnection : FlipFlopSDK.EventDispatcher {
+  public static let defaultWindowSizeS: Swift.Int64
+  public static let supportedProtocols: Swift.Set<Swift.String>
+  public static let defaultPort: Swift.Int
+  public static let defaultFlashVer: Swift.String
+  public static let defaultChunkSizeS: Swift.Int
+  public static let defaultCapabilities: Swift.Int
+  public static let defaultObjectEncoding: Swift.UInt8
+  public enum Code : Swift.String {
+    case callBadVersion
+    case callFailed
+    case callProhibited
+    case connectAppshutdown
+    case connectClosed
+    case connectFailed
+    case connectIdleTimeOut
+    case connectInvalidApp
+    case connectNetworkChange
+    case connectRejected
+    case connectSuccess
+    public var level: Swift.String {
+      get
+    }
+    public typealias RawValue = Swift.String
+    public var rawValue: Swift.String {
+      get
+    }
+    public init?(rawValue: Swift.String)
+  }
+  open var swfUrl: Swift.String?
+  open var pageUrl: Swift.String?
+  open var timeout: Swift.Int {
+    get
+    set
+  }
+  open var qualityOfService: Dispatch.DispatchQoS {
+    get
+    set
+  }
+  open var flashVer: Swift.String
+  open var chunkSize: Swift.Int
+  open var uri: Foundation.URL? {
+    get
+    }
+  open var connected: Swift.Bool {
+    get
+    }
+  open var requireNetworkFramework: Swift.Bool
+  open var parameters: Any?
+  open var objectEncoding: Swift.UInt8
+  open var totalBytesIn: Swift.Int64 {
+    get
+  }
+  open var totalBytesOut: Swift.Int64 {
+    get
+  }
+  open var totalStreamsCount: Swift.Int {
+    get
+  }
+  @objc dynamic open var previousQueueBytesOut: [Swift.Int64] {
+    get
+    }
+  @objc dynamic open var currentBytesInPerSecond: Swift.Int32 {
+    get
+    }
+  @objc dynamic open var currentBytesOutPerSecond: Swift.Int32 {
+    get
+    }
+  override public init()
+  @objc deinit
+  open func call(_ commandName: Swift.String, responder: FlipFlopSDK.Responder?, arguments: Any?...)
+  open func connect(_ command: Swift.String, arguments: Any?...)
+  open func close()
+  override public init(target: Swift.AnyObject)
+}
+public let sharedMetalRenderingDevice: FlipFlopSDK.MetalRenderingDevice
+public class MetalRenderingDevice {
+  final public let device: Metal.MTLDevice
+  final public let commandQueue: Metal.MTLCommandQueue
+  final public let shaderLibrary: Metal.MTLLibrary
+  final public let metalPerformanceShadersAreSupported: Swift.Bool
+  @objc deinit
+}
+extension NetStream {
+  open var orientation: AVFoundation.AVCaptureVideoOrientation {
+    get
+    set
+  }
+  open func attachScreen(_ screen: FlipFlopSDK.ScreenCaptureSession?, useScreenSize: Swift.Bool = true)
+  open var zoomFactor: CoreGraphics.CGFloat {
+    get
+  }
+  open func setZoomFactor(_ zoomFactor: CoreGraphics.CGFloat, ramping: Swift.Bool = false, withRate: Swift.Float = 2.0)
+}
+public class NormalBlend : FlipFlopSDK.BasicOperation {
+  public init()
+  override public init(vertexFunctionName: Swift.String? = super, fragmentFunctionName: Swift.String, numberOfInputs: Swift.UInt = super, operationName: Swift.String = #file)
+  @objc deinit
+}
+open class OperationGroup : FlipFlopSDK.ImageProcessingOperation {
+  public var sources: FlipFlopSDK.SourceContainer {
+    get
+  }
+  public var targets: FlipFlopSDK.TargetContainer {
+    get
+  }
+  final public let maximumInputs: Swift.UInt
+  public init()
+  public func newTextureAvailable(_ texture: FlipFlopSDK.Texture, fromSourceIndex: Swift.UInt)
+  public func configureGroup(_ configurationOperation: (FlipFlopSDK.ImageRelay, FlipFlopSDK.ImageRelay) -> ())
+  public func transmitPreviousImage(to target: FlipFlopSDK.ImageConsumer, atIndex: Swift.UInt)
+  @objc deinit
+}
+public struct Color {
+  public let redComponent: Swift.Float
+  public let greenComponent: Swift.Float
+  public let blueComponent: Swift.Float
+  public let alphaComponent: Swift.Float
+  public init(red: Swift.Float, green: Swift.Float, blue: Swift.Float, alpha: Swift.Float = 1.0)
+  public static let black: FlipFlopSDK.Color
+  public static let white: FlipFlopSDK.Color
+  public static let red: FlipFlopSDK.Color
+  public static let green: FlipFlopSDK.Color
+  public static let blue: FlipFlopSDK.Color
+  public static let transparent: FlipFlopSDK.Color
+}
+extension DeviceUtil {
+  public static func videoOrientation(by notification: Foundation.Notification) -> AVFoundation.AVCaptureVideoOrientation?
+  public static func videoOrientation(by orientation: UIKit.UIDeviceOrientation) -> AVFoundation.AVCaptureVideoOrientation?
+  public static func videoOrientation(by orientation: UIKit.UIInterfaceOrientation) -> AVFoundation.AVCaptureVideoOrientation?
+}
+public class PrewittEdgeDetection : FlipFlopSDK.TextureSamplingOperation {
+  public var edgeStrength: Swift.Float {
+    get
+    set
+  }
+  public init()
+  override public init(vertexFunctionName: Swift.String? = super, fragmentFunctionName: Swift.String, numberOfInputs: Swift.UInt = super, operationName: Swift.String = #file)
+  @objc deinit
+}
+public class LuminosityBlend : FlipFlopSDK.BasicOperation {
+  public init()
+  override public init(vertexFunctionName: Swift.String? = super, fragmentFunctionName: Swift.String, numberOfInputs: Swift.UInt = super, operationName: Swift.String = #file)
+  @objc deinit
+}
+public class GammaAdjustment : FlipFlopSDK.BasicOperation {
+  public var gamma: Swift.Float {
+    get
+    set
+  }
+  public init()
+  override public init(vertexFunctionName: Swift.String? = super, fragmentFunctionName: Swift.String, numberOfInputs: Swift.UInt = super, operationName: Swift.String = #file)
+  @objc deinit
+}
+public class ThresholdSobelEdgeDetection : FlipFlopSDK.TextureSamplingOperation {
+  public var edgeStrength: Swift.Float {
+    get
+    set
+  }
+  public var threshold: Swift.Float {
+    get
+    set
+  }
+  public init()
+  override public init(vertexFunctionName: Swift.String? = super, fragmentFunctionName: Swift.String, numberOfInputs: Swift.UInt = super, operationName: Swift.String = #file)
+  @objc deinit
+}
+public class Crosshatch : FlipFlopSDK.BasicOperation {
+  public var crossHatchSpacing: Swift.Float {
+    get
+    set
+  }
+  public var lineWidth: Swift.Float {
+    get
+    set
+  }
+  public init()
+  override public init(vertexFunctionName: Swift.String? = super, fragmentFunctionName: Swift.String, numberOfInputs: Swift.UInt = super, operationName: Swift.String = #file)
+  @objc deinit
+}
+public class Vibrance : FlipFlopSDK.BasicOperation {
+  public var vibrance: Swift.Float {
+    get
+    set
+  }
+  public init()
+  override public init(vertexFunctionName: Swift.String? = super, fragmentFunctionName: Swift.String, numberOfInputs: Swift.UInt = super, operationName: Swift.String = #file)
+  @objc deinit
+}
+public class KuwaharaFilter : FlipFlopSDK.BasicOperation {
+  public var radius: Swift.Float {
+    get
+    set
+  }
+  public init()
+  override public init(vertexFunctionName: Swift.String? = super, fragmentFunctionName: Swift.String, numberOfInputs: Swift.UInt = super, operationName: Swift.String = #file)
+  @objc deinit
+}
+public struct FFMessage {
+  public enum MessageType : Swift.String {
+    case streamer_started
+    case player_started
+    case player_banned
+    case goods_purchased
+    case join
+    case leave
+    case move
+    case msg
+    case buy
+    public typealias RawValue = Swift.String
+    public init?(rawValue: Swift.String)
+    public var rawValue: Swift.String {
+      get
+    }
+  }
+  public let messageType: FlipFlopSDK.FFMessage.MessageType
+  public let message: Swift.String
+  public let createAt: Swift.Int64
+  public let createBy: FlipFlopSDK.FFUser
+  public init(messageType: FlipFlopSDK.FFMessage.MessageType, message: Swift.String, createAt: Swift.Int64, createBy: FlipFlopSDK.FFUser)
+}
+extension FFMessage : Swift.CustomStringConvertible {
+  public var description: Swift.String {
+    get
+  }
+}
+public typealias HttpCompletion = ((Swift.Int, Foundation.Data?, Swift.Error?) -> Swift.Void)?
+@objc open class NetService : ObjectiveC.NSObject {
+  open var txtData: Foundation.Data? {
+    get
+  }
+  public var domain: Swift.String {
+    get
+    }
+  public var name: Swift.String {
+    get
+    }
+  public var port: Swift.Int32 {
+    get
+    }
+  public var type: Swift.String {
+    get
+    }
+  public var isRunning: FlipFlopSDK.Atomic<Swift.Bool> {
+    get
+    }
+  public var clients: [FlipFlopSDK.NetClient] {
+    get
+    }
+  public init(domain: Swift.String, type: Swift.String, name: Swift.String, port: Swift.Int32)
+  @objc override dynamic public init()
+  @objc deinit
+}
+extension NetService : Foundation.NetServiceDelegate {
+  @objc dynamic public func netService(_ sender: Foundation.NetService, didAcceptConnectionWith inputStream: Foundation.InputStream, outputStream: Foundation.OutputStream)
+}
+extension NetService : FlipFlopSDK.Running {
+  public func startRunning()
+  public func stopRunning()
+}
+public protocol KeyPathRepresentable : Swift.CaseIterable, Swift.Hashable {
+  var keyPath: Swift.AnyKeyPath { get }
+}
+public class Setting<T, Key> : Swift.ExpressibleByDictionaryLiteral where T : AnyObject, Key : FlipFlopSDK.KeyPathRepresentable {
+  public typealias Key = Key
+  public typealias Value = Any
+  required public init(dictionaryLiteral elements: (Key, Any)...)
+  public subscript(key: Key) -> Any? {
+    get
+    set
+  }
+  @objc deinit
+}
+extension Setting : Swift.CustomDebugStringConvertible {
+  public var debugDescription: Swift.String {
+    get
+  }
+}
+public class Pixellate : FlipFlopSDK.BasicOperation {
+  public var fractionalWidthOfAPixel: Swift.Float {
+    get
+    set
+  }
+  public init()
+  override public init(vertexFunctionName: Swift.String? = super, fragmentFunctionName: Swift.String, numberOfInputs: Swift.UInt = super, operationName: Swift.String = #file)
+  @objc deinit
+}
+public enum ImageOrientation {
+  case portrait
+  case portraitUpsideDown
+  case landscapeLeft
+  case landscapeRight
+  public static func == (a: FlipFlopSDK.ImageOrientation, b: FlipFlopSDK.ImageOrientation) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+  public func hash(into hasher: inout Swift.Hasher)
+}
+public enum Rotation {
+  case noRotation
+  case rotateCounterclockwise
+  case rotateClockwise
+  case rotate180
+  case flipHorizontally
+  case flipVertically
+  case rotateClockwiseAndFlipVertically
+  case rotateClockwiseAndFlipHorizontally
+  public static func == (a: FlipFlopSDK.Rotation, b: FlipFlopSDK.Rotation) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+  public func hash(into hasher: inout Swift.Hasher)
+}
+public class OpacityAdjustment : FlipFlopSDK.BasicOperation {
+  public var opacity: Swift.Float {
+    get
+    set
+  }
+  public init()
+  override public init(vertexFunctionName: Swift.String? = super, fragmentFunctionName: Swift.String, numberOfInputs: Swift.UInt = super, operationName: Swift.String = #file)
+  @objc deinit
+}
+public struct SoundTransform {
+  public static let defaultVolume: Swift.Float
+  public static let defaultPan: Swift.Float
+  public var volume: Swift.Float
+  public var pan: Swift.Float
+}
+extension SoundTransform : Swift.CustomDebugStringConvertible {
+  public var debugDescription: Swift.String {
+    get
+  }
+}
+public class HighlightAndShadowTint : FlipFlopSDK.BasicOperation {
+  public var shadowTintIntensity: Swift.Float {
+    get
+    set
+  }
+  public var highlightTintIntensity: Swift.Float {
+    get
+    set
+  }
+  public var shadowTintColor: FlipFlopSDK.Color {
+    get
+    set
+  }
+  public var highlightTintColor: FlipFlopSDK.Color {
+    get
+    set
+  }
+  public init()
+  override public init(vertexFunctionName: Swift.String? = super, fragmentFunctionName: Swift.String, numberOfInputs: Swift.UInt = super, operationName: Swift.String = #file)
+  @objc deinit
+}
+public class FalseColor : FlipFlopSDK.BasicOperation {
+  public var firstColor: FlipFlopSDK.Color {
+    get
+    set
+  }
+  public var secondColor: FlipFlopSDK.Color {
+    get
+    set
+  }
+  public init()
+  override public init(vertexFunctionName: Swift.String? = super, fragmentFunctionName: Swift.String, numberOfInputs: Swift.UInt = super, operationName: Swift.String = #file)
+  @objc deinit
+}
+public enum FFStreamerError : Swift.Error {
+  case api(description: Swift.String)
+  case stream(description: Swift.String)
+}
+public protocol FFStreamerDelegate : AnyObject {
+  func onPrepared()
+  func onStarted()
+  func onStopped()
+  func onError(error: FlipFlopSDK.FFStreamerError)
+  func onChatMessgeReceived(message: FlipFlopSDK.FFMessage)
+}
+public class FFStreamer {
+  weak public var delegate: FlipFlopSDK.FFStreamerDelegate?
+  public func prepare(preview: UIKit.UIView)
+  public func start(title: Swift.String, content: Swift.String)
+  public func stop()
+  public func reset()
+  @objc deinit
+}
+public class MedianFilter : FlipFlopSDK.TextureSamplingOperation {
+  public init()
+  override public init(vertexFunctionName: Swift.String? = super, fragmentFunctionName: Swift.String, numberOfInputs: Swift.UInt = super, operationName: Swift.String = #file)
+  @objc deinit
+}
+public protocol RTMPStreamDelegate : AnyObject {
+  func didPublishInsufficientBW(_ stream: FlipFlopSDK.RTMPStream, withConnection: FlipFlopSDK.RTMPConnection)
+  func didPublishSufficientBW(_ stream: FlipFlopSDK.RTMPStream, withConnection: FlipFlopSDK.RTMPConnection)
+  func didOutputAudio(_ buffer: AVFoundation.AVAudioPCMBuffer, presentationTimeStamp: CoreMedia.CMTime)
+  func didOutputVideo(_ buffer: CoreMedia.CMSampleBuffer)
+  func clear()
+}
+public protocol Running : AnyObject {
+  var isRunning: FlipFlopSDK.Atomic<Swift.Bool> { get }
+  func startRunning()
+  func stopRunning()
+}
+@objc open class HKView : UIKit.UIView {
+  public static var defaultBackgroundColor: UIKit.UIColor
+  @objc override dynamic open class var layerClass: Swift.AnyClass {
+    @objc get
+  }
+  @objc override dynamic open var layer: AVFoundation.AVCaptureVideoPreviewLayer {
+    @objc get
+  }
+  public var videoGravity: AVFoundation.AVLayerVideoGravity {
+    get
+    set
+  }
+  @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
+  @objc deinit
+  @objc override dynamic open func awakeFromNib()
+  open func attachStream(_ stream: FlipFlopSDK.NetStream?)
+}
+public class ColorMatrixFilter : FlipFlopSDK.BasicOperation {
+  public var intensity: Swift.Float {
+    get
+    set
+  }
+  public var colorMatrix: FlipFlopSDK.Matrix4x4 {
+    get
+    set
+  }
+  public init()
+  override public init(vertexFunctionName: Swift.String? = super, fragmentFunctionName: Swift.String, numberOfInputs: Swift.UInt = super, operationName: Swift.String = #file)
+  @objc deinit
+}
+public protocol AudioEncodingTarget {
+  func activateAudioTrack()
+  func processAudioBuffer(_ sampleBuffer: CoreMedia.CMSampleBuffer)
+}
+public class MovieOutput : FlipFlopSDK.ImageConsumer, FlipFlopSDK.AudioEncodingTarget {
+  final public let sources: FlipFlopSDK.SourceContainer
+  final public let maximumInputs: Swift.UInt
+  public init(URL: Foundation.URL, size: FlipFlopSDK.Size, fileType: AVFoundation.AVFileType = AVFileType.mov, liveVideo: Swift.Bool = false, settings: [Swift.String : Swift.AnyObject]? = nil) throws
+  public func startRecording(transform: CoreGraphics.CGAffineTransform? = nil)
+  public func finishRecording(_ completionCallback: (() -> Swift.Void)? = nil)
+  public func newTextureAvailable(_ texture: FlipFlopSDK.Texture, fromSourceIndex: Swift.UInt)
+  public func activateAudioTrack()
+  public func processAudioBuffer(_ sampleBuffer: CoreMedia.CMSampleBuffer)
+  @objc deinit
+}
+public protocol CameraDelegate {
+  func didCaptureBuffer(_ sampleBuffer: CoreMedia.CMSampleBuffer)
+}
+public enum PhysicalCameraLocation {
+  case backFacing
+  case frontFacing
+  public static func == (a: FlipFlopSDK.PhysicalCameraLocation, b: FlipFlopSDK.PhysicalCameraLocation) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+  public func hash(into hasher: inout Swift.Hasher)
+}
+public struct CameraError : Swift.Error {
+}
+@objc public class Camera : ObjectiveC.NSObject, FlipFlopSDK.ImageSource, AVFoundation.AVCaptureVideoDataOutputSampleBufferDelegate {
+  public var location: FlipFlopSDK.PhysicalCameraLocation {
+    get
+    set
+  }
+  public var runBenchmark: Swift.Bool
+  public var logFPS: Swift.Bool
+  final public let targets: FlipFlopSDK.TargetContainer
+  public var delegate: FlipFlopSDK.CameraDelegate?
+  final public let captureSession: AVFoundation.AVCaptureSession
+  public var orientation: FlipFlopSDK.ImageOrientation?
+  final public let inputCamera: AVFoundation.AVCaptureDevice!
+  public init(sessionPreset: AVFoundation.AVCaptureSession.Preset, cameraDevice: AVFoundation.AVCaptureDevice? = nil, location: FlipFlopSDK.PhysicalCameraLocation = .backFacing, orientation: FlipFlopSDK.ImageOrientation? = nil, captureAsYUV: Swift.Bool = true) throws
+  @objc deinit
+  @objc public func captureOutput(_ output: AVFoundation.AVCaptureOutput, didOutput sampleBuffer: CoreMedia.CMSampleBuffer, from connection: AVFoundation.AVCaptureConnection)
+  public func startCapture()
+  public func stopCapture()
+  public func transmitPreviousImage(to target: FlipFlopSDK.ImageConsumer, atIndex: Swift.UInt)
+  @objc override dynamic public init()
+}
+final public class H264Encoder {
+  public enum Option : Swift.String, FlipFlopSDK.KeyPathRepresentable, Swift.CaseIterable {
+    case muted
+    case width
+    case height
+    case bitrate
+    case profileLevel
+    case enabledHardwareEncoder
+    case maxKeyFrameIntervalDuration
+    case scalingMode
+    public var keyPath: Swift.AnyKeyPath {
+      get
+    }
+    public typealias RawValue = Swift.String
+    public typealias AllCases = [FlipFlopSDK.H264Encoder.Option]
+    public static var allCases: [FlipFlopSDK.H264Encoder.Option] {
+      get
+    }
+    public init?(rawValue: Swift.String)
+    public var rawValue: Swift.String {
+      get
+    }
+  }
+  public static let defaultWidth: Swift.Int32
+  public static let defaultHeight: Swift.Int32
+  public static let defaultBitrate: Swift.UInt32
+  public static let defaultScalingMode: FlipFlopSDK.ScalingMode
+  final public var settings: FlipFlopSDK.Setting<FlipFlopSDK.H264Encoder, FlipFlopSDK.H264Encoder.Option> {
+    get
+    set
+  }
+  final public var isRunning: FlipFlopSDK.Atomic<Swift.Bool> {
+    get
+    }
+  @objc deinit
+}
+extension H264Encoder : FlipFlopSDK.Running {
+  final public func startRunning()
+  final public func stopRunning()
+}
+public class Halftone : FlipFlopSDK.BasicOperation {
+  public var fractionalWidthOfAPixel: Swift.Float {
+    get
+    set
+  }
+  public init()
+  override public init(vertexFunctionName: Swift.String? = super, fragmentFunctionName: Swift.String, numberOfInputs: Swift.UInt = super, operationName: Swift.String = #file)
+  @objc deinit
+}
+public class Convolution3x3 : FlipFlopSDK.TextureSamplingOperation {
+  public var convolutionKernel: FlipFlopSDK.Matrix3x3 {
+    get
+    set
+  }
+  public init()
+  override public init(vertexFunctionName: Swift.String? = super, fragmentFunctionName: Swift.String, numberOfInputs: Swift.UInt = super, operationName: Swift.String = #file)
+  @objc deinit
+}
+extension Matrix3x3 {
+  public func toMPSFloatArray() -> [Swift.Float]
+}
+public struct Position {
+  public let x: Swift.Float
+  public let y: Swift.Float
+  public let z: Swift.Float?
+  public init(_ x: Swift.Float, _ y: Swift.Float, _ z: Swift.Float? = nil)
+  public init(point: CoreGraphics.CGPoint)
+  public static let center: FlipFlopSDK.Position
+  public static let zero: FlipFlopSDK.Position
+}
+public class Posterize : FlipFlopSDK.BasicOperation {
+  public var colorLevels: Swift.Float {
+    get
+    set
+  }
+  public init()
+  override public init(vertexFunctionName: Swift.String? = super, fragmentFunctionName: Swift.String, numberOfInputs: Swift.UInt = super, operationName: Swift.String = #file)
+  @objc deinit
+}
+public class ColorBlend : FlipFlopSDK.BasicOperation {
+  public init()
+  override public init(vertexFunctionName: Swift.String? = super, fragmentFunctionName: Swift.String, numberOfInputs: Swift.UInt = super, operationName: Swift.String = #file)
+  @objc deinit
+}
+public class SoftLightBlend : FlipFlopSDK.BasicOperation {
+  public init()
+  override public init(vertexFunctionName: Swift.String? = super, fragmentFunctionName: Swift.String, numberOfInputs: Swift.UInt = super, operationName: Swift.String = #file)
+  @objc deinit
+}
+public enum Model : Swift.String {
+  case simulator, iPod1, iPod2, iPod3, iPod4, iPod5, iPad2, iPad3, iPad4, iPadAir, iPadAir2, iPad5, iPad6, iPadMini, iPadMini2, iPadMini3, iPadMini4, iPadPro9_7, iPadPro10_5, iPadPro12_9, iPadPro2_12_9, iPhone4, iPhone4S, iPhone5, iPhone5S, iPhone5C, iPhone6, iPhone6plus, iPhone6S, iPhone6Splus, iPhoneSE, iPhone7, iPhone7plus, iPhone8, iPhone8plus, iPhoneX, iPhoneXS, iPhoneXSMax, iPhoneXR, AppleTV, AppleTV_4K, unrecognized
+  public typealias RawValue = Swift.String
+  public init?(rawValue: Swift.String)
+  public var rawValue: Swift.String {
+    get
+  }
+}
+extension UIDevice {
+  public var type: FlipFlopSDK.Model {
+    get
+  }
+}
+public enum FLVSoundRate : Swift.UInt8 {
+  case kHz5_5
+  case kHz11
+  case kHz22
+  case kHz44
+  public var floatValue: Swift.Float64 {
+    get
+  }
+  public typealias RawValue = Swift.UInt8
+  public init?(rawValue: Swift.UInt8)
+  public var rawValue: Swift.UInt8 {
+    get
+  }
+}
+public class OverlayBlend : FlipFlopSDK.BasicOperation {
+  public init()
+  override public init(vertexFunctionName: Swift.String? = super, fragmentFunctionName: Swift.String, numberOfInputs: Swift.UInt = super, operationName: Swift.String = #file)
+  @objc deinit
+}
+final public class Atomic<A> {
+  final public var value: A {
+    get
+  }
+  public init(_ value: A)
+  final public func mutate(_ transform: (inout A) -> Swift.Void)
+  @objc deinit
+}
+public protocol IEventDispatcher : AnyObject {
+  func addEventListener(_ type: FlipFlopSDK.Event.Name, selector: ObjectiveC.Selector, observer: Swift.AnyObject?, useCapture: Swift.Bool)
+  func removeEventListener(_ type: FlipFlopSDK.Event.Name, selector: ObjectiveC.Selector, observer: Swift.AnyObject?, useCapture: Swift.Bool)
+  func dispatch(event: FlipFlopSDK.Event)
+  func dispatch(_ type: FlipFlopSDK.Event.Name, bubbles: Swift.Bool, data: Any?)
+}
+public enum EventPhase : Swift.UInt8 {
+  case capturing
+  case atTarget
+  case bubbling
+  case dispose
+  public typealias RawValue = Swift.UInt8
+  public init?(rawValue: Swift.UInt8)
+  public var rawValue: Swift.UInt8 {
+    get
+  }
+}
+open class Event {
+  public struct Name : Swift.RawRepresentable, Swift.ExpressibleByStringLiteral {
+    public typealias RawValue = Swift.String
+    public typealias StringLiteralType = Swift.String
+    public static let sync: FlipFlopSDK.Event.Name
+    public static let event: FlipFlopSDK.Event.Name
+    public static let ioError: FlipFlopSDK.Event.Name
+    public static let rtmpStatus: FlipFlopSDK.Event.Name
+    public let rawValue: Swift.String
+    public init(rawValue: Swift.String)
+    public init(stringLiteral value: Swift.String)
+    public typealias ExtendedGraphemeClusterLiteralType = FlipFlopSDK.Event.Name.StringLiteralType
+    public typealias UnicodeScalarLiteralType = FlipFlopSDK.Event.Name.StringLiteralType
+  }
+  public static func from(_ notification: Foundation.Notification) -> FlipFlopSDK.Event
+  open var type: FlipFlopSDK.Event.Name {
+    get
+    }
+  open var bubbles: Swift.Bool {
+    get
+    }
+  open var data: Any? {
+    get
+    }
+  open var target: Swift.AnyObject? {
+    get
+    }
+  public init(type: FlipFlopSDK.Event.Name, bubbles: Swift.Bool = false, data: Any? = nil)
+  @objc deinit
+}
+extension Event : Swift.CustomDebugStringConvertible {
+  public var debugDescription: Swift.String {
+    get
+  }
+}
+open class EventDispatcher : FlipFlopSDK.IEventDispatcher {
+  public init()
+  public init(target: Swift.AnyObject)
+  @objc deinit
+  public func addEventListener(_ type: FlipFlopSDK.Event.Name, selector: ObjectiveC.Selector, observer: Swift.AnyObject? = nil, useCapture: Swift.Bool = false)
+  public func removeEventListener(_ type: FlipFlopSDK.Event.Name, selector: ObjectiveC.Selector, observer: Swift.AnyObject? = nil, useCapture: Swift.Bool = false)
+  open func dispatch(event: FlipFlopSDK.Event)
+  public func dispatch(_ type: FlipFlopSDK.Event.Name, bubbles: Swift.Bool, data: Any?)
+}
+public class ExposureAdjustment : FlipFlopSDK.BasicOperation {
+  public var exposure: Swift.Float {
+    get
+    set
+  }
+  public init()
+  override public init(vertexFunctionName: Swift.String? = super, fragmentFunctionName: Swift.String, numberOfInputs: Swift.UInt = super, operationName: Swift.String = #file)
+  @objc deinit
+}
+public class MovieInput : FlipFlopSDK.ImageSource {
+  final public let targets: FlipFlopSDK.TargetContainer
+  public var runBenchmark: Swift.Bool
+  public init(asset: AVFoundation.AVAsset, playAtActualSpeed: Swift.Bool = false, loop: Swift.Bool = false) throws
+  convenience public init(url: Foundation.URL, playAtActualSpeed: Swift.Bool = false, loop: Swift.Bool = false) throws
+  public func start()
+  public func cancel()
+  public func transmitPreviousImage(to target: FlipFlopSDK.ImageConsumer, atIndex: Swift.UInt)
+  @objc deinit
+}
+extension Timestamp {
+  public init(_ time: CoreMedia.CMTime)
+  public var asCMTime: CoreMedia.CMTime {
+    get
+  }
+}
+public class Haze : FlipFlopSDK.BasicOperation {
+  public var distance: Swift.Float {
+    get
+    set
+  }
+  public var slope: Swift.Float {
+    get
+    set
+  }
+  public init()
+  override public init(vertexFunctionName: Swift.String? = super, fragmentFunctionName: Swift.String, numberOfInputs: Swift.UInt = super, operationName: Swift.String = #file)
+  @objc deinit
+}
+public class EmbossFilter : FlipFlopSDK.Convolution3x3 {
+  public var intensity: Swift.Float {
+    get
+    set
+  }
+  override public init()
+  @objc deinit
+}
+public enum TextureTimingStyle {
+  case stillImage
+  case videoFrame(timestamp: FlipFlopSDK.Timestamp)
+}
+public class Texture {
+  public var timingStyle: FlipFlopSDK.TextureTimingStyle
+  public var orientation: FlipFlopSDK.ImageOrientation
+  final public let texture: Metal.MTLTexture
+  public init(orientation: FlipFlopSDK.ImageOrientation, texture: Metal.MTLTexture, timingStyle: FlipFlopSDK.TextureTimingStyle = .stillImage)
+  public init(device: Metal.MTLDevice, orientation: FlipFlopSDK.ImageOrientation, pixelFormat: Metal.MTLPixelFormat = .bgra8Unorm, width: Swift.Int, height: Swift.Int, mipmapped: Swift.Bool = false, timingStyle: FlipFlopSDK.TextureTimingStyle = .stillImage)
+  @objc deinit
+}
+public class Solarize : FlipFlopSDK.BasicOperation {
+  public var threshold: Swift.Float {
+    get
+    set
+  }
+  public init()
+  override public init(vertexFunctionName: Swift.String? = super, fragmentFunctionName: Swift.String, numberOfInputs: Swift.UInt = super, operationName: Swift.String = #file)
+  @objc deinit
+}
+public enum FLVAudioCodec : Swift.UInt8 {
+  case pcm
+  case adpcm
+  case mp3
+  case pcmle
+  case nellymoser16K
+  case nellymoser8K
+  case nellymoser
+  case g711A
+  case g711MU
+  case aac
+  case speex
+  case mp3_8k
+  case unknown
+  public typealias RawValue = Swift.UInt8
+  public init?(rawValue: Swift.UInt8)
+  public var rawValue: Swift.UInt8 {
+    get
+  }
+}
+public class ColorInversion : FlipFlopSDK.BasicOperation {
+  public init()
+  override public init(vertexFunctionName: Swift.String? = super, fragmentFunctionName: Swift.String, numberOfInputs: Swift.UInt = super, operationName: Swift.String = #file)
+  @objc deinit
+}
+public let colorConversionMatrix601Default: FlipFlopSDK.Matrix3x3
+public let colorConversionMatrix601FullRangeDefault: FlipFlopSDK.Matrix3x3
+public let colorConversionMatrix709Default: FlipFlopSDK.Matrix3x3
+public func convertYUVToRGB(pipelineState: Metal.MTLRenderPipelineState, lookupTable: [Swift.String : (Swift.Int, Metal.MTLDataType)], luminanceTexture: FlipFlopSDK.Texture, chrominanceTexture: FlipFlopSDK.Texture, secondChrominanceTexture: FlipFlopSDK.Texture? = nil, resultTexture: FlipFlopSDK.Texture, colorConversionMatrix: FlipFlopSDK.Matrix3x3)
+public class ChromaKeyBlend : FlipFlopSDK.BasicOperation {
+  public var thresholdSensitivity: Swift.Float {
+    get
+    set
+  }
+  public var smoothing: Swift.Float {
+    get
+    set
+  }
+  public var colorToReplace: FlipFlopSDK.Color {
+    get
+    set
+  }
+  public init()
+  override public init(vertexFunctionName: Swift.String? = super, fragmentFunctionName: Swift.String, numberOfInputs: Swift.UInt = super, operationName: Swift.String = #file)
+  @objc deinit
+}
+public class PolkaDot : FlipFlopSDK.BasicOperation {
+  public var dotScaling: Swift.Float {
+    get
+    set
+  }
+  public var fractionalWidthOfAPixel: Swift.Float {
+    get
+    set
+  }
+  public init()
+  override public init(vertexFunctionName: Swift.String? = super, fragmentFunctionName: Swift.String, numberOfInputs: Swift.UInt = super, operationName: Swift.String = #file)
+  @objc deinit
+}
+public class ContrastAdjustment : FlipFlopSDK.BasicOperation {
+  public var contrast: Swift.Float {
+    get
+    set
+  }
+  public init()
+  override public init(vertexFunctionName: Swift.String? = super, fragmentFunctionName: Swift.String, numberOfInputs: Swift.UInt = super, operationName: Swift.String = #file)
+  @objc deinit
+}
+public class BoxBlur : FlipFlopSDK.BasicOperation {
+  public var blurRadiusInPixels: Swift.Float {
+    get
+    set
+  }
+  public init()
+  override public init(vertexFunctionName: Swift.String? = super, fragmentFunctionName: Swift.String, numberOfInputs: Swift.UInt = super, operationName: Swift.String = #file)
+  @objc deinit
+}
+@objc open class NetSocket : ObjectiveC.NSObject {
+  public static let defaultTimeout: Swift.Int
+  public static let defaultWindowSizeC: Swift.Int
+  open var inputBuffer: Foundation.Data
+  open var timeout: Swift.Int
+  open var connected: Swift.Bool
+  public var windowSizeC: Swift.Int
+  open var totalBytesIn: Swift.Int64
+  open var qualityOfService: Dispatch.DispatchQoS
+  open var securityLevel: Foundation.StreamSocketSecurityLevel
+  open var totalBytesOut: Swift.Int64 {
+    get
+    }
+  open var queueBytesOut: Swift.Int64 {
+    get
+    }
+  public func connect(withName: Swift.String, port: Swift.Int)
+  @discardableResult
+  public func doOutput(data: Foundation.Data, locked: Swift.UnsafeMutablePointer<Swift.UInt32>? = nil) -> Swift.Int
+  open func close()
+  open func listen()
+  @objc override dynamic public init()
+  @objc deinit
+}
+extension NetSocket : Foundation.StreamDelegate {
+  @objc dynamic public func stream(_ aStream: Foundation.Stream, handle eventCode: Foundation.Stream.Event)
+}
+public class LuminanceThreshold : FlipFlopSDK.BasicOperation {
+  public var threshold: Swift.Float {
+    get
+    set
+  }
+  public init()
+  override public init(vertexFunctionName: Swift.String? = super, fragmentFunctionName: Swift.String, numberOfInputs: Swift.UInt = super, operationName: Swift.String = #file)
+  @objc deinit
+}
+public class LuminanceRangeReduction : FlipFlopSDK.BasicOperation {
+  public var rangeReductionFactor: Swift.Float {
+    get
+    set
+  }
+  public init()
+  override public init(vertexFunctionName: Swift.String? = super, fragmentFunctionName: Swift.String, numberOfInputs: Swift.UInt = super, operationName: Swift.String = #file)
+  @objc deinit
+}
+public protocol SoundSpliterDelegate : AnyObject {
+  func outputSampleBuffer(_ sampleBuffer: CoreMedia.CMSampleBuffer)
+}
+@objc public class SoundSpliter : ObjectiveC.NSObject {
+  weak public var delegate: FlipFlopSDK.SoundSpliterDelegate?
+  public func appendSampleBuffer(_ sampleBuffer: CoreMedia.CMSampleBuffer)
+  public func clear()
+  @objc override dynamic public init()
+  @objc deinit
+}
+public class GaussianBlur : FlipFlopSDK.BasicOperation {
+  public var blurRadiusInPixels: Swift.Float {
+    get
+    set
+  }
+  public init()
+  override public init(vertexFunctionName: Swift.String? = super, fragmentFunctionName: Swift.String, numberOfInputs: Swift.UInt = super, operationName: Swift.String = #file)
+  @objc deinit
+}
+public class ZoomBlur : FlipFlopSDK.BasicOperation {
+  public var blurSize: Swift.Float {
+    get
+    set
+  }
+  public var blurCenter: FlipFlopSDK.Position {
+    get
+    set
+  }
+  public init()
+  override public init(vertexFunctionName: Swift.String? = super, fragmentFunctionName: Swift.String, numberOfInputs: Swift.UInt = super, operationName: Swift.String = #file)
+  @objc deinit
+}
+public class HighlightsAndShadows : FlipFlopSDK.BasicOperation {
+  public var shadows: Swift.Float {
+    get
+    set
+  }
+  public var highlights: Swift.Float {
+    get
+    set
+  }
+  public init()
+  override public init(vertexFunctionName: Swift.String? = super, fragmentFunctionName: Swift.String, numberOfInputs: Swift.UInt = super, operationName: Swift.String = #file)
+  @objc deinit
+}
+public protocol ACThumbnailGeneratorDelegate : AnyObject {
+  func generator(_ generator: FlipFlopSDK.ACThumbnailGenerator, didCapture image: UIKit.UIImage, at position: Swift.Double)
+}
+@objc public class ACThumbnailGenerator : ObjectiveC.NSObject {
+  weak public var delegate: FlipFlopSDK.ACThumbnailGeneratorDelegate?
+  public init(streamUrl: Foundation.URL, preferredBitrate: Swift.Double = 0.0)
+  @objc deinit
+  public func replaceStreamUrl(newUrl url: Foundation.URL)
+  public func captureImage(at position: Swift.Double)
+  @objc override dynamic public func observeValue(forKeyPath keyPath: Swift.String?, of object: Any?, change: [Foundation.NSKeyValueChangeKey : Any]?, context: Swift.UnsafeMutableRawPointer?)
+  @objc override dynamic public init()
+}
+public class LocalBinaryPattern : FlipFlopSDK.TextureSamplingOperation {
+  public init()
+  override public init(vertexFunctionName: Swift.String? = super, fragmentFunctionName: Swift.String, numberOfInputs: Swift.UInt = super, operationName: Swift.String = #file)
+  @objc deinit
+}
+@objc open class HTTPService : FlipFlopSDK.NetService {
+  open class var type: Swift.String {
+    get
+  }
+  open class var defaultPort: Swift.Int32 {
+    get
+  }
+  open class var defaultDocument: Swift.String {
+    get
+  }
+  open func get(_ request: FlipFlopSDK.HTTPRequest, client: FlipFlopSDK.NetClient)
+  open func post(_ request: FlipFlopSDK.HTTPRequest, client: FlipFlopSDK.NetClient)
+  open func put(_ request: FlipFlopSDK.HTTPRequest, client: FlipFlopSDK.NetClient)
+  open func delete(_ request: FlipFlopSDK.HTTPRequest, client: FlipFlopSDK.NetClient)
+  open func head(_ request: FlipFlopSDK.HTTPRequest, client: FlipFlopSDK.NetClient)
+  open func options(_ requst: FlipFlopSDK.HTTPRequest, client: FlipFlopSDK.NetClient)
+  open func trace(_ request: FlipFlopSDK.HTTPRequest, client: FlipFlopSDK.NetClient)
+  open func connect(_ request: FlipFlopSDK.HTTPRequest, client: FlipFlopSDK.NetClient)
+  override public init(domain: Swift.String, type: Swift.String, name: Swift.String, port: Swift.Int32)
+  @objc deinit
+}
+@objc open class HLSService : FlipFlopSDK.HTTPService {
+  open func addHTTPStream(_ stream: FlipFlopSDK.HTTPStream)
+  open func removeHTTPStream(_ stream: FlipFlopSDK.HTTPStream)
+  override open func get(_ request: FlipFlopSDK.HTTPRequest, client: FlipFlopSDK.NetClient)
+  override public init(domain: Swift.String, type: Swift.String, name: Swift.String, port: Swift.Int32)
+  @objc deinit
+}
+public class SphereRefraction : FlipFlopSDK.BasicOperation {
+  public var radius: Swift.Float {
+    get
+    set
+  }
+  public var refractiveIndex: Swift.Float {
+    get
+    set
+  }
+  public var center: FlipFlopSDK.Position {
+    get
+    set
+  }
+  public init()
+  override public init(vertexFunctionName: Swift.String? = super, fragmentFunctionName: Swift.String, numberOfInputs: Swift.UInt = super, operationName: Swift.String = #file)
+  @objc deinit
+}
+public enum ScalingMode : Swift.String {
+  case normal
+  case letterbox
+  case cropSourceToCleanAperture
+  case trim
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+  public init?(rawValue: Swift.String)
+}
+open class TextureSamplingOperation : FlipFlopSDK.BasicOperation {
+  override public init(vertexFunctionName: Swift.String? = "nearbyTexelSampling", fragmentFunctionName: Swift.String, numberOfInputs: Swift.UInt = 1, operationName: Swift.String = #file)
+  @objc deinit
+}
+@objc final public class NetClient : FlipFlopSDK.NetSocket {
+  override final public func listen()
+  @objc override dynamic public init()
+  @objc deinit
+}
+public class ColorDodgeBlend : FlipFlopSDK.BasicOperation {
+  public init()
+  override public init(vertexFunctionName: Swift.String? = super, fragmentFunctionName: Swift.String, numberOfInputs: Swift.UInt = super, operationName: Swift.String = #file)
+  @objc deinit
+}
+public class ImageBuffer : FlipFlopSDK.ImageProcessingOperation {
+  public var bufferSize: Swift.UInt
+  public var activatePassthroughOnNextFrame: Swift.Bool
+  final public let maximumInputs: Swift.UInt
+  final public let targets: FlipFlopSDK.TargetContainer
+  final public let sources: FlipFlopSDK.SourceContainer
+  public func newTextureAvailable(_ texture: FlipFlopSDK.Texture, fromSourceIndex: Swift.UInt)
+  public func transmitPreviousImage(to target: FlipFlopSDK.ImageConsumer, atIndex: Swift.UInt)
+  @objc deinit
+}
+public enum FLVSoundType : Swift.UInt8 {
+  case mono
+  case stereo
+  public typealias RawValue = Swift.UInt8
+  public init?(rawValue: Swift.UInt8)
+  public var rawValue: Swift.UInt8 {
+    get
+  }
+}
+public protocol TSWriterDelegate : AnyObject {
+  func didOutput(_ data: Foundation.Data)
+}
+public class TSWriter : FlipFlopSDK.Running {
+  public static let defaultPATPID: Swift.UInt16
+  public static let defaultPMTPID: Swift.UInt16
+  public static let defaultVideoPID: Swift.UInt16
+  public static let defaultAudioPID: Swift.UInt16
+  public static let defaultSegmentDuration: Swift.Double
+  weak public var delegate: FlipFlopSDK.TSWriterDelegate?
+  public var isRunning: FlipFlopSDK.Atomic<Swift.Bool> {
+    get
+    }
+  public var expectedMedias: Swift.Set<AVFoundation.AVMediaType>
+  public init(segmentDuration: Swift.Double = TSWriter.defaultSegmentDuration)
+  public func startRunning()
+  public func stopRunning()
+  @objc deinit
+}
+extension TSWriter : FlipFlopSDK.AudioConverterDelegate {
+  public func didSetFormatDescription(audio formatDescription: CoreMedia.CMFormatDescription?)
+  public func sampleOutput(audio data: CoreAudio.UnsafeMutableAudioBufferListPointer, presentationTimeStamp: CoreMedia.CMTime)
+}
+public class BrightnessAdjustment : FlipFlopSDK.BasicOperation {
+  public var brightness: Swift.Float {
+    get
+    set
+  }
+  public init()
+  override public init(vertexFunctionName: Swift.String? = super, fragmentFunctionName: Swift.String, numberOfInputs: Swift.UInt = super, operationName: Swift.String = #file)
+  @objc deinit
+}
+public protocol FFCursorLoader {
+  associatedtype Response
+  var cursor: Swift.String? { get set }
+  var count: Swift.Int? { get set }
+  func reset()
+  func next(completion: ((Swift.Result<Self.Response, Swift.Error>) -> Swift.Void)?)
+}
+public class FFVideoLoader : FlipFlopSDK.FFCursorLoader {
+  public typealias Response = [FlipFlopSDK.FFMediaPlayer]
+  public var cursor: Swift.String?
+  public var count: Swift.Int?
+  public func reset()
+  public func next(completion: ((Swift.Result<FlipFlopSDK.FFVideoLoader.Response, Swift.Error>) -> Swift.Void)?)
+  @objc deinit
+}
+public class DivideBlend : FlipFlopSDK.BasicOperation {
+  public init()
+  override public init(vertexFunctionName: Swift.String? = super, fragmentFunctionName: Swift.String, numberOfInputs: Swift.UInt = super, operationName: Swift.String = #file)
+  @objc deinit
+}
+public class ImageGenerator : FlipFlopSDK.ImageSource {
+  public var size: FlipFlopSDK.Size
+  final public let targets: FlipFlopSDK.TargetContainer
+  public init(size: FlipFlopSDK.Size)
+  public func transmitPreviousImage(to target: FlipFlopSDK.ImageConsumer, atIndex: Swift.UInt)
+  @objc deinit
+}
+public class SoftElegance : FlipFlopSDK.OperationGroup {
+  override public init()
+  @objc deinit
+}
+public class SmoothToonFilter : FlipFlopSDK.OperationGroup {
+  public var blurRadiusInPixels: Swift.Float {
+    get
+    set
+  }
+  public var threshold: Swift.Float {
+    get
+    set
+  }
+  public var quantizationLevels: Swift.Float {
+    get
+    set
+  }
+  override public init()
+  @objc deinit
+}
+public class Laplacian : FlipFlopSDK.TextureSamplingOperation {
+  public init()
+  override public init(vertexFunctionName: Swift.String? = super, fragmentFunctionName: Swift.String, numberOfInputs: Swift.UInt = super, operationName: Swift.String = #file)
+  @objc deinit
+}
+public class AddBlend : FlipFlopSDK.BasicOperation {
+  public init()
+  override public init(vertexFunctionName: Swift.String? = super, fragmentFunctionName: Swift.String, numberOfInputs: Swift.UInt = super, operationName: Swift.String = #file)
+  @objc deinit
+}
+public class NullAppender : FlipFlopSDK.LogboardAppender {
+  public init()
+  public func append(_ logboard: FlipFlopSDK.Logboard, level: FlipFlopSDK.Logboard.Level, message: [Any], file: Swift.StaticString, function: Swift.StaticString, line: Swift.Int)
+  public func append(_ logboard: FlipFlopSDK.Logboard, level: FlipFlopSDK.Logboard.Level, format: Swift.String, arguments: Swift.CVarArg, file: Swift.StaticString, function: Swift.StaticString, line: Swift.Int)
+  @objc deinit
+}
+public class LowPassFilter : FlipFlopSDK.OperationGroup {
+  public var strength: Swift.Float {
+    get
+    set
+  }
+  override public init()
+  @objc deinit
+}
+public struct Matrix4x4 {
+  public let m11: Swift.Float, m12: Swift.Float, m13: Swift.Float, m14: Swift.Float
+  public let m21: Swift.Float, m22: Swift.Float, m23: Swift.Float, m24: Swift.Float
+  public let m31: Swift.Float, m32: Swift.Float, m33: Swift.Float, m34: Swift.Float
+  public let m41: Swift.Float, m42: Swift.Float, m43: Swift.Float, m44: Swift.Float
+  public init(rowMajorValues: [Swift.Float])
+  public static let identity: FlipFlopSDK.Matrix4x4
+}
+public struct Matrix3x3 {
+  public let m11: Swift.Float, m12: Swift.Float, m13: Swift.Float
+  public let m21: Swift.Float, m22: Swift.Float, m23: Swift.Float
+  public let m31: Swift.Float, m32: Swift.Float, m33: Swift.Float
+  public init(rowMajorValues: [Swift.Float])
+  public static let identity: FlipFlopSDK.Matrix3x3
+  public static let centerOnly: FlipFlopSDK.Matrix3x3
+}
+extension Matrix4x4 {
+  public init(_ transform3D: QuartzCore.CATransform3D)
+  public init(_ transform: CoreGraphics.CGAffineTransform)
+}
+public let standardImageVertices: [Swift.Float]
+public class LevelsAdjustment : FlipFlopSDK.BasicOperation {
+  public var minimum: FlipFlopSDK.Color {
+    get
+    set
+  }
+  public var middle: FlipFlopSDK.Color {
+    get
+    set
+  }
+  public var maximum: FlipFlopSDK.Color {
+    get
+    set
+  }
+  public var minOutput: FlipFlopSDK.Color {
+    get
+    set
+  }
+  public var maxOutput: FlipFlopSDK.Color {
+    get
+    set
+  }
+  public init()
+  override public init(vertexFunctionName: Swift.String? = super, fragmentFunctionName: Swift.String, numberOfInputs: Swift.UInt = super, operationName: Swift.String = #file)
+  @objc deinit
+}
+public class PinchDistortion : FlipFlopSDK.BasicOperation {
+  public var radius: Swift.Float {
+    get
+    set
+  }
+  public var scale: Swift.Float {
+    get
+    set
+  }
+  public var center: FlipFlopSDK.Position {
+    get
+    set
+  }
+  public init()
+  override public init(vertexFunctionName: Swift.String? = super, fragmentFunctionName: Swift.String, numberOfInputs: Swift.UInt = super, operationName: Swift.String = #file)
+  @objc deinit
+}
+public class ColorLocalBinaryPattern : FlipFlopSDK.TextureSamplingOperation {
+  public init()
+  override public init(vertexFunctionName: Swift.String? = super, fragmentFunctionName: Swift.String, numberOfInputs: Swift.UInt = super, operationName: Swift.String = #file)
+  @objc deinit
+}
+public class MP4Sampler {
+  public typealias Handler = () -> Swift.Void
+  public var isRunning: FlipFlopSDK.Atomic<Swift.Bool> {
+    get
+    }
+  @objc deinit
+}
+extension MP4Sampler : FlipFlopSDK.Running {
+  public func startRunning()
+  public func stopRunning()
+}
+public enum FLVVideoCodec : Swift.UInt8 {
+  case sorensonH263
+  case screen1
+  case on2VP6
+  case on2VP6Alpha
+  case screen2
+  case avc
+  case unknown
+  public typealias RawValue = Swift.UInt8
+  public init?(rawValue: Swift.UInt8)
+  public var rawValue: Swift.UInt8 {
+    get
+  }
+}
+public class ScreenBlend : FlipFlopSDK.BasicOperation {
+  public init()
+  override public init(vertexFunctionName: Swift.String? = super, fragmentFunctionName: Swift.String, numberOfInputs: Swift.UInt = super, operationName: Swift.String = #file)
+  @objc deinit
+}
+public class ShaderUniformSettings {
+  public var colorUniformsUseAlpha: Swift.Bool
+  public init(uniformLookupTable: [Swift.String : (Swift.Int, Metal.MTLDataType)])
+  public var usesAspectRatio: Swift.Bool {
+    get
+  }
+  public subscript(key: Swift.String) -> Swift.Float {
+    get
+    set(newValue)
+  }
+  public subscript(key: Swift.String) -> FlipFlopSDK.Color {
+    get
+    set(newValue)
+  }
+  public subscript(key: Swift.String) -> FlipFlopSDK.Position {
+    get
+    set(newValue)
+  }
+  public subscript(key: Swift.String) -> FlipFlopSDK.Size {
+    get
+    set(newValue)
+  }
+  public subscript(key: Swift.String) -> FlipFlopSDK.Matrix3x3 {
+    get
+    set(newValue)
+  }
+  public subscript(key: Swift.String) -> FlipFlopSDK.Matrix4x4 {
+    get
+    set(newValue)
+  }
+  public func restoreShaderSettings(renderEncoder: Metal.MTLRenderCommandEncoder)
+  @objc deinit
+}
+public protocol UniformConvertible {
+  func toFloatArray() -> [Swift.Float]
+}
+extension Float : FlipFlopSDK.UniformConvertible {
+  public func toFloatArray() -> [Swift.Float]
+}
+extension Double : FlipFlopSDK.UniformConvertible {
+  public func toFloatArray() -> [Swift.Float]
+}
+extension Position : FlipFlopSDK.UniformConvertible {
+  public func toFloatArray() -> [Swift.Float]
+}
+extension Matrix3x3 : FlipFlopSDK.UniformConvertible {
+  public func toFloatArray() -> [Swift.Float]
+}
+extension Matrix4x4 : FlipFlopSDK.UniformConvertible {
+  public func toFloatArray() -> [Swift.Float]
+}
+extension Size : FlipFlopSDK.UniformConvertible {
+  public func toFloatArray() -> [Swift.Float]
+}
+public class ChromaKeying : FlipFlopSDK.BasicOperation {
+  public var thresholdSensitivity: Swift.Float {
+    get
+    set
+  }
+  public var smoothing: Swift.Float {
+    get
+    set
+  }
+  public var colorToReplace: FlipFlopSDK.Color {
+    get
+    set
+  }
+  public init()
+  override public init(vertexFunctionName: Swift.String? = super, fragmentFunctionName: Swift.String, numberOfInputs: Swift.UInt = super, operationName: Swift.String = #file)
+  @objc deinit
+}
+open class FLVReader {
+  public static let header: Foundation.Data
+  final public let url: Foundation.URL
+  public init(url: Foundation.URL)
+  public func getData(_ tag: FlipFlopSDK.FLVTag) -> Foundation.Data?
+  @objc deinit
+}
+extension FLVReader : Swift.IteratorProtocol {
+  public func next() -> FlipFlopSDK.FLVTag?
+  public typealias Element = FlipFlopSDK.FLVTag
+}
+@objc open class VideoEffect : ObjectiveC.NSObject {
+  open var ciContext: CoreImage.CIContext?
+  open func execute(_ image: CoreImage.CIImage, info: CoreMedia.CMSampleBuffer?) -> CoreImage.CIImage
+  @objc override dynamic public init()
+  @objc deinit
+}
+extension AudioConverter {
+  public enum Destination {
+    case AAC
+    case PCM
+    public static func == (a: FlipFlopSDK.AudioConverter.Destination, b: FlipFlopSDK.AudioConverter.Destination) -> Swift.Bool
+    public var hashValue: Swift.Int {
+      get
+    }
+    public func hash(into hasher: inout Swift.Hasher)
+  }
+}
+public class PolarPixellate : FlipFlopSDK.BasicOperation {
+  public var pixelSize: FlipFlopSDK.Size {
+    get
+    set
+  }
+  public var center: FlipFlopSDK.Position {
+    get
+    set
+  }
+  public init()
+  override public init(vertexFunctionName: Swift.String? = super, fragmentFunctionName: Swift.String, numberOfInputs: Swift.UInt = super, operationName: Swift.String = #file)
+  @objc deinit
+}
+@objc open class HTTPStream : FlipFlopSDK.NetStream {
+  open func publish(_ name: Swift.String?)
+  override open func attachCamera(_ camera: AVFoundation.AVCaptureDevice?, onError: ((Foundation.NSError) -> Swift.Void)? = nil)
+  override open func attachAudio(_ audio: AVFoundation.AVCaptureDevice?, automaticallyConfiguresApplicationAudioSession: Swift.Bool = true, onError: ((Foundation.NSError) -> Swift.Void)? = nil)
+  @objc override dynamic public init()
+  @objc deinit
+}
+public enum FlipFlopError : Swift.Error {
+  case initalize(description: Swift.String)
+  case api(description: Swift.String)
+}
+@objc public class FlipFlop : ObjectiveC.NSObject {
+  public var user: FlipFlopSDK.FFUser! {
+    get
+    }
+  public class func sharedInstance() -> FlipFlopSDK.FlipFlop
+  @objc deinit
+  public static func initialize(appKey: Swift.String, appSecret: Swift.String)
+  public static func debug(level: Swift.Int)
+  public func connect(userID: Swift.String, userName: Swift.String, avatarProfileURL: Swift.String, completion: ((Swift.Result<Foundation.Unit, Swift.Error>) -> Swift.Void)?)
+  public func disconnect()
+  public func updateUserInfo(userName: Swift.String? = nil, avatarProfileURL: Swift.String? = nil, completion: ((Swift.Result<FlipFlopSDK.FFUser, Swift.Error>) -> Swift.Void)?)
+  public func getStreamer() -> FlipFlopSDK.FFStreamer
+  public func getVideo(videoKey: Swift.String, completion: ((Swift.Result<FlipFlopSDK.FFMediaPlayer, Swift.Error>) -> Swift.Void)?)
+  public func getVideoListLoader(cursor: Swift.String? = nil, count: Swift.Int? = nil, userID: Swift.String? = nil, type: Swift.String? = nil, state: Swift.String? = nil) -> FlipFlopSDK.FFVideoLoader
+  public func editVideo(videoKey: Swift.String, title: Swift.String? = nil, content: Swift.String? = nil, visibility: Swift.String? = nil, chat_room_id: Swift.String? = nil, thumbnail_url: Swift.String? = nil, data: Swift.String? = nil, completion: ((Swift.Result<Foundation.Unit, Swift.Error>) -> Swift.Void)?)
+  public func deleteVideo(videoKey: Swift.String, completion: ((Swift.Result<Foundation.Unit, Swift.Error>) -> Swift.Void)?)
+  public func getUserVideoCount(userID: Swift.String, completion: ((Swift.Result<Swift.Int64, Swift.Error>) -> Swift.Void)?)
+  public func uploadFile(filePath: Swift.String, thumbnailPath: Swift.String, title: Swift.String, description: Swift.String, visibility: Swift.String?, data: Swift.String?, uploadProgressBlock: ((Swift.Float) -> Swift.Void)?, completion: ((Swift.Result<Foundation.Unit, Swift.Error>) -> Swift.Void)?)
+  @objc override dynamic public init()
+}
+public enum FLVAACPacketType : Swift.UInt8 {
+  case seq
+  case raw
+  public typealias RawValue = Swift.UInt8
+  public init?(rawValue: Swift.UInt8)
+  public var rawValue: Swift.UInt8 {
+    get
+  }
+}
+public class DarkenBlend : FlipFlopSDK.BasicOperation {
+  public init()
+  override public init(vertexFunctionName: Swift.String? = super, fragmentFunctionName: Swift.String, numberOfInputs: Swift.UInt = super, operationName: Swift.String = #file)
+  @objc deinit
+}
+public protocol TimerDriverDelegate : AnyObject {
+  func tick(_ driver: FlipFlopSDK.TimerDriver)
+}
+public class TimerDriver {
+  public var interval: Swift.UInt64
+  public func setDelegate(_ delegate: FlipFlopSDK.TimerDriverDelegate, withQueue: Dispatch.DispatchQueue? = nil)
+  @objc deinit
+}
+extension TimerDriver : FlipFlopSDK.Running {
+  public var isRunning: FlipFlopSDK.Atomic<Swift.Bool> {
+    get
+  }
+  public func startRunning()
+  public func stopRunning()
+}
+public class RGBAdjustment : FlipFlopSDK.BasicOperation {
+  public var red: Swift.Float {
+    get
+    set
+  }
+  public var blue: Swift.Float {
+    get
+    set
+  }
+  public var green: Swift.Float {
+    get
+    set
+  }
+  public init()
+  override public init(vertexFunctionName: Swift.String? = super, fragmentFunctionName: Swift.String, numberOfInputs: Swift.UInt = super, operationName: Swift.String = #file)
+  @objc deinit
+}
+public enum FFMediaPlayerError : Swift.Error {
+  case api(description: Swift.String)
+  case chat(description: Swift.String)
+  case player(description: Swift.String)
+}
+public protocol FFMediaPlayerDelegate : AnyObject {
+  func onPrepared(player: FlipFlopSDK.FFMediaPlayer)
+  func onStarted(player: FlipFlopSDK.FFMediaPlayer)
+  func onPaused(player: FlipFlopSDK.FFMediaPlayer)
+  func onResumed(player: FlipFlopSDK.FFMediaPlayer)
+  func onStopped(player: FlipFlopSDK.FFMediaPlayer)
+  func onCompleted(player: FlipFlopSDK.FFMediaPlayer)
+  func onProgressUpdated(player: FlipFlopSDK.FFMediaPlayer, percent: Swift.Double, mSec: Swift.Int64)
+  func onSeekCompleted(player: FlipFlopSDK.FFMediaPlayer, percent: Swift.Double, mSec: Swift.Int64)
+  func onError(player: FlipFlopSDK.FFMediaPlayer, error: FlipFlopSDK.FFMediaPlayerError)
+  func onChatMessgeReceived(player: FlipFlopSDK.FFMediaPlayer, message: FlipFlopSDK.FFMessage)
+}
+public class FFMediaPlayer {
+  weak public var delegate: FlipFlopSDK.FFMediaPlayerDelegate?
+  public var thumbnailURL: Swift.String {
+    get
+  }
+  public var owner: FlipFlopSDK.FFUser {
+    get
+  }
+  public var title: Swift.String {
+    get
+  }
+  public var content: Swift.String {
+    get
+  }
+  public var isLive: Swift.Bool {
+    get
+  }
+  public func prepare(view: UIKit.UIView)
+  public func start()
+  public func pause()
+  public func resume()
+  public func stop()
+  public func seekTo(percent: Swift.Float)
+  public func reset()
+  public func sendMessage(text: Swift.String)
+  @objc deinit
+}
+public class DifferenceBlend : FlipFlopSDK.BasicOperation {
+  public init()
+  override public init(vertexFunctionName: Swift.String? = super, fragmentFunctionName: Swift.String, numberOfInputs: Swift.UInt = super, operationName: Swift.String = #file)
+  @objc deinit
+}
+public class GlassSphereRefraction : FlipFlopSDK.BasicOperation {
+  public var radius: Swift.Float {
+    get
+    set
+  }
+  public var refractiveIndex: Swift.Float {
+    get
+    set
+  }
+  public var center: FlipFlopSDK.Position {
+    get
+    set
+  }
+  public init()
+  override public init(vertexFunctionName: Swift.String? = super, fragmentFunctionName: Swift.String, numberOfInputs: Swift.UInt = super, operationName: Swift.String = #file)
+  @objc deinit
+}
+public class MultiAppender : FlipFlopSDK.LogboardAppender {
+  public var appenders: [FlipFlopSDK.LogboardAppender]
+  public init()
+  public func append(_ logboard: FlipFlopSDK.Logboard, level: FlipFlopSDK.Logboard.Level, message: [Any], file: Swift.StaticString, function: Swift.StaticString, line: Swift.Int)
+  public func append(_ logboard: FlipFlopSDK.Logboard, level: FlipFlopSDK.Logboard.Level, format: Swift.String, arguments: Swift.CVarArg, file: Swift.StaticString, function: Swift.StaticString, line: Swift.Int)
+  @objc deinit
+}
+@objc public class RenderView : MetalKit.MTKView, FlipFlopSDK.ImageConsumer {
+  final public let sources: FlipFlopSDK.SourceContainer
+  final public let maximumInputs: Swift.UInt
+  @objc override dynamic public init(frame frameRect: CoreGraphics.CGRect, device: Metal.MTLDevice?)
+  @objc required dynamic public init(coder: Foundation.NSCoder)
+  public func newTextureAvailable(_ texture: FlipFlopSDK.Texture, fromSourceIndex: Swift.UInt)
+  @objc override dynamic public func draw(_ rect: CoreGraphics.CGRect)
+  @objc deinit
+}
+public class SobelEdgeDetection : FlipFlopSDK.TextureSamplingOperation {
+  public var edgeStrength: Swift.Float {
+    get
+    set
+  }
+  public init()
+  override public init(vertexFunctionName: Swift.String? = super, fragmentFunctionName: Swift.String, numberOfInputs: Swift.UInt = super, operationName: Swift.String = #file)
+  @objc deinit
+}
+public class SaturationAdjustment : FlipFlopSDK.BasicOperation {
+  public var saturation: Swift.Float {
+    get
+    set
+  }
+  public init()
+  override public init(vertexFunctionName: Swift.String? = super, fragmentFunctionName: Swift.String, numberOfInputs: Swift.UInt = super, operationName: Swift.String = #file)
+  @objc deinit
+}
+public struct Size {
+  public let width: Swift.Float
+  public let height: Swift.Float
+  public init(width: Swift.Float, height: Swift.Float)
+}
+public class MotionBlur : FlipFlopSDK.BasicOperation {
+  public var blurSize: Swift.Float
+  public var blurAngle: Swift.Float
+  public init()
+  override public init(vertexFunctionName: Swift.String? = super, fragmentFunctionName: Swift.String, numberOfInputs: Swift.UInt = super, operationName: Swift.String = #file)
+  @objc deinit
+}
+public class MonochromeFilter : FlipFlopSDK.BasicOperation {
+  public var intensity: Swift.Float {
+    get
+    set
+  }
+  public var color: FlipFlopSDK.Color {
+    get
+    set
+  }
+  public init()
+  override public init(vertexFunctionName: Swift.String? = super, fragmentFunctionName: Swift.String, numberOfInputs: Swift.UInt = super, operationName: Swift.String = #file)
+  @objc deinit
+}
+public enum FLVFrameType : Swift.UInt8 {
+  case key
+  case inter
+  case disposable
+  case generated
+  case command
+  public typealias RawValue = Swift.UInt8
+  public init?(rawValue: Swift.UInt8)
+  public var rawValue: Swift.UInt8 {
+    get
+  }
+}
+public class BulgeDistortion : FlipFlopSDK.BasicOperation {
+  public var radius: Swift.Float {
+    get
+    set
+  }
+  public var scale: Swift.Float {
+    get
+    set
+  }
+  public var center: FlipFlopSDK.Position {
+    get
+    set
+  }
+  public init()
+  override public init(vertexFunctionName: Swift.String? = super, fragmentFunctionName: Swift.String, numberOfInputs: Swift.UInt = super, operationName: Swift.String = #file)
+  @objc deinit
+}
+public class PictureInput : FlipFlopSDK.ImageSource {
+  final public let targets: FlipFlopSDK.TargetContainer
+  public init(image: CoreGraphics.CGImage, smoothlyScaleOutput: Swift.Bool = false, orientation: FlipFlopSDK.ImageOrientation = .portrait)
+  convenience public init(image: UIKit.UIImage, smoothlyScaleOutput: Swift.Bool = false, orientation: FlipFlopSDK.ImageOrientation = .portrait)
+  convenience public init(imageName: Swift.String, smoothlyScaleOutput: Swift.Bool = false, orientation: FlipFlopSDK.ImageOrientation = .portrait)
+  public func processImage(synchronously: Swift.Bool = false)
+  public func transmitPreviousImage(to target: FlipFlopSDK.ImageConsumer, atIndex: Swift.UInt)
+  @objc deinit
+}
+extension FlipFlopSDK.FLVTagType : Swift.Equatable {}
+extension FlipFlopSDK.FLVTagType : Swift.Hashable {}
+extension FlipFlopSDK.FLVTagType : Swift.RawRepresentable {}
+extension FlipFlopSDK.DefaultAVRecorderDelegate.FileType : Swift.Equatable {}
+extension FlipFlopSDK.DefaultAVRecorderDelegate.FileType : Swift.Hashable {}
+extension FlipFlopSDK.RTMPStream.Code : Swift.Equatable {}
+extension FlipFlopSDK.RTMPStream.Code : Swift.Hashable {}
+extension FlipFlopSDK.RTMPStream.Code : Swift.RawRepresentable {}
+extension FlipFlopSDK.RTMPStream.PlayTransition : Swift.Equatable {}
+extension FlipFlopSDK.RTMPStream.PlayTransition : Swift.Hashable {}
+extension FlipFlopSDK.RTMPStream.PlayTransition : Swift.RawRepresentable {}
+extension FlipFlopSDK.RTMPStream.HowToPublish : Swift.Equatable {}
+extension FlipFlopSDK.RTMPStream.HowToPublish : Swift.Hashable {}
+extension FlipFlopSDK.RTMPStream.HowToPublish : Swift.RawRepresentable {}
+extension FlipFlopSDK.HTTPRequest : Swift.CustomStringConvertible {}
+extension FlipFlopSDK.SamplingFrequency : Swift.Equatable {}
+extension FlipFlopSDK.SamplingFrequency : Swift.Hashable {}
+extension FlipFlopSDK.SamplingFrequency : Swift.RawRepresentable {}
+extension FlipFlopSDK.FLVSoundSize : Swift.Equatable {}
+extension FlipFlopSDK.FLVSoundSize : Swift.Hashable {}
+extension FlipFlopSDK.FLVSoundSize : Swift.RawRepresentable {}
+extension FlipFlopSDK.FLVAVCPacketType : Swift.Equatable {}
+extension FlipFlopSDK.FLVAVCPacketType : Swift.Hashable {}
+extension FlipFlopSDK.FLVAVCPacketType : Swift.RawRepresentable {}
+extension FlipFlopSDK.PictureFileFormat : Swift.Equatable {}
+extension FlipFlopSDK.PictureFileFormat : Swift.Hashable {}
+extension FlipFlopSDK.AVMixer.Option : Swift.RawRepresentable {}
+extension FlipFlopSDK.HTTPResponse : Swift.CustomDebugStringConvertible {}
+extension FlipFlopSDK.Logboard.Level : Swift.Equatable {}
+extension FlipFlopSDK.Logboard.Level : Swift.Hashable {}
+extension FlipFlopSDK.Logboard.Level : Swift.RawRepresentable {}
+extension FlipFlopSDK.AudioConverter.Option : Swift.RawRepresentable {}
+extension FlipFlopSDK.ByteArray.Error : Swift.Equatable {}
+extension FlipFlopSDK.ByteArray.Error : Swift.Hashable {}
+extension FlipFlopSDK.RTMPConnection : FlipFlopSDK.IEventDispatcher {}
+extension FlipFlopSDK.RTMPConnection.Code : Swift.Equatable {}
+extension FlipFlopSDK.RTMPConnection.Code : Swift.Hashable {}
+extension FlipFlopSDK.RTMPConnection.Code : Swift.RawRepresentable {}
+extension FlipFlopSDK.FFMessage.MessageType : Swift.Equatable {}
+extension FlipFlopSDK.FFMessage.MessageType : Swift.Hashable {}
+extension FlipFlopSDK.FFMessage.MessageType : Swift.RawRepresentable {}
+extension FlipFlopSDK.ImageOrientation : Swift.Equatable {}
+extension FlipFlopSDK.ImageOrientation : Swift.Hashable {}
+extension FlipFlopSDK.Rotation : Swift.Hashable {}
+extension FlipFlopSDK.PhysicalCameraLocation : Swift.Equatable {}
+extension FlipFlopSDK.PhysicalCameraLocation : Swift.Hashable {}
+extension FlipFlopSDK.H264Encoder.Option : Swift.RawRepresentable {}
+extension FlipFlopSDK.Model : Swift.Equatable {}
+extension FlipFlopSDK.Model : Swift.Hashable {}
+extension FlipFlopSDK.Model : Swift.RawRepresentable {}
+extension FlipFlopSDK.FLVSoundRate : Swift.Equatable {}
+extension FlipFlopSDK.FLVSoundRate : Swift.Hashable {}
+extension FlipFlopSDK.FLVSoundRate : Swift.RawRepresentable {}
+extension FlipFlopSDK.EventPhase : Swift.Equatable {}
+extension FlipFlopSDK.EventPhase : Swift.Hashable {}
+extension FlipFlopSDK.EventPhase : Swift.RawRepresentable {}
+extension FlipFlopSDK.FLVAudioCodec : Swift.Equatable {}
+extension FlipFlopSDK.FLVAudioCodec : Swift.Hashable {}
+extension FlipFlopSDK.FLVAudioCodec : Swift.RawRepresentable {}
+extension FlipFlopSDK.ScalingMode : Swift.Hashable {}
+extension FlipFlopSDK.ScalingMode : Swift.RawRepresentable {}
+extension FlipFlopSDK.FLVSoundType : Swift.Equatable {}
+extension FlipFlopSDK.FLVSoundType : Swift.Hashable {}
+extension FlipFlopSDK.FLVSoundType : Swift.RawRepresentable {}
+extension FlipFlopSDK.FLVVideoCodec : Swift.Equatable {}
+extension FlipFlopSDK.FLVVideoCodec : Swift.Hashable {}
+extension FlipFlopSDK.FLVVideoCodec : Swift.RawRepresentable {}
+extension FlipFlopSDK.AudioConverter.Destination : Swift.Hashable {}
+extension FlipFlopSDK.FLVAACPacketType : Swift.Equatable {}
+extension FlipFlopSDK.FLVAACPacketType : Swift.Hashable {}
+extension FlipFlopSDK.FLVAACPacketType : Swift.RawRepresentable {}
+extension FlipFlopSDK.FLVFrameType : Swift.Equatable {}
+extension FlipFlopSDK.FLVFrameType : Swift.Hashable {}
+extension FlipFlopSDK.FLVFrameType : Swift.RawRepresentable {}

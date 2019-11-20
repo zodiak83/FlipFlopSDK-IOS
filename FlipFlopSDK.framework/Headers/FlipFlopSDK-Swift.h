@@ -181,13 +181,9 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #if __has_warning("-Watimport-in-framework-header")
 #pragma clang diagnostic ignored "-Watimport-in-framework-header"
 #endif
-@import AVFoundation;
-@import CoreGraphics;
-@import CoreMedia;
 @import Foundation;
-@import GLKit;
-@import MetalKit;
 @import ObjectiveC;
+@import SendBirdSDK;
 @import UIKit;
 #endif
 
@@ -215,219 +211,42 @@ SWIFT_CLASS("_TtC11FlipFlopSDK20ACThumbnailGenerator")
 @end
 
 
-SWIFT_CLASS("_TtC11FlipFlopSDK11ASUndefined")
-@interface ASUndefined : NSObject
-@property (nonatomic, readonly, copy) NSString * _Nonnull description;
-- (nonnull instancetype)init SWIFT_UNAVAILABLE;
-+ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+/// <ul>
+///   <li>
+///     seealse:
+///   </li>
+///   <li>
+///     https://developer.apple.com/library/ios/technotes/tn2236/_index.html
+///   </li>
+/// </ul>
+SWIFT_CLASS("_TtC11FlipFlopSDK14AudioConverter")
+@interface AudioConverter : NSObject
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
 
-/// ActionScript 3.0 introduces a new XML type.
-/// seealso:
-/// 3.13 XML type (amf-file-format-spec.pdf)
-SWIFT_CLASS("_TtC11FlipFlopSDK5ASXML")
-@interface ASXML : NSObject
-@property (nonatomic, readonly, copy) NSString * _Nonnull description;
-- (nonnull instancetype)init SWIFT_UNAVAILABLE;
-+ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
-@end
 
 
-/// ActionScript 1.0 and 2.0 and flash.xml.XMLDocument in ActionScript 3.0
-/// seealso:
+/// FFPlayer can play video and audio element.
+/// precondition:
+///
+/// Should be set before prepare
+/// <ol>
+///   <li>
+///     playerView
+///   </li>
+/// </ol>
+/// note:
 ///
 /// <ul>
 ///   <li>
-///     2.17 XML Document Type (amf0-file-format-specification.pdf)
-///   </li>
-///   <li>
-///     3.9 XMLDocument type (amf-file-format-spec.pdf)
+///     How to use
+///     prepare() -> start() -> stop() -> reset()
 ///   </li>
 /// </ul>
-SWIFT_CLASS("_TtC11FlipFlopSDK13ASXMLDocument")
-@interface ASXMLDocument : NSObject
-@property (nonatomic, readonly, copy) NSString * _Nonnull description;
-- (nonnull instancetype)init SWIFT_UNAVAILABLE;
-+ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
-@end
-
-
-
-
-
-
-SWIFT_CLASS("_TtC11FlipFlopSDK10AVRecorder")
-@interface AVRecorder : NSObject
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
-@end
-
-
-
-
-SWIFT_CLASS("_TtC11FlipFlopSDK11AudioEffect")
-@interface AudioEffect : NSObject
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
-@end
-
-@class AVCaptureOutput;
-@class AVCaptureConnection;
-
-SWIFT_CLASS("_TtC11FlipFlopSDK6Camera")
-@interface Camera : NSObject <AVCaptureVideoDataOutputSampleBufferDelegate>
-- (void)captureOutput:(AVCaptureOutput * _Nonnull)output didOutputSampleBuffer:(CMSampleBufferRef _Nonnull)sampleBuffer fromConnection:(AVCaptureConnection * _Nonnull)connection;
-- (nonnull instancetype)init SWIFT_UNAVAILABLE;
-+ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
-@end
-
-
-SWIFT_CLASS("_TtC11FlipFlopSDK25DefaultAVRecorderDelegate")
-@interface DefaultAVRecorderDelegate : NSObject
-- (nonnull instancetype)init SWIFT_UNAVAILABLE;
-+ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
-@end
-
-@class AVAssetWriterInput;
-@class AVAssetWriterInputPixelBufferAdaptor;
-
-@interface DefaultAVRecorderDelegate (SWIFT_EXTENSION(FlipFlopSDK))
-- (void)rotateFile:(AVRecorder * _Nonnull)recorder withPresentationTimeStamp:(CMTime)withPresentationTimeStamp mediaType:(AVMediaType _Nonnull)mediaType;
-- (AVAssetWriterInputPixelBufferAdaptor * _Nullable)getPixelBufferAdaptor:(AVRecorder * _Nonnull)recorder withWriterInput:(AVAssetWriterInput * _Nullable)withWriterInput SWIFT_WARN_UNUSED_RESULT;
-- (AVAssetWriterInput * _Nullable)getWriterInput:(AVRecorder * _Nonnull)recorder mediaType:(AVMediaType _Nonnull)mediaType sourceFormatHint:(CMFormatDescriptionRef _Nullable)sourceFormatHint SWIFT_WARN_UNUSED_RESULT;
-- (void)didFinishWriting:(AVRecorder * _Nonnull)recorder;
-- (void)didStartRunning:(AVRecorder * _Nonnull)recorder;
-- (void)didStopRunning:(AVRecorder * _Nonnull)recorder;
-@end
-
-
-SWIFT_CLASS("_TtC11FlipFlopSDK8FlipFlop")
-@interface FlipFlop : NSObject
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
-@end
-
-@class NSCoder;
-@class EAGLContext;
-
-SWIFT_CLASS("_TtC11FlipFlopSDK8GLHKView")
-@interface GLHKView : GLKView
-- (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
-- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
-- (void)awakeFromNib;
-- (nonnull instancetype)initWithFrame:(CGRect)frame context:(EAGLContext * _Nonnull)context SWIFT_UNAVAILABLE;
-@end
-
-
-@interface GLHKView (SWIFT_EXTENSION(FlipFlopSDK)) <GLKViewDelegate>
-- (void)glkView:(GLKView * _Nonnull)view drawInRect:(CGRect)rect;
-@end
-
-
-
-@class AVCaptureVideoPreviewLayer;
-
-SWIFT_CLASS("_TtC11FlipFlopSDK6HKView")
-@interface HKView : UIView
-SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly) Class _Nonnull layerClass;)
-+ (Class _Nonnull)layerClass SWIFT_WARN_UNUSED_RESULT;
-@property (nonatomic, readonly, strong) AVCaptureVideoPreviewLayer * _Nonnull layer;
-- (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
-- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
-- (void)awakeFromNib;
-@end
-
-
-
-
-SWIFT_CLASS("_TtC11FlipFlopSDK10NetService")
-@interface NetService : NSObject
-- (nonnull instancetype)init SWIFT_UNAVAILABLE;
-+ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
-@end
-
-
-SWIFT_CLASS("_TtC11FlipFlopSDK11HTTPService")
-@interface HTTPService : NetService
-@end
-
-
-SWIFT_CLASS("_TtC11FlipFlopSDK10HLSService")
-@interface HLSService : HTTPService
-@end
-
-
-
-SWIFT_CLASS("_TtC11FlipFlopSDK9NetStream")
-@interface NetStream : NSObject
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
-@end
-
-
-SWIFT_CLASS("_TtC11FlipFlopSDK10HTTPStream")
-@interface HTTPStream : NetStream
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
-@end
-
-@protocol MTLDevice;
-
-SWIFT_CLASS("_TtC11FlipFlopSDK8MTHKView") SWIFT_AVAILABILITY(ios,introduced=9.0)
-@interface MTHKView : MTKView
-- (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
-- (nonnull instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
-- (void)awakeFromNib;
-- (nonnull instancetype)initWithFrame:(CGRect)frameRect device:(id <MTLDevice> _Nullable)device SWIFT_UNAVAILABLE;
-@end
-
-
-
-
-SWIFT_AVAILABILITY(ios,introduced=9.0)
-@interface MTHKView (SWIFT_EXTENSION(FlipFlopSDK)) <MTKViewDelegate>
-- (void)mtkView:(MTKView * _Nonnull)view drawableSizeWillChange:(CGSize)size;
-- (void)drawInMTKView:(MTKView * _Nonnull)view;
-@end
-
-
-SWIFT_CLASS("_TtC11FlipFlopSDK9NetSocket")
-@interface NetSocket : NSObject
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
-@end
-
-
-SWIFT_CLASS("_TtC11FlipFlopSDK9NetClient")
-@interface NetClient : NetSocket
-- (nonnull instancetype)init SWIFT_UNAVAILABLE;
-+ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
-@end
-
-
-
-
-@class NSNetService;
-@class NSInputStream;
-@class NSOutputStream;
-
-@interface NetService (SWIFT_EXTENSION(FlipFlopSDK)) <NSNetServiceDelegate>
-- (void)netService:(NSNetService * _Nonnull)sender didAcceptConnectionWithInputStream:(NSInputStream * _Nonnull)inputStream outputStream:(NSOutputStream * _Nonnull)outputStream;
-@end
-
-
-
-
-@class NSStream;
-
-@interface NetSocket (SWIFT_EXTENSION(FlipFlopSDK)) <NSStreamDelegate>
-- (void)stream:(NSStream * _Nonnull)aStream handleEvent:(NSStreamEvent)eventCode;
-@end
-
-
-
-
-
-/// flash.net.NetStream for Swift
-SWIFT_CLASS("_TtC11FlipFlopSDK10RTMPStream")
-@interface RTMPStream : NetStream
-/// The number of frames per second being displayed.
-@property (nonatomic, readonly) uint16_t currentFPS;
+SWIFT_CLASS("_TtC11FlipFlopSDK8FFPlayer")
+@interface FFPlayer : NSObject
+- (void)observeValueForKeyPath:(NSString * _Nullable)keyPath ofObject:(id _Nullable)object change:(NSDictionary<NSKeyValueChangeKey, id> * _Nullable)change context:(void * _Nullable)context;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
@@ -439,29 +258,31 @@ SWIFT_CLASS("_TtC11FlipFlopSDK10RTMPStream")
 
 
 
-
-
-SWIFT_CLASS("_TtC11FlipFlopSDK10RenderView")
-@interface RenderView : MTKView
-- (nonnull instancetype)initWithFrame:(CGRect)frameRect device:(id <MTLDevice> _Nullable)device OBJC_DESIGNATED_INITIALIZER;
-- (nonnull instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER;
-- (void)drawRect:(CGRect)rect;
-@end
-
-@class CADisplayLink;
-
-SWIFT_CLASS("_TtC11FlipFlopSDK20ScreenCaptureSession")
-@interface ScreenCaptureSession : NSObject
-- (void)onScreen:(CADisplayLink * _Nonnull)displayLink;
-- (nonnull instancetype)init SWIFT_UNAVAILABLE;
-+ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
-@end
-
-
-
-
-SWIFT_CLASS("_TtC11FlipFlopSDK12SoundSpliter")
-@interface SoundSpliter : NSObject
+/// FFRecorder can record video and audio stream.
+/// precondition:
+///
+/// Should be set before prepare
+/// <ol>
+///   <li>
+///     videoSource or audioSource
+///   </li>
+///   <li>
+///     videoPreview
+///   </li>
+///   <li>
+///     outputFilePath
+///   </li>
+/// </ol>
+/// note:
+///
+/// <ul>
+///   <li>
+///     How to use
+///     prepare() -> start() -> stop() -> reset()
+///   </li>
+/// </ul>
+SWIFT_CLASS("_TtC11FlipFlopSDK10FFRecorder")
+@interface FFRecorder : NSObject
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
@@ -470,10 +291,20 @@ SWIFT_CLASS("_TtC11FlipFlopSDK12SoundSpliter")
 
 
 
-SWIFT_CLASS("_TtC11FlipFlopSDK11VideoEffect")
-@interface VideoEffect : NSObject
+
+
+
+
+SWIFT_CLASS("_TtC11FlipFlopSDK15SendBirdAdapter")
+@interface SendBirdAdapter : NSObject <SBDChannelDelegate, SBDConnectionDelegate>
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
+
+
+
+
+
+
 
 #if __has_attribute(external_source_symbol)
 # pragma clang attribute pop

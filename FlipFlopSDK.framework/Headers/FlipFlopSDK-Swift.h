@@ -181,9 +181,9 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #if __has_warning("-Watimport-in-framework-header")
 #pragma clang diagnostic ignored "-Watimport-in-framework-header"
 #endif
+@import AVFoundation;
 @import Foundation;
 @import ObjectiveC;
-@import SendBirdSDK;
 @import UIKit;
 #endif
 
@@ -211,96 +211,13 @@ SWIFT_CLASS("_TtC11FlipFlopSDK20ACThumbnailGenerator")
 @end
 
 
-/// <ul>
-///   <li>
-///     seealse:
-///   </li>
-///   <li>
-///     https://developer.apple.com/library/ios/technotes/tn2236/_index.html
-///   </li>
-/// </ul>
-SWIFT_CLASS("_TtC11FlipFlopSDK14AudioConverter")
-@interface AudioConverter : NSObject
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
-@end
 
 
-
-
-/// FFPlayer can play video and audio element.
-/// precondition:
-///
-/// Should be set before prepare
-/// <ol>
-///   <li>
-///     playerView
-///   </li>
-/// </ol>
-/// note:
-///
-/// <ul>
-///   <li>
-///     How to use
-///     prepare() -> start() -> stop() -> reset()
-///   </li>
-/// </ul>
-SWIFT_CLASS("_TtC11FlipFlopSDK8FFPlayer")
-@interface FFPlayer : NSObject
-- (void)observeValueForKeyPath:(NSString * _Nullable)keyPath ofObject:(id _Nullable)object change:(NSDictionary<NSKeyValueChangeKey, id> * _Nullable)change context:(void * _Nullable)context;
+SWIFT_CLASS("_TtC11FlipFlopSDK8FlipFlop")
+@interface FlipFlop : NSObject
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
-
-
-
-
-
-
-
-
-/// FFRecorder can record video and audio stream.
-/// precondition:
-///
-/// Should be set before prepare
-/// <ol>
-///   <li>
-///     videoSource or audioSource
-///   </li>
-///   <li>
-///     videoPreview
-///   </li>
-///   <li>
-///     outputFilePath
-///   </li>
-/// </ol>
-/// note:
-///
-/// <ul>
-///   <li>
-///     How to use
-///     prepare() -> start() -> stop() -> reset()
-///   </li>
-/// </ul>
-SWIFT_CLASS("_TtC11FlipFlopSDK10FFRecorder")
-@interface FFRecorder : NSObject
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
-@end
-
-
-
-
-
-
-
-
-
-
-SWIFT_CLASS("_TtC11FlipFlopSDK15SendBirdAdapter")
-@interface SendBirdAdapter : NSObject <SBDChannelDelegate, SBDConnectionDelegate>
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
-@end
-
-
 
 
 

@@ -6,7 +6,7 @@
 	<dict>
 		<key>Headers/FlipFlopSDK-Swift.h</key>
 		<data>
-		c1hdHUH+GdkXv7RUVp+lh9kfWfs=
+		OCEkddlBG/G3e/DtrfzGfB9lWs8=
 		</data>
 		<key>Headers/FlipFlopSDK.h</key>
 		<data>
@@ -14,59 +14,35 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		BHIuqNW4faJhat5SqDV6DQRo++o=
+		NRCjuDsgh/76iOyw1RFwdrjA760=
 		</data>
 		<key>Modules/FlipFlopSDK.swiftmodule/arm64-apple-ios.swiftdoc</key>
 		<data>
-		Vzq/hJ7BKBEVG8x+0bD8QPuQ6g4=
+		OwNy0bw25GRloXj7thFaH09hQ/s=
 		</data>
 		<key>Modules/FlipFlopSDK.swiftmodule/arm64-apple-ios.swiftinterface</key>
 		<data>
-		ZopE837QOktjLxYL6SH0WUWsFPk=
+		yU6Ff7AS9q7rQUvw9l7JAsDC8s4=
 		</data>
 		<key>Modules/FlipFlopSDK.swiftmodule/arm64-apple-ios.swiftmodule</key>
 		<data>
-		QUmKho9B8JcX657OXnduTTBVUCg=
+		P5Ligc4vtm2RRzyQDf+/2dKotUw=
 		</data>
 		<key>Modules/FlipFlopSDK.swiftmodule/arm64.swiftdoc</key>
 		<data>
-		Vzq/hJ7BKBEVG8x+0bD8QPuQ6g4=
+		OwNy0bw25GRloXj7thFaH09hQ/s=
 		</data>
 		<key>Modules/FlipFlopSDK.swiftmodule/arm64.swiftinterface</key>
 		<data>
-		ZopE837QOktjLxYL6SH0WUWsFPk=
+		yU6Ff7AS9q7rQUvw9l7JAsDC8s4=
 		</data>
 		<key>Modules/FlipFlopSDK.swiftmodule/arm64.swiftmodule</key>
 		<data>
-		QUmKho9B8JcX657OXnduTTBVUCg=
+		P5Ligc4vtm2RRzyQDf+/2dKotUw=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
 		8CwGRsb6uevx4r1rjYHRv80hGD0=
-		</data>
-		<key>default.metallib</key>
-		<data>
-		RcPWWhIVo2GIX8+6MoVqSIw6CVk=
-		</data>
-		<key>lookup.png</key>
-		<data>
-		HSzonBNXKLQ5t6fQnVamfW3OLfY=
-		</data>
-		<key>lookup_amatorka.png</key>
-		<data>
-		lUI+vHuSJQh8IMl11mU3KVXyDLk=
-		</data>
-		<key>lookup_miss_etikate.png</key>
-		<data>
-		aNmq/yWBB44IMe+u3/rOZV/C8Ik=
-		</data>
-		<key>lookup_soft_elegance_1.png</key>
-		<data>
-		MeVy2IHhMZ4G0fO6tIw46S8q9U4=
-		</data>
-		<key>lookup_soft_elegance_2.png</key>
-		<data>
-		eGRQJWu4YEKH9aY3D5nlbwSKtQM=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -75,7 +51,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			HEL+u+maOfGjxS2dPFKhJuDP/hlW8+JAHJDaqKMC35E=
+			WAsPTuMx8Cdy3hLc+uwRXjA/D3HXPSKfnwtJitFYAls=
 			</data>
 		</dict>
 		<key>Headers/FlipFlopSDK.h</key>
@@ -89,42 +65,42 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			GjfG/cWC5DP2bTNRGYc5RwdkUreU7c9JwozwyjI4fQw=
+			GnQBsn+oxm2jvahuiQFJEcvC+qRCd4IRdjf/yjJpd5g=
 			</data>
 		</dict>
 		<key>Modules/FlipFlopSDK.swiftmodule/arm64-apple-ios.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			08gvICknNhxZqGc5k+990jFjXg2Plorsza1m9+fml7U=
+			VTkdihJQyxW/cMtHpeC6hjz1LpyjYjp2vQfr9r/PTMc=
 			</data>
 		</dict>
 		<key>Modules/FlipFlopSDK.swiftmodule/arm64-apple-ios.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			eqCtKsJO/y1I2u0WpW5yBfChSCroUUng3P4q7sluGkE=
+			dke0N7T7ZmnrRb+UAMxDYP5yD37pkU2wDEWJOXM0uY0=
 			</data>
 		</dict>
 		<key>Modules/FlipFlopSDK.swiftmodule/arm64.swiftdoc</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			GjfG/cWC5DP2bTNRGYc5RwdkUreU7c9JwozwyjI4fQw=
+			GnQBsn+oxm2jvahuiQFJEcvC+qRCd4IRdjf/yjJpd5g=
 			</data>
 		</dict>
 		<key>Modules/FlipFlopSDK.swiftmodule/arm64.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			08gvICknNhxZqGc5k+990jFjXg2Plorsza1m9+fml7U=
+			VTkdihJQyxW/cMtHpeC6hjz1LpyjYjp2vQfr9r/PTMc=
 			</data>
 		</dict>
 		<key>Modules/FlipFlopSDK.swiftmodule/arm64.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			eqCtKsJO/y1I2u0WpW5yBfChSCroUUng3P4q7sluGkE=
+			dke0N7T7ZmnrRb+UAMxDYP5yD37pkU2wDEWJOXM0uY0=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
@@ -132,48 +108,6 @@
 			<key>hash2</key>
 			<data>
 			Y/e/tFKF8ClqWSE06vOELv1NFCSaQd6nPGiJpUV6kA4=
-			</data>
-		</dict>
-		<key>default.metallib</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			hucd1JOlf+ZNNbp1o0fHX03kRNeE7L8AwGWJZA96JXs=
-			</data>
-		</dict>
-		<key>lookup.png</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			HNyoBSZmt1QZ46KQZOWxEIRrZc5lbJCVNX7SWjLeFDQ=
-			</data>
-		</dict>
-		<key>lookup_amatorka.png</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			BOivpnHEySy5kngNnvkjzLHo4eTG8C76dBiIYBH1oLk=
-			</data>
-		</dict>
-		<key>lookup_miss_etikate.png</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			162og9DHqaMyqq7kLiKY7Iq+ea2U11vMY5oozbOxcaU=
-			</data>
-		</dict>
-		<key>lookup_soft_elegance_1.png</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			gtJ/K2IquRblDe10wPpR0+cT2CCtQOcMfnkLqnz2V0o=
-			</data>
-		</dict>
-		<key>lookup_soft_elegance_2.png</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			UKvU7HbD7Ofc/gfRF03vwHy0vvbOLcS2jQUVl7c+5To=
 			</data>
 		</dict>
 	</dict>

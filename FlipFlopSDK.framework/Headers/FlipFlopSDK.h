@@ -2,11 +2,11 @@
 //  FlipFlopSDK.h
 //  FlipFlopSDK
 //
-//  Created by Jeon HyungGue on 09/07/2019.
+//  Created by Jeon HyungGue on 2019/10/21.
 //  Copyright © 2019 Jeon HyungGue. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
 //! Project version number for FlipFlopSDK.
 FOUNDATION_EXPORT double FlipFlopSDKVersionNumber;

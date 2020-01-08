@@ -1,0 +1,287 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.1.2 (swiftlang-1100.0.278 clang-1100.0.33.9)
+// swift-module-flags: -target x86_64-apple-ios11.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name FlipFlopSDK
+import AVFoundation
+import AVKit
+import AWSS3
+import CoreMedia
+import Dispatch
+@_exported import FlipFlopSDK
+import Foundation
+import Starscream
+import Swift
+import SwiftGRPC
+import SwiftProtobuf
+import UIKit
+import VideoToolbox
+import WebRTC
+public protocol ACThumbnailGeneratorDelegate : AnyObject {
+  func generator(_ generator: FlipFlopSDK.ACThumbnailGenerator, didCapture image: UIKit.UIImage, at position: Swift.Double)
+}
+@objc public class ACThumbnailGenerator : ObjectiveC.NSObject {
+  weak public var delegate: FlipFlopSDK.ACThumbnailGeneratorDelegate?
+  public init(streamUrl: Foundation.URL, preferredBitrate: Swift.Double = 0.0)
+  @objc deinit
+  public func replaceStreamUrl(newUrl url: Foundation.URL)
+  public func captureImage(at position: Swift.Double)
+  @objc override dynamic public func observeValue(forKeyPath keyPath: Swift.String?, of object: Any?, change: [Foundation.NSKeyValueChangeKey : Any]?, context: Swift.UnsafeMutableRawPointer?)
+  @objc override dynamic public init()
+}
+public class ConsoleAppender : FlipFlopSDK.LogboardAppender {
+  public init()
+  public func append(_ logboard: FlipFlopSDK.Logboard, level: FlipFlopSDK.Logboard.Level, message: [Any], file: Swift.StaticString, function: Swift.StaticString, line: Swift.Int)
+  public func append(_ logboard: FlipFlopSDK.Logboard, level: FlipFlopSDK.Logboard.Level, format: Swift.String, arguments: Swift.CVarArg, file: Swift.StaticString, function: Swift.StaticString, line: Swift.Int)
+  @objc deinit
+}
+public protocol LogboardAppender {
+  func append(_ logboard: FlipFlopSDK.Logboard, level: FlipFlopSDK.Logboard.Level, message: [Any], file: Swift.StaticString, function: Swift.StaticString, line: Swift.Int)
+  func append(_ logboard: FlipFlopSDK.Logboard, level: FlipFlopSDK.Logboard.Level, format: Swift.String, arguments: Swift.CVarArg, file: Swift.StaticString, function: Swift.StaticString, line: Swift.Int)
+}
+extension Logboard {
+  public struct Data {
+    public var date: Foundation.Date
+    public var level: FlipFlopSDK.Logboard.Level
+    public var identifier: Swift.String
+    public var file: Swift.String
+    public var line: Swift.Int
+    public var function: Swift.String
+    public var message: Swift.String
+    public init?(_ data: Foundation.Data)
+  }
+}
+extension Logboard.Data : Swift.CustomStringConvertible {
+  public var description: Swift.String {
+    get
+  }
+}
+public class Logboard {
+  public static let dateFormatter: Foundation.DateFormatter
+  public enum Level : Swift.Int, Swift.CustomStringConvertible {
+    case trace
+    case debug
+    case info
+    case warn
+    case error
+    public init?(string: Swift.String)
+    public var description: Swift.String {
+      get
+    }
+    public typealias RawValue = Swift.Int
+    public init?(rawValue: Swift.Int)
+    public var rawValue: Swift.Int {
+      get
+    }
+  }
+  public static func with(_ identifier: Swift.String) -> FlipFlopSDK.Logboard
+  final public let identifier: Swift.String
+  public var level: FlipFlopSDK.Logboard.Level
+  public var appender: FlipFlopSDK.LogboardAppender
+  public init(_ identifier: Swift.String)
+  public func isEnabledFor(level: FlipFlopSDK.Logboard.Level) -> Swift.Bool
+  public func trace(_ message: Any..., file: Swift.StaticString = #file, function: Swift.StaticString = #function, line: Swift.Int = #line)
+  public func trace(format: Swift.String, arguments: Swift.CVarArg, file: Swift.StaticString = #file, function: Swift.StaticString = #function, line: Swift.Int = #line)
+  public func debug(_ message: Any..., file: Swift.StaticString = #file, function: Swift.StaticString = #function, line: Swift.Int = #line)
+  public func debug(format: Swift.String, arguments: Swift.CVarArg, file: Swift.StaticString = #file, function: Swift.StaticString = #function, line: Swift.Int = #line)
+  public func info(_ message: Any..., file: Swift.StaticString = #file, function: Swift.StaticString = #function, line: Swift.Int = #line)
+  public func info(format: Swift.String, arguments: Swift.CVarArg, file: Swift.StaticString = #file, function: Swift.StaticString = #function, line: Swift.Int = #line)
+  public func warn(_ message: Any..., file: Swift.StaticString = #file, function: Swift.StaticString = #function, line: Swift.Int = #line)
+  public func warn(format: Swift.String, arguments: Swift.CVarArg, file: Swift.StaticString = #file, function: Swift.StaticString = #function, line: Swift.Int = #line)
+  public func error(_ message: Any..., file: Swift.StaticString = #file, function: Swift.StaticString = #function, line: Swift.Int = #line)
+  public func error(format: Swift.String, arguments: Swift.CVarArg, file: Swift.StaticString = #file, function: Swift.StaticString = #function, line: Swift.Int = #line)
+  @objc deinit
+}
+public typealias HttpCompletion = ((Swift.Int, Foundation.Data?, Swift.Error?) -> Swift.Void)?
+public struct FFStreamerConfig {
+}
+public enum FFStreamerError : Swift.Error {
+  case api(description: Swift.String)
+  case stream(description: Swift.String)
+}
+public protocol FFStreamerDelegate : AnyObject {
+  func onPrepared()
+  func onStarted(streamName: Swift.String)
+  func onStopped()
+  func onError(error: FlipFlopSDK.FFStreamerError)
+  func onChatMessgeReceived(message: FlipFlopSDK.FFMessage)
+}
+public class FFStreamer {
+  weak public var delegate: FlipFlopSDK.FFStreamerDelegate?
+  public func prepare(preview: UIKit.UIView, config: FlipFlopSDK.FFStreamerConfig? = nil)
+  public func start(title: Swift.String, content: Swift.String)
+  public func stop()
+  public func reset()
+  public func switchCamera()
+  @objc deinit
+}
+public enum FFMessageType : Swift.Int {
+  case msg
+  case join
+  case leave
+  case admin
+  case unknown
+  public typealias RawValue = Swift.Int
+  public init?(rawValue: Swift.Int)
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public struct FFMessage {
+  public let type: FlipFlopSDK.FFMessageType
+  public let id: Swift.String
+  public let message: Swift.String
+  public let createAt: Swift.Int64
+  public let userID: Swift.String
+  public var userName: Swift.String
+  public var avatarProfileURL: Swift.String
+  public let data: Swift.String
+  public let customType: Swift.String
+  public init(type: FlipFlopSDK.FFMessageType, id: Swift.String, message: Swift.String, createAt: Swift.Int64, userID: Swift.String, userName: Swift.String, avatarProfileURL: Swift.String, data: Swift.String, customType: Swift.String)
+}
+extension FFMessage : Swift.CustomStringConvertible {
+  public var description: Swift.String {
+    get
+  }
+}
+public enum FFError : Swift.Error {
+  case initalize(description: Swift.String)
+  case api(description: Swift.String)
+}
+public struct FFVideoInfo {
+  public let video_key: Swift.String
+  public let type: Swift.String
+  public let user_id: Swift.String
+  public let user_name: Swift.String
+  public let user_avatar_url: Swift.String
+  public let title: Swift.String
+  public let content: Swift.String
+  public let state: Swift.String
+  public let duration: Swift.UInt64
+  public let visibility: Swift.String
+  public let muted: Swift.Bool
+  public let locked: Swift.Bool
+  public let url: Swift.String
+  public let thumbnail_url: Swift.String
+  public let live_key: Swift.String?
+  public let data: Swift.String
+  public let watch_count: Swift.UInt64
+  public let heart_count: Swift.UInt64
+  public let view_count: Swift.UInt64
+  public let like_count: Swift.UInt64
+  public let liked_by_me: Swift.Bool
+  public let created_at: Swift.UInt64
+}
+public protocol FFCursorLoader {
+  associatedtype Response
+  var cursor: Swift.String? { get set }
+  var count: Swift.Int? { get set }
+  func reset()
+  func next(completion: ((Swift.Result<Self.Response, Swift.Error>) -> Swift.Void)?)
+}
+public class FFVideoListLoader : FlipFlopSDK.FFCursorLoader {
+  public typealias Response = [FlipFlopSDK.FFVideoInfo]
+  public var cursor: Swift.String?
+  public var count: Swift.Int?
+  public func reset()
+  public func next(completion: ((Swift.Result<FlipFlopSDK.FFVideoListLoader.Response, Swift.Error>) -> Swift.Void)?)
+  @objc deinit
+}
+public enum Model : Swift.String {
+  case simulator, iPod1, iPod2, iPod3, iPod4, iPod5, iPad2, iPad3, iPad4, iPadAir, iPadAir2, iPad5, iPad6, iPadMini, iPadMini2, iPadMini3, iPadMini4, iPadPro9_7, iPadPro10_5, iPadPro12_9, iPadPro2_12_9, iPhone4, iPhone4S, iPhone5, iPhone5S, iPhone5C, iPhone6, iPhone6plus, iPhone6S, iPhone6Splus, iPhoneSE, iPhone7, iPhone7plus, iPhone8, iPhone8plus, iPhoneX, iPhoneXS, iPhoneXSMax, iPhoneXR, AppleTV, AppleTV_4K, unrecognized
+  public typealias RawValue = Swift.String
+  public init?(rawValue: Swift.String)
+  public var rawValue: Swift.String {
+    get
+  }
+}
+extension UIDevice {
+  public var type: FlipFlopSDK.Model {
+    get
+  }
+}
+public class NullAppender : FlipFlopSDK.LogboardAppender {
+  public init()
+  public func append(_ logboard: FlipFlopSDK.Logboard, level: FlipFlopSDK.Logboard.Level, message: [Any], file: Swift.StaticString, function: Swift.StaticString, line: Swift.Int)
+  public func append(_ logboard: FlipFlopSDK.Logboard, level: FlipFlopSDK.Logboard.Level, format: Swift.String, arguments: Swift.CVarArg, file: Swift.StaticString, function: Swift.StaticString, line: Swift.Int)
+  @objc deinit
+}
+public struct Empty : Swift.Decodable {
+  public init(from decoder: Swift.Decoder) throws
+}
+@objc public class FlipFlop : ObjectiveC.NSObject {
+  public var userID: Swift.String {
+    get
+  }
+  public var userName: Swift.String {
+    get
+  }
+  public var avatarProfileURL: Swift.String {
+    get
+  }
+  @objc deinit
+  public static func initialize(appKey: Swift.String, appSecret: Swift.String)
+  public static func uninitialize()
+  public static func authentication(userID: Swift.String, userName: Swift.String, avatarProfileURL: Swift.String, completion: ((Swift.Result<FlipFlopSDK.FlipFlop, Swift.Error>) -> Swift.Void)?)
+  public func updateUserInfo(userName: Swift.String? = nil, avatarProfileURL: Swift.String? = nil, completion: ((Swift.Result<Swift.Void, Swift.Error>) -> Swift.Void)?)
+  public func getStreamer() -> FlipFlopSDK.FFStreamer
+  public func getPlayer(video_key: Swift.String) -> FlipFlopSDK.FFPlayer
+  public func getVideoListLoader(cursor: Swift.String? = nil, count: Swift.Int? = nil, userID: Swift.String? = nil, type: Swift.String? = nil, state: Swift.String? = nil) -> FlipFlopSDK.FFVideoListLoader
+  public func editVideo(videoKey: Swift.String, title: Swift.String? = nil, content: Swift.String? = nil, visibility: Swift.String? = nil, thumbnail_url: Swift.String? = nil, data: Swift.String? = nil, completion: ((Swift.Result<Swift.Void, Swift.Error>) -> Swift.Void)?)
+  public func deleteVideo(videoKey: Swift.String, completion: ((Swift.Result<Swift.Void, Swift.Error>) -> Swift.Void)?)
+  public func uploadVideo(filePath: Swift.String, thumbnailmSec: Swift.Int, title: Swift.String, description: Swift.String, visibility: Swift.String?, data: Swift.String?, uploadProgressBlock: ((Swift.Float) -> Swift.Void)?, completion: ((Swift.Result<Swift.Void, Swift.Error>) -> Swift.Void)?)
+  public func uploadVideo(filePath: Swift.String, thumbnailPath: Swift.String, title: Swift.String, description: Swift.String, visibility: Swift.String?, data: Swift.String?, uploadProgressBlock: ((Swift.Float) -> Swift.Void)?, completion: ((Swift.Result<Swift.Void, Swift.Error>) -> Swift.Void)?)
+  @objc override dynamic public init()
+}
+public enum FFPlayerError : Swift.Error {
+  case api(description: Swift.String)
+  case chat(description: Swift.String)
+  case player(description: Swift.String)
+}
+public protocol FFPlayerDelegate : AnyObject {
+  func onPrepared(player: FlipFlopSDK.FFPlayer)
+  func onStarted(player: FlipFlopSDK.FFPlayer)
+  func onPaused(player: FlipFlopSDK.FFPlayer)
+  func onResumed(player: FlipFlopSDK.FFPlayer)
+  func onStopped(player: FlipFlopSDK.FFPlayer)
+  func onCompleted(player: FlipFlopSDK.FFPlayer)
+  func onProgressUpdated(player: FlipFlopSDK.FFPlayer, mSec: Swift.UInt64)
+  func onSeekCompleted(player: FlipFlopSDK.FFPlayer, mSec: Swift.UInt64)
+  func onError(player: FlipFlopSDK.FFPlayer, error: FlipFlopSDK.FFPlayerError)
+  func onChatMessgeReceived(player: FlipFlopSDK.FFPlayer, message: FlipFlopSDK.FFMessage)
+  func onBackground(player: FlipFlopSDK.FFPlayer)
+  func onForeground(player: FlipFlopSDK.FFPlayer)
+}
+public class FFPlayer {
+  weak public var delegate: FlipFlopSDK.FFPlayerDelegate?
+  public var duration: Swift.UInt64 {
+    get
+  }
+  public var isMuted: Swift.Bool {
+    get
+    set
+  }
+  public func prepare(view: UIKit.UIView)
+  public func start()
+  public func pause()
+  public func resume()
+  public func stop()
+  public func seekTo(percent: Swift.Float)
+  public func reset()
+  public func sendMessage(text: Swift.String, data: Swift.String? = nil, customType: Swift.String? = nil)
+  @objc deinit
+}
+public class MultiAppender : FlipFlopSDK.LogboardAppender {
+  public var appenders: [FlipFlopSDK.LogboardAppender]
+  public init()
+  public func append(_ logboard: FlipFlopSDK.Logboard, level: FlipFlopSDK.Logboard.Level, message: [Any], file: Swift.StaticString, function: Swift.StaticString, line: Swift.Int)
+  public func append(_ logboard: FlipFlopSDK.Logboard, level: FlipFlopSDK.Logboard.Level, format: Swift.String, arguments: Swift.CVarArg, file: Swift.StaticString, function: Swift.StaticString, line: Swift.Int)
+  @objc deinit
+}
+extension FlipFlopSDK.Logboard.Level : Swift.Equatable {}
+extension FlipFlopSDK.Logboard.Level : Swift.Hashable {}
+extension FlipFlopSDK.Logboard.Level : Swift.RawRepresentable {}
+extension FlipFlopSDK.FFMessageType : Swift.Equatable {}
+extension FlipFlopSDK.FFMessageType : Swift.Hashable {}
+extension FlipFlopSDK.FFMessageType : Swift.RawRepresentable {}
+extension FlipFlopSDK.Model : Swift.Equatable {}
+extension FlipFlopSDK.Model : Swift.Hashable {}
+extension FlipFlopSDK.Model : Swift.RawRepresentable {}

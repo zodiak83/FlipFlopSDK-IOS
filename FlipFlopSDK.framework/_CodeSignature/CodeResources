@@ -6,7 +6,7 @@
 	<dict>
 		<key>Headers/FlipFlopSDK-Swift.h</key>
 		<data>
-		OCEkddlBG/G3e/DtrfzGfB9lWs8=
+		oEsU5Xv5ivLO42TUG8xv7FrPNLc=
 		</data>
 		<key>Headers/FlipFlopSDK.h</key>
 		<data>
@@ -14,23 +14,23 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		NRCjuDsgh/76iOyw1RFwdrjA760=
+		9e4y87FxWJ3rk7Nr4XeySNC3Bpw=
 		</data>
 		<key>Modules/FlipFlopSDK.swiftmodule/arm64-apple-ios.swiftdoc</key>
 		<data>
-		OwNy0bw25GRloXj7thFaH09hQ/s=
+		P7u/TKwJBbhlIznVwFwR4OYS64I=
 		</data>
 		<key>Modules/FlipFlopSDK.swiftmodule/arm64-apple-ios.swiftmodule</key>
 		<data>
-		jICaPlrT7q+49ZfRR1ZpFvyM/gA=
+		Q7oJTdbe10H3QNw4j2V51Ox2rTU=
 		</data>
 		<key>Modules/FlipFlopSDK.swiftmodule/arm64.swiftdoc</key>
 		<data>
-		OwNy0bw25GRloXj7thFaH09hQ/s=
+		P7u/TKwJBbhlIznVwFwR4OYS64I=
 		</data>
 		<key>Modules/FlipFlopSDK.swiftmodule/arm64.swiftmodule</key>
 		<data>
-		jICaPlrT7q+49ZfRR1ZpFvyM/gA=
+		Q7oJTdbe10H3QNw4j2V51Ox2rTU=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -43,7 +43,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			WAsPTuMx8Cdy3hLc+uwRXjA/D3HXPSKfnwtJitFYAls=
+			uJBsqVzd4NVwkuVi0C+OXOLkbnseWblp9pWW+HM5ZWI=
 			</data>
 		</dict>
 		<key>Headers/FlipFlopSDK.h</key>
@@ -57,28 +57,28 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			GnQBsn+oxm2jvahuiQFJEcvC+qRCd4IRdjf/yjJpd5g=
+			kgUFNKGCDMGCQk50MQ7LJcR9+fbTYEJa6ommDdkdRXk=
 			</data>
 		</dict>
 		<key>Modules/FlipFlopSDK.swiftmodule/arm64-apple-ios.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			JTfCzg3AiWJ2zAUIXGAk/hvqUTtLpO49NjCe4Hve8ds=
+			tQ50phfAnl4b+ynVdix+9b3NTZjLqefoSQsJwkWe7Ug=
 			</data>
 		</dict>
 		<key>Modules/FlipFlopSDK.swiftmodule/arm64.swiftdoc</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			GnQBsn+oxm2jvahuiQFJEcvC+qRCd4IRdjf/yjJpd5g=
+			kgUFNKGCDMGCQk50MQ7LJcR9+fbTYEJa6ommDdkdRXk=
 			</data>
 		</dict>
 		<key>Modules/FlipFlopSDK.swiftmodule/arm64.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			JTfCzg3AiWJ2zAUIXGAk/hvqUTtLpO49NjCe4Hve8ds=
+			tQ50phfAnl4b+ynVdix+9b3NTZjLqefoSQsJwkWe7Ug=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

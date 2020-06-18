@@ -1,0 +1,11 @@
+framework module FlipFlopSDK {
+  umbrella header "FlipFlopSDK.h"
+
+  export *
+  module * { export * }
+}
+
+module FlipFlopSDK.Swift {
+    header "FlipFlopSDK-Swift.h"
+    requires objc
+}

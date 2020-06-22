@@ -238,6 +238,33 @@ SWIFT_PROTOCOL("_TtP11FlipFlopSDK12FFConference_")
 @end
 
 
+SWIFT_PROTOCOL("_TtP11FlipFlopSDK14FFStreamConfig_")
+@protocol FFStreamConfig
+@property (nonatomic) NSInteger width;
+@property (nonatomic) NSInteger height;
+@property (nonatomic) NSInteger videoBitrate;
+@property (nonatomic) NSInteger keyFrameInterval;
+@property (nonatomic) NSInteger fps;
+@property (nonatomic) NSInteger sampleRate;
+@property (nonatomic) NSInteger audioBitrate;
+@property (nonatomic) AVCaptureDevicePosition cameraPos;
+@end
+
+
+SWIFT_CLASS("_TtC11FlipFlopSDK18FFConferenceConfig")
+@interface FFConferenceConfig : NSObject <FFStreamConfig>
+@property (nonatomic) NSInteger width;
+@property (nonatomic) NSInteger height;
+@property (nonatomic) NSInteger videoBitrate;
+@property (nonatomic) NSInteger keyFrameInterval;
+@property (nonatomic) NSInteger fps;
+@property (nonatomic) NSInteger sampleRate;
+@property (nonatomic) NSInteger audioBitrate;
+@property (nonatomic) AVCaptureDevicePosition cameraPos;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
 SWIFT_PROTOCOL("_TtP11FlipFlopSDK20FFConferenceDelegate_")
 @protocol FFConferenceDelegate
 - (void)onPreparedWithConference:(id <FFConference> _Nonnull)conference;
@@ -268,6 +295,20 @@ SWIFT_PROTOCOL("_TtP11FlipFlopSDK5FFRTC_")
 @end
 
 
+SWIFT_CLASS("_TtC11FlipFlopSDK11FFRTCConfig")
+@interface FFRTCConfig : NSObject <FFStreamConfig>
+@property (nonatomic) NSInteger width;
+@property (nonatomic) NSInteger height;
+@property (nonatomic) NSInteger videoBitrate;
+@property (nonatomic) NSInteger keyFrameInterval;
+@property (nonatomic) NSInteger fps;
+@property (nonatomic) NSInteger sampleRate;
+@property (nonatomic) NSInteger audioBitrate;
+@property (nonatomic) AVCaptureDevicePosition cameraPos;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
 SWIFT_PROTOCOL("_TtP11FlipFlopSDK13FFRTCDelegate_")
 @protocol FFRTCDelegate
 - (void)onPreparedWithRtc:(id <FFRTC> _Nonnull)rtc;
@@ -278,18 +319,6 @@ SWIFT_PROTOCOL("_TtP11FlipFlopSDK13FFRTCDelegate_")
 - (void)onErrorWithRtc:(id <FFRTC> _Nonnull)rtc errorCode:(NSInteger)errorCode error:(NSString * _Nonnull)error;
 @end
 
-
-SWIFT_PROTOCOL("_TtP11FlipFlopSDK14FFStreamConfig_")
-@protocol FFStreamConfig
-@property (nonatomic) NSInteger width;
-@property (nonatomic) NSInteger height;
-@property (nonatomic) NSInteger videoBitrate;
-@property (nonatomic) NSInteger keyFrameInterval;
-@property (nonatomic) NSInteger fps;
-@property (nonatomic) NSInteger sampleRate;
-@property (nonatomic) NSInteger audioBitrate;
-@property (nonatomic) AVCaptureDevicePosition cameraPos;
-@end
 
 
 SWIFT_CLASS("_TtC11FlipFlopSDK8FlipFlop")

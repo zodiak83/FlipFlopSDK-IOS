@@ -6,7 +6,7 @@
 	<dict>
 		<key>Headers/FlipFlopSDK-Swift.h</key>
 		<data>
-		ojp1p2IACjKViRmmHbu6k7NMIrc=
+		ag6mdf50+dZHBFrrfXNtYM7cdjY=
 		</data>
 		<key>Headers/FlipFlopSDK.h</key>
 		<data>
@@ -18,11 +18,11 @@
 		</data>
 		<key>Modules/FlipFlopSDK.swiftmodule/Project/arm64-apple-ios.swiftsourceinfo</key>
 		<data>
-		pN9AwFs2B9gal97g8oCjvxqhY1g=
+		6gPJroMlMLGT2tpX2t5GO/Yh7vA=
 		</data>
 		<key>Modules/FlipFlopSDK.swiftmodule/Project/arm64.swiftsourceinfo</key>
 		<data>
-		pN9AwFs2B9gal97g8oCjvxqhY1g=
+		6gPJroMlMLGT2tpX2t5GO/Yh7vA=
 		</data>
 		<key>Modules/FlipFlopSDK.swiftmodule/arm64-apple-ios.swiftdoc</key>
 		<data>
@@ -30,7 +30,7 @@
 		</data>
 		<key>Modules/FlipFlopSDK.swiftmodule/arm64-apple-ios.swiftmodule</key>
 		<data>
-		Otwi1sRjWcpZjlBkglL00tHPI0Q=
+		7098SyekQm8eI7IOMh/BRPSdXjw=
 		</data>
 		<key>Modules/FlipFlopSDK.swiftmodule/arm64.swiftdoc</key>
 		<data>
@@ -38,7 +38,7 @@
 		</data>
 		<key>Modules/FlipFlopSDK.swiftmodule/arm64.swiftmodule</key>
 		<data>
-		Otwi1sRjWcpZjlBkglL00tHPI0Q=
+		7098SyekQm8eI7IOMh/BRPSdXjw=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -51,7 +51,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			PqQ3uWsKNU0GbJ6GmGPV4+w+i6+sqEAhk79aayH9SBQ=
+			FdlJfu9t1+4z9lUzuctwVEwxjgLx26JsaoPIY0qfsoE=
 			</data>
 		</dict>
 		<key>Headers/FlipFlopSDK.h</key>
@@ -65,14 +65,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			A6L7GYMAMzyOXlepAhsgm4cZwrWZxQeCt4qMtlySYlI=
+			uTGpziFF3STxyvIjiOYdHepX3TLs1ZR7QktD9X7q2RE=
 			</data>
 		</dict>
 		<key>Modules/FlipFlopSDK.swiftmodule/Project/arm64.swiftsourceinfo</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			A6L7GYMAMzyOXlepAhsgm4cZwrWZxQeCt4qMtlySYlI=
+			uTGpziFF3STxyvIjiOYdHepX3TLs1ZR7QktD9X7q2RE=
 			</data>
 		</dict>
 		<key>Modules/FlipFlopSDK.swiftmodule/arm64-apple-ios.swiftdoc</key>
@@ -86,7 +86,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			GWpqlUkqQIpak6IP0Cxe8EAEMfjDapSzLnAGTbcDggM=
+			B0OQOCcU0cVP/i4WAhszVk0nTTnplW2G4iTgOQyxhlM=
 			</data>
 		</dict>
 		<key>Modules/FlipFlopSDK.swiftmodule/arm64.swiftdoc</key>
@@ -100,7 +100,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			GWpqlUkqQIpak6IP0Cxe8EAEMfjDapSzLnAGTbcDggM=
+			B0OQOCcU0cVP/i4WAhszVk0nTTnplW2G4iTgOQyxhlM=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

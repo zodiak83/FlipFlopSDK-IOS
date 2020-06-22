@@ -5,7 +5,7 @@ Live Commerce IOS SDK
 ## 요구사항
 * iOS 11.0+
 * Xcode 11+
-* Swift 5.0+
+* Swift 4.2+
 
 ## 설치
 ### CocoaPods
@@ -22,6 +22,9 @@ Live Commerce IOS SDK
     Privacy - Bluetooth Always Usage Description      
     Privacy - Camera Usage Description
     Privacy - Microphone Usage Description
+
+### 빌드 설정
+    Build Settings > Build Options > Enable Bitcode 옵션을 No로 설정
 
 ## 사용법
 ### 라이브러리 초기화

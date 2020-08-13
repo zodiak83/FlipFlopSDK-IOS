@@ -187,6 +187,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #pragma clang diagnostic ignored "-Watimport-in-framework-header"
 #endif
 @import AVFoundation;
+@import CoreGraphics;
 @import Foundation;
 @import ObjectiveC;
 @import UIKit;
@@ -217,8 +218,84 @@ SWIFT_CLASS("_TtC11FlipFlopSDK20ACThumbnailGenerator")
 
 
 
-@protocol FFConferenceDelegate;
+@protocol PlayerDelegate;
+enum PlayerState : NSInteger;
 @class UIView;
+
+SWIFT_PROTOCOL("_TtP11FlipFlopSDK6Player_")
+@protocol Player
+/// player delegate
+@property (nonatomic, strong) id <PlayerDelegate> _Nullable delegate;
+/// player status
+@property (nonatomic) enum PlayerState state;
+/// video total duration (second)
+@property (nonatomic, readonly) double duration;
+/// mute
+@property (nonatomic) BOOL isMuted;
+/// repeat
+@property (nonatomic) BOOL isRepeat;
+@property (nonatomic, copy) NSString * _Nonnull userID;
+/// prepare video resource
+- (void)prepareWithView:(UIView * _Nonnull)view;
+/// start video
+- (void)start;
+/// pause video
+- (void)pause;
+/// resume video after pause
+- (void)resume;
+/// stop video
+- (void)stop;
+/// reset video
+- (void)reset;
+/// seek to percent
+- (void)seekToPercent:(float)percent;
+/// seek to milisecond
+- (void)seekToMSec:(int64_t)mSec;
+@end
+
+
+SWIFT_CLASS("_TtC11FlipFlopSDK10FFAVPlayer")
+@interface FFAVPlayer : NSObject <Player>
+@property (nonatomic) BOOL isRepeat;
+/// player delegate
+@property (nonatomic, weak) id <PlayerDelegate> _Nullable delegate;
+@property (nonatomic, copy) NSString * _Nonnull userID;
+@property (nonatomic) AVLayerVideoGravity _Nonnull videoGravity;
+/// duration of current play item
+@property (nonatomic, readonly) double duration;
+@property (nonatomic) BOOL isMuted;
+/// player state
+@property (nonatomic) enum PlayerState state;
+- (nonnull instancetype)initWithDataSourceURI:(NSString * _Nonnull)dataSourceURI isLive:(BOOL)isLive OBJC_DESIGNATED_INITIALIZER;
+/// prepare player
+- (void)prepareWithView:(UIView * _Nonnull)view;
+- (void)observeValueForKeyPath:(NSString * _Nullable)keyPath ofObject:(id _Nullable)object change:(NSDictionary<NSKeyValueChangeKey, id> * _Nullable)change context:(void * _Nullable)context;
+/// pause player
+- (void)pause;
+/// resume player
+- (void)resume;
+/// start player
+- (void)start;
+/// stop player
+- (void)stop;
+/// seek player
+/// \param seek seek position in seconds
+///
+- (void)seekToPercent:(float)percent;
+- (void)seekToMSec:(int64_t)mSec;
+/// reset player
+- (void)reset;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_DEPRECATED_MSG("-init is unavailable");
+@end
+
+
+
+
+
+
+
+@protocol FFConferenceDelegate;
 @protocol FFStreamConfig;
 
 SWIFT_PROTOCOL("_TtP11FlipFlopSDK12FFConference_")
@@ -230,9 +307,9 @@ SWIFT_PROTOCOL("_TtP11FlipFlopSDK12FFConference_")
 - (void)connect;
 - (void)disconnect;
 - (void)createRoomWithMaxPublisher:(NSInteger)maxPublisher;
-- (void)destroyRoomWithRoomID:(uint64_t)roomID;
-- (void)joinWithRoomID:(uint64_t)roomID userID:(uint64_t)userID;
-- (void)leaveWithRoomID:(uint64_t)roomID;
+- (void)destroyRoomWithRoomID:(NSString * _Nonnull)roomID;
+- (void)joinWithRoomID:(NSString * _Nonnull)roomID userID:(NSString * _Nonnull)userID;
+- (void)leaveWithRoomID:(NSString * _Nonnull)roomID;
 - (void)reset;
 - (void)switchCamera;
 @end
@@ -270,10 +347,10 @@ SWIFT_PROTOCOL("_TtP11FlipFlopSDK20FFConferenceDelegate_")
 - (void)onPreparedWithConference:(id <FFConference> _Nonnull)conference;
 - (void)onConnectedWithConference:(id <FFConference> _Nonnull)conference;
 - (void)onDisConnectedWithConference:(id <FFConference> _Nonnull)conference;
-- (void)onRoomCreatedWithConference:(id <FFConference> _Nonnull)conference roomID:(uint64_t)roomID;
-- (void)onRoomDestroyedWithConference:(id <FFConference> _Nonnull)conference roomID:(uint64_t)roomID;
-- (UIView * _Nullable)onJoinedWithConference:(id <FFConference> _Nonnull)conference roomID:(uint64_t)roomID userID:(uint64_t)userID SWIFT_WARN_UNUSED_RESULT;
-- (void)onLeavedWithConference:(id <FFConference> _Nonnull)conference roomID:(uint64_t)roomID userID:(uint64_t)userID;
+- (void)onRoomCreatedWithConference:(id <FFConference> _Nonnull)conference roomID:(NSString * _Nonnull)roomID;
+- (void)onRoomDestroyedWithConference:(id <FFConference> _Nonnull)conference roomID:(NSString * _Nonnull)roomID;
+- (UIView * _Nullable)onJoinedWithConference:(id <FFConference> _Nonnull)conference roomID:(NSString * _Nonnull)roomID userID:(NSString * _Nonnull)userID SWIFT_WARN_UNUSED_RESULT;
+- (void)onLeavedWithConference:(id <FFConference> _Nonnull)conference roomID:(NSString * _Nonnull)roomID userID:(NSString * _Nonnull)userID;
 - (void)onErrorWithConference:(id <FFConference> _Nonnull)conference errorCode:(NSInteger)errorCode error:(NSString * _Nonnull)error;
 @end
 
@@ -287,9 +364,9 @@ SWIFT_PROTOCOL("_TtP11FlipFlopSDK5FFRTC_")
 - (void)connect;
 - (void)disconnect;
 - (void)createRoom;
-- (void)destroyRoomWithRoomID:(uint64_t)roomID;
-- (void)joinWithRoomID:(uint64_t)roomID userID:(uint64_t)userID;
-- (void)leaveWithRoomID:(uint64_t)roomID;
+- (void)destroyRoomWithRoomID:(NSString * _Nonnull)roomID;
+- (void)joinWithRoomID:(NSString * _Nonnull)roomID userID:(NSString * _Nonnull)userID;
+- (void)leaveWithRoomID:(NSString * _Nonnull)roomID;
 - (void)reset;
 - (void)switchCamera;
 @end
@@ -314,8 +391,8 @@ SWIFT_PROTOCOL("_TtP11FlipFlopSDK13FFRTCDelegate_")
 - (void)onPreparedWithRtc:(id <FFRTC> _Nonnull)rtc;
 - (void)onConnectedWithRtc:(id <FFRTC> _Nonnull)rtc;
 - (void)onDisConnectedWithRtc:(id <FFRTC> _Nonnull)rtc;
-- (void)onRoomCreatedWithRtc:(id <FFRTC> _Nonnull)rtc roomID:(uint64_t)roomID;
-- (void)onRoomDestroyedWithRtc:(id <FFRTC> _Nonnull)rtc roomID:(uint64_t)roomID;
+- (void)onRoomCreatedWithRtc:(id <FFRTC> _Nonnull)rtc roomID:(NSString * _Nonnull)roomID;
+- (void)onRoomDestroyedWithRtc:(id <FFRTC> _Nonnull)rtc roomID:(NSString * _Nonnull)roomID;
 - (void)onErrorWithRtc:(id <FFRTC> _Nonnull)rtc errorCode:(NSInteger)errorCode error:(NSString * _Nonnull)error;
 @end
 
@@ -336,6 +413,82 @@ SWIFT_CLASS("_TtC11FlipFlopSDK13FlipFlopMedia")
 @end
 
 
+
+
+enum PlayerError : NSInteger;
+
+/// Player Delegate
+SWIFT_PROTOCOL("_TtP11FlipFlopSDK14PlayerDelegate_")
+@protocol PlayerDelegate
+/// FFPlayer prepared
+- (void)onPreparedWithPlayer:(id <Player> _Nonnull)player;
+/// FFPlayer paused
+- (void)onPausedWithPlayer:(id <Player> _Nonnull)player;
+/// FFPlayer resumed after pause
+- (void)onResumedWithPlayer:(id <Player> _Nonnull)player;
+/// FFPlayer started
+- (void)onStartedWithPlayer:(id <Player> _Nonnull)player;
+/// FFPlayer stopped
+- (void)onStoppedWithPlayer:(id <Player> _Nonnull)player;
+/// FFPlayer playback completed
+- (void)onCompletedWithPlayer:(id <Player> _Nonnull)player;
+/// FFPlayer seek completed
+- (void)onSeekCompletedWithPlayer:(id <Player> _Nonnull)player percent:(double)percent mSec:(uint64_t)mSec;
+/// FFPlayer error occured
+- (void)onErrorWithPlayer:(id <Player> _Nonnull)player error:(enum PlayerError)error;
+/// FFPlayer playback download updated
+- (void)onPlaybackDownloadUpdatedWithPlayer:(id <Player> _Nonnull)player percent:(double)percent;
+/// FFPlayer playback progress updated
+- (void)onProgressUpdatedWithPlayer:(id <Player> _Nonnull)player percent:(double)percent mSec:(uint64_t)mSec;
+/// FFPlayer playback bufferring started
+- (void)onBufferingStartedWithPlayer:(id <Player> _Nonnull)player;
+/// FFPlayer playback bufferring ended
+- (void)onBufferingEndedWithPlayer:(id <Player> _Nonnull)player;
+- (void)onVideoResolutionSizeWithPlayer:(id <Player> _Nonnull)player size:(CGSize)size;
+@end
+
+/// FFPlayerError is the error type.
+/// <ul>
+///   <li>
+///     IllegalArgumentException: missing or invalid argument when preparing
+///   </li>
+///   <li>
+///     IllegalAudioSessionException: audioSession error
+///   </li>
+///   <li>
+///     IllegalPlaybackException: playback error
+///   </li>
+/// </ul>
+typedef SWIFT_ENUM(NSInteger, PlayerError, closed) {
+  PlayerErrorIllegalArgumentException = 0,
+  PlayerErrorIllegalAudioSessionException = 1,
+  PlayerErrorIllegalPlaybackException = 2,
+  PlayerErrorIllegalPlayListException = 3,
+  PlayerErrorUnknown = 4,
+  PlayerErrorDisconnected = 5,
+};
+
+/// PlayerState is the player state
+/// <ul>
+///   <li>
+///     idle: initialized but not prepared
+///   </li>
+///   <li>
+///     prepared: prepare completed
+///   </li>
+///   <li>
+///     started: start completed
+///   </li>
+///   <li>
+///     paused: pause completed
+///   </li>
+/// </ul>
+typedef SWIFT_ENUM(NSInteger, PlayerState, closed) {
+  PlayerStateIdle = 0,
+  PlayerStatePrepared = 1,
+  PlayerStateStarted = 2,
+  PlayerStatePaused = 3,
+};
 
 
 

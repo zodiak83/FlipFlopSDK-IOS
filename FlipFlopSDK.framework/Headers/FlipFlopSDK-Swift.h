@@ -189,7 +189,6 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 @import AVFoundation;
 @import CoreGraphics;
 @import Foundation;
-@import OCResult;
 @import ObjectiveC;
 @import UIKit;
 #endif
@@ -422,11 +421,6 @@ SWIFT_CLASS("_TtC11FlipFlopSDK8FlipFlop")
 + (nonnull instancetype)new SWIFT_DEPRECATED_MSG("-init is unavailable");
 @end
 
-typedef SWIFT_ENUM(NSInteger, FFResultKind, closed) {
-  FFResultKindSuccess = 0,
-  FFResultKindFailure = 1,
-};
-
 
 SWIFT_CLASS("_TtC11FlipFlopSDK13FlipFlopMedia")
 @interface FlipFlopMedia : NSObject
@@ -434,8 +428,6 @@ SWIFT_CLASS("_TtC11FlipFlopSDK13FlipFlopMedia")
 + (id <FFRTC> _Nonnull)getRTC SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
-
-
 
 
 

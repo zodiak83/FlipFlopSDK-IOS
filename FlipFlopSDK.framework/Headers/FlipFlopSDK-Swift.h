@@ -189,6 +189,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 @import AVFoundation;
 @import CoreGraphics;
 @import Foundation;
+@import OCResult;
 @import ObjectiveC;
 @import UIKit;
 #endif
@@ -354,6 +355,15 @@ SWIFT_PROTOCOL("_TtP11FlipFlopSDK20FFConferenceDelegate_")
 - (void)onErrorWithConference:(id <FFConference> _Nonnull)conference errorCode:(NSInteger)errorCode error:(NSString * _Nonnull)error;
 @end
 
+
+SWIFT_CLASS("_TtC11FlipFlopSDK7FFError")
+@interface FFError : NSObject
+@property (nonatomic, readonly) NSInteger code;
+@property (nonatomic, readonly, copy) NSString * _Nonnull message;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_DEPRECATED_MSG("-init is unavailable");
+@end
+
 @protocol FFRTCDelegate;
 
 SWIFT_PROTOCOL("_TtP11FlipFlopSDK5FFRTC_")
@@ -400,9 +410,22 @@ SWIFT_PROTOCOL("_TtP11FlipFlopSDK13FFRTCDelegate_")
 
 SWIFT_CLASS("_TtC11FlipFlopSDK8FlipFlop")
 @interface FlipFlop : NSObject
+@property (nonatomic, readonly, copy) NSString * _Nonnull userID;
+@property (nonatomic, readonly, copy) NSString * _Nonnull userName;
+@property (nonatomic, readonly, copy) NSString * _Nonnull avatarProfileURL;
++ (void)initializeWithAppKey:(NSString * _Nonnull)appKey appSecret:(NSString * _Nonnull)appSecret;
++ (void)uninitialize;
++ (void)debugWithLevel:(NSInteger)level;
++ (void)authenticationWithUserID:(NSString * _Nonnull)userID userName:(NSString * _Nonnull)userName avatarProfileURL:(NSString * _Nonnull)avatarProfileURL onSuccess:(void (^ _Nullable)(FlipFlop * _Nonnull))onSuccess onFailure:(void (^ _Nullable)(FFError * _Nonnull))onFailure;
+- (FFAVPlayer * _Nonnull)getAVPlayerWithDataSourceURL:(NSString * _Nonnull)dataSourceURL SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_DEPRECATED_MSG("-init is unavailable");
 @end
+
+typedef SWIFT_ENUM(NSInteger, FFResultKind, closed) {
+  FFResultKindSuccess = 0,
+  FFResultKindFailure = 1,
+};
 
 
 SWIFT_CLASS("_TtC11FlipFlopSDK13FlipFlopMedia")
@@ -411,6 +434,8 @@ SWIFT_CLASS("_TtC11FlipFlopSDK13FlipFlopMedia")
 + (id <FFRTC> _Nonnull)getRTC SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
+
+
 
 
 

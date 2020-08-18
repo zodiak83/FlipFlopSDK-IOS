@@ -60,7 +60,6 @@
             nil];
 }
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"willDisplayCell: %ld",indexPath.item);
     if ([[tableView indexPathsForVisibleRows] containsObject:indexPath]) {
         
         PlayerCell *c = (PlayerCell*)cell;
@@ -71,12 +70,10 @@
     }
 }
 - (void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"didEndDisplayingCell: %ld",indexPath.item);
     PlayerCell *c = (PlayerCell*)cell;
     [c.player reset];
 }
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    NSLog(@"cellForRowAtIndexPath: %ld",indexPath.item);
     PlayerCell *cell = (PlayerCell*)[tableView dequeueReusableCellWithIdentifier:@"PlayerCell" forIndexPath:indexPath];
     cell.player = [[SimpleListPlayerViewController players: sdk] objectAtIndex:indexPath.item];
     cell.tag = indexPath.item;

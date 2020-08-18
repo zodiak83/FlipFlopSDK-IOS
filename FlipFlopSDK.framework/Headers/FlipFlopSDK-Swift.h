@@ -266,13 +266,11 @@ SWIFT_CLASS("_TtC11FlipFlopSDK10FFAVPlayer")
 @property (nonatomic) BOOL isMuted;
 /// player state
 @property (nonatomic) enum PlayerState state;
-- (nonnull instancetype)initWithDataSourceURI:(NSString * _Nonnull)dataSourceURI isLive:(BOOL)isLive OBJC_DESIGNATED_INITIALIZER;
-- (nonnull instancetype)initWithDataSourceURL:(NSURL * _Nonnull)dataSourceURL isLive:(BOOL)isLive OBJC_DESIGNATED_INITIALIZER;
 /// prepare player
 - (void)prepareWithView:(UIView * _Nonnull)view;
 - (void)observeValueForKeyPath:(NSString * _Nullable)keyPath ofObject:(id _Nullable)object change:(NSDictionary<NSKeyValueChangeKey, id> * _Nullable)change context:(void * _Nullable)context;
 ///
-- (void)replaceCurrentItemWithDataSourceURL:(NSURL * _Nonnull)dataSourceURL;
+- (void)replaceCurrentItemWithDataSourceURI:(NSString * _Nonnull)dataSourceURI;
 /// pause player
 - (void)pause;
 /// resume player

@@ -1,8 +1,8 @@
 //
-//  SimpleLivePlayerViewController.h
+//  SimplePlayerViewController.h
 //  FlipFlopSDKSampleIOS-objc
 //
-//  Created by Jeon HyungGue on 2020/09/04.
+//  Created by Jeon HyungGue on 2020/09/03.
 //  Copyright © 2020 Jeon HyungGue. All rights reserved.
 //
 
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SimpleLivePlayerViewController : UIViewController
+@interface SimplePlayerViewController : UIViewController
 
 @end
 

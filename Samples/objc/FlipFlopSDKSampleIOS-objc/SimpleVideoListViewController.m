@@ -1,18 +1,18 @@
 //
-//  SimpleLivePlayerViewController.m
+//  SimpleVideoListViewController.m
 //  FlipFlopSDKSampleIOS-objc
 //
 //  Created by Jeon HyungGue on 2020/09/04.
 //  Copyright © 2020 Jeon HyungGue. All rights reserved.
 //
 
-#import "SimpleLivePlayerViewController.h"
+#import "SimpleVideoListViewController.h"
 
-@interface SimpleLivePlayerViewController ()
+@interface SimpleVideoListViewController ()
 
 @end
 
-@implementation SimpleLivePlayerViewController
+@implementation SimpleVideoListViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

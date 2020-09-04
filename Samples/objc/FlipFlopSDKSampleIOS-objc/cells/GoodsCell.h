@@ -1,5 +1,5 @@
 //
-//  SimpleLivePlayerViewController.h
+//  GoodsCell.h
 //  FlipFlopSDKSampleIOS-objc
 //
 //  Created by Jeon HyungGue on 2020/09/04.
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SimpleLivePlayerViewController : UIViewController
+@interface GoodsCell : UITableViewCell
 
 @end
 

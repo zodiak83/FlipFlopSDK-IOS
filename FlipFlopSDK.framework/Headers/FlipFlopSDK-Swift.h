@@ -365,6 +365,127 @@ SWIFT_CLASS("_TtC11FlipFlopSDK7FFError")
 + (nonnull instancetype)new SWIFT_DEPRECATED_MSG("-init is unavailable");
 @end
 
+enum FFMessageType : NSInteger;
+
+SWIFT_CLASS("_TtC11FlipFlopSDK9FFMessage")
+@interface FFMessage : NSObject
+@property (nonatomic, readonly) enum FFMessageType type;
+@property (nonatomic, readonly, copy) NSString * _Nonnull id;
+@property (nonatomic, readonly, copy) NSString * _Nonnull message;
+@property (nonatomic, readonly) uint64_t createAt;
+@property (nonatomic, readonly, copy) NSString * _Nonnull userID;
+@property (nonatomic, copy) NSString * _Nonnull userName;
+@property (nonatomic, copy) NSString * _Nullable avatarProfileURL;
+@property (nonatomic, readonly, copy) NSString * _Nullable data;
+@property (nonatomic, readonly, copy) NSString * _Nullable customType;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_DEPRECATED_MSG("-init is unavailable");
+@end
+
+
+@interface FFMessage (SWIFT_EXTENSION(FlipFlopSDK))
+@property (nonatomic, readonly, copy) NSString * _Nonnull description;
+@end
+
+typedef SWIFT_ENUM(NSInteger, FFMessageType, closed) {
+  FFMessageTypeMsg = 0,
+  FFMessageTypeJoin = 1,
+  FFMessageTypeLeave = 2,
+  FFMessageTypeAdmin = 3,
+  FFMessageTypeStat = 4,
+  FFMessageTypeWhisper = 5,
+  FFMessageTypeUnknown = 6,
+};
+
+@protocol FFPlayerDelegate;
+
+SWIFT_CLASS("_TtC11FlipFlopSDK8FFPlayer")
+@interface FFPlayer : NSObject
+@property (nonatomic, weak) id <FFPlayerDelegate> _Nullable delegate;
+@property (nonatomic, readonly) uint64_t duration;
+@property (nonatomic) BOOL isMuted;
+- (void)prepareWithView:(UIView * _Nonnull)view;
+- (void)start;
+- (void)pause;
+- (void)resume;
+- (void)stop;
+- (void)seekToPercent:(float)percent;
+- (void)reset;
+- (void)sendMessageWithText:(NSString * _Nonnull)text data:(NSString * _Nullable)data customType:(NSString * _Nullable)customType;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_DEPRECATED_MSG("-init is unavailable");
+@end
+
+
+
+enum PlayerError : NSInteger;
+
+/// Player Delegate
+SWIFT_PROTOCOL("_TtP11FlipFlopSDK14PlayerDelegate_")
+@protocol PlayerDelegate
+/// FFPlayer prepared
+- (void)onPreparedWithPlayer:(id <Player> _Nonnull)player;
+/// FFPlayer paused
+- (void)onPausedWithPlayer:(id <Player> _Nonnull)player;
+/// FFPlayer resumed after pause
+- (void)onResumedWithPlayer:(id <Player> _Nonnull)player;
+/// FFPlayer started
+- (void)onStartedWithPlayer:(id <Player> _Nonnull)player;
+/// FFPlayer stopped
+- (void)onStoppedWithPlayer:(id <Player> _Nonnull)player;
+/// FFPlayer playback completed
+- (void)onCompletedWithPlayer:(id <Player> _Nonnull)player;
+/// FFPlayer seek completed
+- (void)onSeekCompletedWithPlayer:(id <Player> _Nonnull)player percent:(double)percent mSec:(uint64_t)mSec;
+/// FFPlayer error occured
+- (void)onErrorWithPlayer:(id <Player> _Nonnull)player error:(enum PlayerError)error;
+/// FFPlayer playback download updated
+- (void)onPlaybackDownloadUpdatedWithPlayer:(id <Player> _Nonnull)player percent:(double)percent;
+/// FFPlayer playback progress updated
+- (void)onProgressUpdatedWithPlayer:(id <Player> _Nonnull)player percent:(double)percent mSec:(uint64_t)mSec;
+/// FFPlayer playback bufferring started
+- (void)onBufferingStartedWithPlayer:(id <Player> _Nonnull)player;
+/// FFPlayer playback bufferring ended
+- (void)onBufferingEndedWithPlayer:(id <Player> _Nonnull)player;
+- (void)onVideoResolutionSizeWithPlayer:(id <Player> _Nonnull)player size:(CGSize)size;
+@end
+
+
+@interface FFPlayer (SWIFT_EXTENSION(FlipFlopSDK)) <PlayerDelegate>
+- (void)onPreparedWithPlayer:(id <Player> _Nonnull)player;
+- (void)onPausedWithPlayer:(id <Player> _Nonnull)player;
+- (void)onResumedWithPlayer:(id <Player> _Nonnull)player;
+- (void)onStartedWithPlayer:(id <Player> _Nonnull)player;
+- (void)onStoppedWithPlayer:(id <Player> _Nonnull)player;
+- (void)onCompletedWithPlayer:(id <Player> _Nonnull)player;
+- (void)onSeekCompletedWithPlayer:(id <Player> _Nonnull)player percent:(double)percent mSec:(uint64_t)mSec;
+- (void)onErrorWithPlayer:(id <Player> _Nonnull)player error:(enum PlayerError)error;
+- (void)onPlaybackDownloadUpdatedWithPlayer:(id <Player> _Nonnull)player percent:(double)percent;
+- (void)onProgressUpdatedWithPlayer:(id <Player> _Nonnull)player percent:(double)percent mSec:(uint64_t)mSec;
+- (void)onBufferingStartedWithPlayer:(id <Player> _Nonnull)player;
+- (void)onBufferingEndedWithPlayer:(id <Player> _Nonnull)player;
+- (void)onVideoResolutionSizeWithPlayer:(id <Player> _Nonnull)player size:(CGSize)size;
+@end
+
+@class FFStat;
+
+SWIFT_PROTOCOL("_TtP11FlipFlopSDK16FFPlayerDelegate_")
+@protocol FFPlayerDelegate
+- (void)onPreparedWithPlayer:(FFPlayer * _Nonnull)player;
+- (void)onStartedWithPlayer:(FFPlayer * _Nonnull)player;
+- (void)onPausedWithPlayer:(FFPlayer * _Nonnull)player;
+- (void)onResumedWithPlayer:(FFPlayer * _Nonnull)player;
+- (void)onStoppedWithPlayer:(FFPlayer * _Nonnull)player;
+- (void)onCompletedWithPlayer:(FFPlayer * _Nonnull)player;
+- (void)onProgressUpdatedWithPlayer:(FFPlayer * _Nonnull)player mSec:(uint64_t)mSec;
+- (void)onSeekCompletedWithPlayer:(FFPlayer * _Nonnull)player mSec:(uint64_t)mSec;
+- (void)onErrorWithPlayer:(FFPlayer * _Nonnull)player error:(FFError * _Nonnull)error;
+- (void)onChatMessgeReceivedWithPlayer:(FFPlayer * _Nonnull)player message:(FFMessage * _Nonnull)message;
+- (void)onChatStatReceivedWithPlayer:(FFPlayer * _Nonnull)player stat:(FFStat * _Nonnull)stat;
+- (void)onBackgroundWithPlayer:(FFPlayer * _Nonnull)player;
+- (void)onForegroundWithPlayer:(FFPlayer * _Nonnull)player;
+@end
+
 @protocol FFRTCDelegate;
 
 SWIFT_PROTOCOL("_TtP11FlipFlopSDK5FFRTC_")
@@ -408,6 +529,118 @@ SWIFT_PROTOCOL("_TtP11FlipFlopSDK13FFRTCDelegate_")
 @end
 
 
+SWIFT_CLASS("_TtC11FlipFlopSDK6FFStat")
+@interface FFStat : NSObject
+@property (nonatomic) uint64_t participantCount;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_DEPRECATED_MSG("-init is unavailable");
+@end
+
+
+@protocol FFStreamerDelegate;
+@class FFStreamerConfig;
+
+SWIFT_CLASS("_TtC11FlipFlopSDK10FFStreamer")
+@interface FFStreamer : NSObject
+@property (nonatomic, weak) id <FFStreamerDelegate> _Nullable delegate;
+- (void)prepareWithPreview:(UIView * _Nonnull)preview config:(FFStreamerConfig * _Nullable)config;
+- (void)startWithTitle:(NSString * _Nonnull)title content:(NSString * _Nonnull)content jsonGoods:(NSString * _Nullable)jsonGoods;
+- (void)stop;
+- (void)reset;
+- (void)switchCamera;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_DEPRECATED_MSG("-init is unavailable");
+@end
+
+
+
+
+
+
+
+
+SWIFT_CLASS("_TtC11FlipFlopSDK16FFStreamerConfig")
+@interface FFStreamerConfig : NSObject
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+/// FFStreamer Delegate
+SWIFT_PROTOCOL("_TtP11FlipFlopSDK18FFStreamerDelegate_")
+@protocol FFStreamerDelegate
+- (void)onPrepared;
+- (void)onStartedWithStreamName:(NSString * _Nonnull)streamName;
+- (void)onStopped;
+- (void)onCompleted;
+- (void)onErrorWithError:(FFError * _Nonnull)error;
+- (void)onChatMessgeReceivedWithMessage:(FFMessage * _Nonnull)message;
+- (void)onChatStatReceivedWithStat:(FFStat * _Nonnull)stat;
+@end
+
+
+SWIFT_CLASS("_TtC11FlipFlopSDK11FFVideoInfo")
+@interface FFVideoInfo : NSObject
+/// video key
+@property (nonatomic, readonly, copy) NSString * _Nonnull video_key;
+/// video type. ‘BROADCASTED’ or ‘UPLOADED’
+@property (nonatomic, readonly, copy) NSString * _Nonnull type;
+/// owner ID
+@property (nonatomic, readonly, copy) NSString * _Nonnull user_id;
+/// owner name
+@property (nonatomic, readonly, copy) NSString * _Nonnull user_name;
+/// owner avatar url
+@property (nonatomic, readonly, copy) NSString * _Nonnull user_avatar_url;
+/// video title
+@property (nonatomic, readonly, copy) NSString * _Nonnull title;
+/// video description
+@property (nonatomic, readonly, copy) NSString * _Nonnull content;
+/// video state. ‘CREATED’ or ‘LIVE’ or ‘VOD’
+@property (nonatomic, readonly, copy) NSString * _Nonnull state;
+/// video duration, if the broadcast status is ‘VOD’, in miliseconds unit
+@property (nonatomic, readonly) uint64_t duration;
+/// Public scope, ‘PUBLIC’, ‘PRIVATE’
+@property (nonatomic, readonly, copy) NSString * _Nonnull visibility;
+/// mute audio, true | false
+@property (nonatomic, readonly) BOOL muted;
+/// lock video, true | false
+@property (nonatomic, readonly) BOOL locked;
+/// repository url
+@property (nonatomic, readonly, copy) NSString * _Nonnull url;
+/// video thumbnail url
+@property (nonatomic, readonly, copy) NSString * _Nonnull thumbnail_url;
+@property (nonatomic, readonly, copy) NSString * _Nullable live_key;
+/// custom data
+@property (nonatomic, readonly, copy) NSString * _Nonnull data;
+/// live video view count
+@property (nonatomic, readonly) uint64_t watch_count;
+/// live video heart count
+@property (nonatomic, readonly) uint64_t heart_count;
+/// VOD video view count
+@property (nonatomic, readonly) uint64_t view_count;
+/// VOD video like count
+@property (nonatomic, readonly) uint64_t like_count;
+/// liked by me
+@property (nonatomic, readonly) BOOL liked_by_me;
+/// created video time. Unix timestamp value in milliseconds.
+@property (nonatomic, readonly) uint64_t created_at;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_DEPRECATED_MSG("-init is unavailable");
+@end
+
+
+@interface FFVideoInfo (SWIFT_EXTENSION(FlipFlopSDK))
+- (NSString * _Nullable)getGoods SWIFT_WARN_UNUSED_RESULT;
+@end
+
+
+SWIFT_CLASS("_TtC11FlipFlopSDK17FFVideoListLoader")
+@interface FFVideoListLoader : NSObject
+- (void)reset;
+- (void)nextOnSuccess:(void (^ _Nullable)(NSArray<FFVideoInfo *> * _Nonnull))onSuccess onFailure:(void (^ _Nullable)(NSError * _Nonnull))onFailure;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_DEPRECATED_MSG("-init is unavailable");
+@end
+
 
 SWIFT_CLASS("_TtC11FlipFlopSDK8FlipFlop")
 @interface FlipFlop : NSObject
@@ -418,7 +651,13 @@ SWIFT_CLASS("_TtC11FlipFlopSDK8FlipFlop")
 + (void)uninitialize;
 + (void)debugWithLevel:(NSInteger)level;
 + (void)authenticationWithUserID:(NSString * _Nonnull)userID userName:(NSString * _Nonnull)userName avatarProfileURL:(NSString * _Nonnull)avatarProfileURL onSuccess:(void (^ _Nullable)(FlipFlop * _Nonnull))onSuccess onFailure:(void (^ _Nullable)(FFError * _Nonnull))onFailure;
+- (void)updateUserInfoWithUserName:(NSString * _Nullable)userName avatarProfileURL:(NSString * _Nullable)avatarProfileURL onSuccess:(void (^ _Nullable)(void))onSuccess onFailure:(void (^ _Nullable)(FFError * _Nonnull))onFailure;
+- (FFStreamer * _Nonnull)getStreamer SWIFT_WARN_UNUSED_RESULT;
+- (FFPlayer * _Nonnull)getPlayerWithVideo_key:(NSString * _Nonnull)video_key SWIFT_WARN_UNUSED_RESULT;
 - (FFAVPlayer * _Nonnull)getAVPlayerWithDataSourceURL:(NSString * _Nonnull)dataSourceURL SWIFT_WARN_UNUSED_RESULT;
+- (FFVideoListLoader * _Nonnull)getVideoListLoaderWithCursor:(NSString * _Nullable)cursor count:(NSInteger)count userID:(NSString * _Nullable)userID type:(NSString * _Nullable)type state:(NSString * _Nullable)state SWIFT_WARN_UNUSED_RESULT;
+- (void)deleteVideoWithVideoKey:(NSString * _Nonnull)videoKey onSuccess:(void (^ _Nullable)(void))onSuccess onFailure:(void (^ _Nullable)(FFError * _Nonnull))onFailure;
+- (void)uploadVideoWithFilePath:(NSString * _Nonnull)filePath thumbnailPath:(NSString * _Nonnull)thumbnailPath title:(NSString * _Nonnull)title description:(NSString * _Nonnull)description visibility:(NSString * _Nullable)visibility data:(NSString * _Nullable)data uploadProgressBlock:(void (^ _Nullable)(float))uploadProgressBlock onSuccess:(void (^ _Nullable)(void))onSuccess onFailure:(void (^ _Nullable)(FFError * _Nonnull))onFailure;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_DEPRECATED_MSG("-init is unavailable");
 @end
@@ -428,44 +667,12 @@ SWIFT_CLASS("_TtC11FlipFlopSDK13FlipFlopMedia")
 @interface FlipFlopMedia : NSObject
 + (id <FFConference> _Nonnull)getConference SWIFT_WARN_UNUSED_RESULT;
 + (id <FFRTC> _Nonnull)getRTC SWIFT_WARN_UNUSED_RESULT;
-+ (id <FFRTC> _Nonnull)hello SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
 
 
 
-enum PlayerError : NSInteger;
-
-/// Player Delegate
-SWIFT_PROTOCOL("_TtP11FlipFlopSDK14PlayerDelegate_")
-@protocol PlayerDelegate
-/// FFPlayer prepared
-- (void)onPreparedWithPlayer:(id <Player> _Nonnull)player;
-/// FFPlayer paused
-- (void)onPausedWithPlayer:(id <Player> _Nonnull)player;
-/// FFPlayer resumed after pause
-- (void)onResumedWithPlayer:(id <Player> _Nonnull)player;
-/// FFPlayer started
-- (void)onStartedWithPlayer:(id <Player> _Nonnull)player;
-/// FFPlayer stopped
-- (void)onStoppedWithPlayer:(id <Player> _Nonnull)player;
-/// FFPlayer playback completed
-- (void)onCompletedWithPlayer:(id <Player> _Nonnull)player;
-/// FFPlayer seek completed
-- (void)onSeekCompletedWithPlayer:(id <Player> _Nonnull)player percent:(double)percent mSec:(uint64_t)mSec;
-/// FFPlayer error occured
-- (void)onErrorWithPlayer:(id <Player> _Nonnull)player error:(enum PlayerError)error;
-/// FFPlayer playback download updated
-- (void)onPlaybackDownloadUpdatedWithPlayer:(id <Player> _Nonnull)player percent:(double)percent;
-/// FFPlayer playback progress updated
-- (void)onProgressUpdatedWithPlayer:(id <Player> _Nonnull)player percent:(double)percent mSec:(uint64_t)mSec;
-/// FFPlayer playback bufferring started
-- (void)onBufferingStartedWithPlayer:(id <Player> _Nonnull)player;
-/// FFPlayer playback bufferring ended
-- (void)onBufferingEndedWithPlayer:(id <Player> _Nonnull)player;
-- (void)onVideoResolutionSizeWithPlayer:(id <Player> _Nonnull)player size:(CGSize)size;
-@end
 
 /// FFPlayerError is the error type.
 /// <ul>

@@ -21,9 +21,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
+    CFAbsoluteTime timeInSeconds = CFAbsoluteTimeGetCurrent();
+    NSString *userID = [NSString stringWithFormat:@"%.0f",timeInSeconds];
     // 중복되지 않은 USER_ID를 입력하세요 (알파벳 + 숫자 조합)
-    [FlipFlop authenticationWithUserID:@"1234" userName:@"" avatarProfileURL:@"" onSuccess:^(FlipFlop * sdk) {
+    [FlipFlop authenticationWithUserID:userID userName:@"" avatarProfileURL:@"" onSuccess:^(FlipFlop * sdk) {
         self->sdk = sdk;
         
 

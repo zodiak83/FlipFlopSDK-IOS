@@ -33,8 +33,20 @@
         {
             UIViewController* vc = [self.storyboard instantiateViewControllerWithIdentifier:@"SimpleListPlayerViewController"];
             [self.navigationController pushViewController:vc animated:YES];
+            break;
         }
-            
+        case 2:
+        {
+            UIViewController* vc = [self.storyboard instantiateViewControllerWithIdentifier:@"SimpleLiveStreamerViewController"];
+            [self.navigationController pushViewController:vc animated:YES];
+            break;
+        }
+        case 3:
+        {
+            UIViewController* vc = [self.storyboard instantiateViewControllerWithIdentifier:@"SimpleVideoListViewController"];
+            [self.navigationController pushViewController:vc animated:YES];
+            break;
+        }
         default:
             break;
     }

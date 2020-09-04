@@ -5,6 +5,6 @@
         use_frameworks!
 
         # Pods for FlipFlopSDK
-        pod 'FlipFlopSDK',  '0.0.28' 
+        pod 'FlipFlopSDK',  '0.0.31' 
     
     end

@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SimpleVideoListViewController : UIViewController
+@interface SimpleVideoListViewController : UIViewController<UITableViewDataSource, UITableViewDelegate>
 
 @end
 

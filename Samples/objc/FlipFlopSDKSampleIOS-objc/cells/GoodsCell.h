@@ -10,7 +10,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface GoodsCell : UITableViewCell
+@interface GoodsCell : UICollectionViewCell
+@property (weak, nonatomic) IBOutlet UIImageView *imgThumbnail;
 
 @end
 

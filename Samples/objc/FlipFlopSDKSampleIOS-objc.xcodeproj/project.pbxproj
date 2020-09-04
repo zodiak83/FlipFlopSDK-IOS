@@ -8,6 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		4740E3D5621783CC38EB9020 /* Pods_FlipFlopSDKSampleIOS_objc.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45B9561649C998BE054A3739 /* Pods_FlipFlopSDKSampleIOS_objc.framework */; };
+		8E850AE02501DB9400EA5004 /* VideoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E850ADE2501DB9400EA5004 /* VideoCell.m */; };
+		8E850AE12501DB9400EA5004 /* VideoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E850ADF2501DB9400EA5004 /* VideoCell.xib */; };
+		8E850AE52501DBA100EA5004 /* GoodsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E850AE32501DBA100EA5004 /* GoodsCell.m */; };
+		8E850AE62501DBA100EA5004 /* GoodsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E850AE42501DBA100EA5004 /* GoodsCell.xib */; };
+		8E850AEC2501DBE400EA5004 /* SimpleVideoListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E850AEB2501DBE400EA5004 /* SimpleVideoListViewController.m */; };
+		8E850AEF2501DE5500EA5004 /* SimpleLivePlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E850AEE2501DE5500EA5004 /* SimpleLivePlayerViewController.m */; };
+		8E95F6032500E244001F5235 /* SimpleLiveStreamerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E95F6022500E244001F5235 /* SimpleLiveStreamerViewController.m */; };
 		8EA7C57624EB9AF1001B28C2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EA7C57524EB9AF1001B28C2 /* AppDelegate.m */; };
 		8EA7C57924EB9AF1001B28C2 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EA7C57824EB9AF1001B28C2 /* SceneDelegate.m */; };
 		8EA7C57C24EB9AF1001B28C2 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EA7C57B24EB9AF1001B28C2 /* ViewController.m */; };
@@ -25,6 +32,18 @@
 		0E451BD040E31EB7884A98DA /* Pods-FlipFlopSDKSampleIOS-objc.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlipFlopSDKSampleIOS-objc.release.xcconfig"; path = "Target Support Files/Pods-FlipFlopSDKSampleIOS-objc/Pods-FlipFlopSDKSampleIOS-objc.release.xcconfig"; sourceTree = "<group>"; };
 		45B9561649C998BE054A3739 /* Pods_FlipFlopSDKSampleIOS_objc.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FlipFlopSDKSampleIOS_objc.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D7E8BBC7EB2C02D64B5F7F1 /* Pods-FlipFlopSDKSampleIOS-objc.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlipFlopSDKSampleIOS-objc.debug.xcconfig"; path = "Target Support Files/Pods-FlipFlopSDKSampleIOS-objc/Pods-FlipFlopSDKSampleIOS-objc.debug.xcconfig"; sourceTree = "<group>"; };
+		8E850ADD2501DB9400EA5004 /* VideoCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VideoCell.h; sourceTree = "<group>"; };
+		8E850ADE2501DB9400EA5004 /* VideoCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VideoCell.m; sourceTree = "<group>"; };
+		8E850ADF2501DB9400EA5004 /* VideoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VideoCell.xib; sourceTree = "<group>"; };
+		8E850AE22501DBA100EA5004 /* GoodsCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GoodsCell.h; sourceTree = "<group>"; };
+		8E850AE32501DBA100EA5004 /* GoodsCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GoodsCell.m; sourceTree = "<group>"; };
+		8E850AE42501DBA100EA5004 /* GoodsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GoodsCell.xib; sourceTree = "<group>"; };
+		8E850AEA2501DBE400EA5004 /* SimpleVideoListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SimpleVideoListViewController.h; sourceTree = "<group>"; };
+		8E850AEB2501DBE400EA5004 /* SimpleVideoListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SimpleVideoListViewController.m; sourceTree = "<group>"; };
+		8E850AED2501DE5500EA5004 /* SimpleLivePlayerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SimpleLivePlayerViewController.h; sourceTree = "<group>"; };
+		8E850AEE2501DE5500EA5004 /* SimpleLivePlayerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SimpleLivePlayerViewController.m; sourceTree = "<group>"; };
+		8E95F6012500E244001F5235 /* SimpleLiveStreamerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SimpleLiveStreamerViewController.h; sourceTree = "<group>"; };
+		8E95F6022500E244001F5235 /* SimpleLiveStreamerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SimpleLiveStreamerViewController.m; sourceTree = "<group>"; };
 		8EA7C57124EB9AF1001B28C2 /* FlipFlopSDKSampleIOS-objc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "FlipFlopSDKSampleIOS-objc.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8EA7C57424EB9AF1001B28C2 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		8EA7C57524EB9AF1001B28C2 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -67,6 +86,22 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		8E850ADC2501DB2C00EA5004 /* cells */ = {
+			isa = PBXGroup;
+			children = (
+				8EA7C59524EB9BDA001B28C2 /* PlayerCell.h */,
+				8EA7C59624EB9BDA001B28C2 /* PlayerCell.m */,
+				8EA7C59324EB9BD0001B28C2 /* PlayerCell.xib */,
+				8E850ADD2501DB9400EA5004 /* VideoCell.h */,
+				8E850ADE2501DB9400EA5004 /* VideoCell.m */,
+				8E850ADF2501DB9400EA5004 /* VideoCell.xib */,
+				8E850AE22501DBA100EA5004 /* GoodsCell.h */,
+				8E850AE32501DBA100EA5004 /* GoodsCell.m */,
+				8E850AE42501DBA100EA5004 /* GoodsCell.xib */,
+			);
+			path = cells;
+			sourceTree = "<group>";
+		};
 		8EA7C56824EB9AF1001B28C2 = {
 			isa = PBXGroup;
 			children = (
@@ -88,6 +123,7 @@
 		8EA7C57324EB9AF1001B28C2 /* FlipFlopSDKSampleIOS-objc */ = {
 			isa = PBXGroup;
 			children = (
+				8E850ADC2501DB2C00EA5004 /* cells */,
 				8EA7C57424EB9AF1001B28C2 /* AppDelegate.h */,
 				8EA7C57524EB9AF1001B28C2 /* AppDelegate.m */,
 				8EA7C57724EB9AF1001B28C2 /* SceneDelegate.h */,
@@ -103,9 +139,12 @@
 				8EA7C58E24EB9BAD001B28C2 /* SimplePlayerViewController.m */,
 				8EA7C59024EB9BB7001B28C2 /* SimpleListPlayerViewController.h */,
 				8EA7C59124EB9BB7001B28C2 /* SimpleListPlayerViewController.m */,
-				8EA7C59524EB9BDA001B28C2 /* PlayerCell.h */,
-				8EA7C59624EB9BDA001B28C2 /* PlayerCell.m */,
-				8EA7C59324EB9BD0001B28C2 /* PlayerCell.xib */,
+				8E95F6012500E244001F5235 /* SimpleLiveStreamerViewController.h */,
+				8E95F6022500E244001F5235 /* SimpleLiveStreamerViewController.m */,
+				8E850AEA2501DBE400EA5004 /* SimpleVideoListViewController.h */,
+				8E850AEB2501DBE400EA5004 /* SimpleVideoListViewController.m */,
+				8E850AED2501DE5500EA5004 /* SimpleLivePlayerViewController.h */,
+				8E850AEE2501DE5500EA5004 /* SimpleLivePlayerViewController.m */,
 			);
 			path = "FlipFlopSDKSampleIOS-objc";
 			sourceTree = "<group>";
@@ -177,7 +216,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E850AE12501DB9400EA5004 /* VideoCell.xib in Resources */,
 				8EA7C59424EB9BD0001B28C2 /* PlayerCell.xib in Resources */,
+				8E850AE62501DBA100EA5004 /* GoodsCell.xib in Resources */,
 				8EA7C58424EB9AF2001B28C2 /* LaunchScreen.storyboard in Resources */,
 				8EA7C58124EB9AF2001B28C2 /* Assets.xcassets in Resources */,
 				8EA7C57F24EB9AF1001B28C2 /* Main.storyboard in Resources */,
@@ -234,10 +275,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				8EA7C57C24EB9AF1001B28C2 /* ViewController.m in Sources */,
+				8E850AE02501DB9400EA5004 /* VideoCell.m in Sources */,
+				8E850AEC2501DBE400EA5004 /* SimpleVideoListViewController.m in Sources */,
 				8EA7C59724EB9BDA001B28C2 /* PlayerCell.m in Sources */,
 				8EA7C58F24EB9BAD001B28C2 /* SimplePlayerViewController.m in Sources */,
 				8EA7C59224EB9BB7001B28C2 /* SimpleListPlayerViewController.m in Sources */,
+				8E850AEF2501DE5500EA5004 /* SimpleLivePlayerViewController.m in Sources */,
 				8EA7C57624EB9AF1001B28C2 /* AppDelegate.m in Sources */,
+				8E95F6032500E244001F5235 /* SimpleLiveStreamerViewController.m in Sources */,
+				8E850AE52501DBA100EA5004 /* GoodsCell.m in Sources */,
 				8EA7C58724EB9AF2001B28C2 /* main.m in Sources */,
 				8EA7C57924EB9AF1001B28C2 /* SceneDelegate.m in Sources */,
 			);

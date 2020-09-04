@@ -23,8 +23,10 @@ NSString *url = @"https://s3.ap-northeast-2.amazonaws.com/flipflop-prod/9z27htVn
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    CFAbsoluteTime timeInSeconds = CFAbsoluteTimeGetCurrent();
+    NSString *userID = [NSString stringWithFormat:@"%.0f",timeInSeconds];
     // 중복되지 않은 USER_ID를 입력하세요 (알파벳 + 숫자 조합)
-    [FlipFlop authenticationWithUserID:@"1234" userName:@"" avatarProfileURL:@"" onSuccess:^(FlipFlop * sdk) {
+    [FlipFlop authenticationWithUserID:userID userName:@"" avatarProfileURL:@"" onSuccess:^(FlipFlop * sdk) {
         self->_player = [sdk getAVPlayerWithDataSourceURL: url];
         self->_player.delegate = self;
         self->_player.isRepeat = YES;

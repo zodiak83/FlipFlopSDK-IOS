@@ -13,7 +13,7 @@ Live Commerce IOS SDK
         use_frameworks!
 
         # Pods for FlipFlopSDK
-        pod 'FlipFlopSDK'
+        pod 'FlipFlopSDK', '0.0.31'
     
     end
 ### 권한 설정

@@ -425,7 +425,7 @@ SWIFT_CLASS("_TtC11FlipFlopSDK10FFStreamer")
 - (void)switchCamera;
 - (void)videoMirrorWithMirror:(BOOL)mirror;
 - (void)zoomWithFactor:(CGFloat)factor;
-- (void)startPictureInPictureWithBackgroundImage:(UIImage * _Nonnull)backgroundImage scaleX:(CGFloat)scaleX scaleY:(CGFloat)scaleY;
+- (void)startPictureInPictureWithOverlayImage:(UIImage * _Nonnull)overlayImage pipWidth:(CGFloat)pipWidth pipHeight:(CGFloat)pipHeight;
 - (void)stopPictureInPicture;
 - (void)muteOn:(BOOL)on;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
@@ -722,6 +722,18 @@ typedef SWIFT_ENUM(NSInteger, StreamingProtocol, closed) {
   StreamingProtocolRtmp = 0,
   StreamingProtocolWebrtc = 1,
 };
+
+
+SWIFT_PROTOCOL("_TtP11FlipFlopSDK17SwiftyGifDelegate_")
+@protocol SwiftyGifDelegate
+@optional
+- (void)gifDidStartWithSender:(UIImage * _Nonnull)sender;
+- (void)gifDidLoopWithSender:(UIImage * _Nonnull)sender;
+- (void)gifDidStopWithSender:(UIImage * _Nonnull)sender;
+- (void)gifURLDidFinishWithSender:(UIImage * _Nonnull)sender;
+- (void)gifURLDidFailWithSender:(UIImage * _Nonnull)sender url:(NSURL * _Nonnull)url error:(NSError * _Nullable)error;
+@end
+
 
 
 

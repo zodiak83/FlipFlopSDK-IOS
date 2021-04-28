@@ -413,19 +413,20 @@ SWIFT_PROTOCOL("_TtP11FlipFlopSDK14FFStreamConfig_")
 @protocol FFStreamerDelegate;
 @class FFStreamerConfig;
 @class UIImage;
+enum Anchor : NSInteger;
 
 SWIFT_CLASS("_TtC11FlipFlopSDK10FFStreamer")
 @interface FFStreamer : NSObject
 @property (nonatomic, weak) id <FFStreamerDelegate> _Nullable delegate;
 - (void)prepareWithPreview:(UIView * _Nonnull)preview config:(FFStreamerConfig * _Nonnull)config;
-- (void)startWithTitle:(NSString * _Nonnull)title content:(NSString * _Nonnull)content jsonGoods:(NSString * _Nullable)jsonGoods;
 - (UIImage * _Nullable)cameraCapture SWIFT_WARN_UNUSED_RESULT;
 - (void)stop;
 - (void)reset;
+- (void)sendMessageWithText:(NSString * _Nonnull)text data:(NSString * _Nullable)data customType:(NSString * _Nullable)customType;
 - (void)switchCamera;
 - (void)videoMirrorWithMirror:(BOOL)mirror;
 - (void)zoomWithFactor:(CGFloat)factor;
-- (void)startPictureInPictureWithOverlayImage:(UIImage * _Nonnull)overlayImage pipWidth:(CGFloat)pipWidth pipHeight:(CGFloat)pipHeight;
+- (void)startPictureInPictureWithOverlayImage:(UIImage * _Nonnull)overlayImage pipWidth:(CGFloat)pipWidth pipHeight:(CGFloat)pipHeight anchor:(enum Anchor)anchor offsetX:(CGFloat)offsetX offsetY:(CGFloat)offsetY;
 - (void)stopPictureInPicture;
 - (void)muteOn:(BOOL)on;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
@@ -456,7 +457,7 @@ SWIFT_CLASS("_TtC11FlipFlopSDK16FFStreamerConfig")
 SWIFT_PROTOCOL("_TtP11FlipFlopSDK18FFStreamerDelegate_")
 @protocol FFStreamerDelegate
 - (void)onPrepared;
-- (void)onStartedWithVideokey:(NSString * _Nonnull)videokey;
+- (void)onStarted;
 - (void)onStopped;
 - (void)onErrorWithError:(FFError * _Nonnull)error;
 - (void)onChatMessgeReceivedWithMessage:(FFMessage * _Nonnull)message;
@@ -705,6 +706,10 @@ SWIFT_CLASS("_TtC11FlipFlopSDK12RTMPStreamer")
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
+
+typedef SWIFT_ENUM(NSInteger, Anchor, closed) {
+  AnchorRight = 0,
+};
 
 
 

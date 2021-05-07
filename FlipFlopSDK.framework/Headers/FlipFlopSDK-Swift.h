@@ -363,6 +363,8 @@ SWIFT_CLASS("_TtC11FlipFlopSDK8FFPlayer")
 - (void)resume;
 - (void)stop;
 - (void)seekToSec:(double)sec exactly:(BOOL)exactly completion:(void (^ _Nullable)(double))completion;
+- (void)startPIP;
+- (void)stopPIP;
 - (void)reset;
 - (void)sendMessageWithText:(NSString * _Nonnull)text data:(NSString * _Nullable)data customType:(NSString * _Nullable)customType;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
@@ -495,6 +497,7 @@ SWIFT_CLASS("_TtC11FlipFlopSDK11FFVideoInfo")
 @property (nonatomic, readonly, copy) NSString * _Nonnull url;
 /// video thumbnail url
 @property (nonatomic, readonly, copy) NSString * _Nonnull thumbnail_url;
+@property (nonatomic, readonly, copy) NSString * _Nullable stream_key;
 @property (nonatomic, readonly, copy) NSString * _Nullable live_key;
 /// custom data
 @property (nonatomic, readonly, copy) NSString * _Nonnull data;

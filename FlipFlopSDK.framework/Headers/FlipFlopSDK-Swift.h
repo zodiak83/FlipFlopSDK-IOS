@@ -467,6 +467,18 @@ SWIFT_PROTOCOL("_TtP11FlipFlopSDK18FFStreamerDelegate_")
 @end
 
 
+SWIFT_CLASS("_TtC11FlipFlopSDK10FFVideoEnd")
+@interface FFVideoEnd : NSObject
+@property (nonatomic, readonly) uint64_t like_count;
+@property (nonatomic, readonly) uint64_t total_message_count;
+@property (nonatomic, readonly) uint64_t total_watcher_count;
+@property (nonatomic, readonly) uint64_t duration;
+@property (nonatomic, readonly) uint64_t created_at;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
 SWIFT_CLASS("_TtC11FlipFlopSDK11FFVideoInfo")
 @interface FFVideoInfo : NSObject
 /// video key
@@ -547,7 +559,6 @@ SWIFT_CLASS("_TtC11FlipFlopSDK8FlipFlop")
 - (FFPlayer * _Nonnull)getPlayerWithVideo_key:(NSString * _Nonnull)video_key SWIFT_WARN_UNUSED_RESULT;
 - (FFConference * _Nonnull)getConferenceWithRoom:(NSString * _Nonnull)room SWIFT_WARN_UNUSED_RESULT;
 - (FFVideoListLoader * _Nonnull)getVideoListLoaderWithCursor:(NSString * _Nullable)cursor count:(NSInteger)count userID:(NSString * _Nullable)userID type:(NSString * _Nullable)type state:(NSString * _Nullable)state SWIFT_WARN_UNUSED_RESULT;
-- (void)deleteVideoWithVideoKey:(NSString * _Nonnull)videoKey onSuccess:(void (^ _Nullable)(void))onSuccess onFailure:(void (^ _Nullable)(FFError * _Nonnull))onFailure;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end

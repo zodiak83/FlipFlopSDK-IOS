@@ -6,7 +6,7 @@
 	<dict>
 		<key>Headers/FlipFlopSDK-Swift.h</key>
 		<data>
-		aekUNOUbcuqdvzigZ2T9QlQvx8E=
+		ApHAEMyAQ1QTqn1jpZOUp9IV1Dg=
 		</data>
 		<key>Headers/FlipFlopSDK_IOS.h</key>
 		<data>
@@ -14,15 +14,15 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		0kZTAs4hfDkCbL3uJyn7dMGjuR8=
+		Mq1er3tEaax/YmmHuKJZGqdoafg=
 		</data>
 		<key>Modules/FlipFlopSDK.swiftmodule/Project/arm64-apple-ios.swiftsourceinfo</key>
 		<data>
-		NnjezhvWXte6Vvz1gNp8xkcOD2M=
+		GHC4Nxg78xTcrStF7BAxNHCkk4o=
 		</data>
 		<key>Modules/FlipFlopSDK.swiftmodule/Project/arm64.swiftsourceinfo</key>
 		<data>
-		NnjezhvWXte6Vvz1gNp8xkcOD2M=
+		GHC4Nxg78xTcrStF7BAxNHCkk4o=
 		</data>
 		<key>Modules/FlipFlopSDK.swiftmodule/arm64-apple-ios.swiftdoc</key>
 		<data>
@@ -30,7 +30,7 @@
 		</data>
 		<key>Modules/FlipFlopSDK.swiftmodule/arm64-apple-ios.swiftmodule</key>
 		<data>
-		JM1Yd/kXFDJAr/BOYE5ZPpuU7rU=
+		e6HIAiJEwHRJ9mWnAPYIoqih1I4=
 		</data>
 		<key>Modules/FlipFlopSDK.swiftmodule/arm64.swiftdoc</key>
 		<data>
@@ -38,7 +38,7 @@
 		</data>
 		<key>Modules/FlipFlopSDK.swiftmodule/arm64.swiftmodule</key>
 		<data>
-		JM1Yd/kXFDJAr/BOYE5ZPpuU7rU=
+		e6HIAiJEwHRJ9mWnAPYIoqih1I4=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -51,7 +51,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			qP2HfQsnHQnO2mWTrIodBZCtEdMna/WLCVhOKEpZ5k4=
+			ypc5iMU1WFthXARAsGzGhCBRZ2GXx392FrvG78Lt84o=
 			</data>
 		</dict>
 		<key>Headers/FlipFlopSDK_IOS.h</key>
@@ -65,14 +65,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			wfjJc32t46GXETbWHHGqgOGa5HI6+p6UTuKuoUnYc44=
+			fYZXiBgqnzfp2Z8XOeKqAq6F0zRoOdqDYWhc9lcH0RM=
 			</data>
 		</dict>
 		<key>Modules/FlipFlopSDK.swiftmodule/Project/arm64.swiftsourceinfo</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			wfjJc32t46GXETbWHHGqgOGa5HI6+p6UTuKuoUnYc44=
+			fYZXiBgqnzfp2Z8XOeKqAq6F0zRoOdqDYWhc9lcH0RM=
 			</data>
 		</dict>
 		<key>Modules/FlipFlopSDK.swiftmodule/arm64-apple-ios.swiftdoc</key>
@@ -86,7 +86,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			tATuAKMihBPNMo3t5riDhd3moZAHLYN3Yf32quKJc80=
+			U6isqPWEZ7B0tGlUpOySMjQlBo6IwjGl8n5ASxWE0xk=
 			</data>
 		</dict>
 		<key>Modules/FlipFlopSDK.swiftmodule/arm64.swiftdoc</key>
@@ -100,7 +100,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			tATuAKMihBPNMo3t5riDhd3moZAHLYN3Yf32quKJc80=
+			U6isqPWEZ7B0tGlUpOySMjQlBo6IwjGl8n5ASxWE0xk=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

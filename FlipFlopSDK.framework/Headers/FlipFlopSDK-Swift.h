@@ -396,6 +396,7 @@ SWIFT_PROTOCOL("_TtP11FlipFlopSDK16FFPlayerDelegate_")
 SWIFT_CLASS("_TtC11FlipFlopSDK6FFStat")
 @interface FFStat : NSObject
 @property (nonatomic) uint64_t participantCount;
+@property (nonatomic) uint64_t totalUserCount;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end

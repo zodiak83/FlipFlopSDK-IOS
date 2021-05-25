@@ -477,6 +477,7 @@ SWIFT_CLASS("_TtC11FlipFlopSDK10FFVideoEnd")
 @property (nonatomic, readonly) uint64_t total_watcher_count;
 @property (nonatomic, readonly) uint64_t duration;
 @property (nonatomic, readonly) uint64_t created_at;
+@property (nonatomic, readonly, copy) NSString * _Nonnull vod_url;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end

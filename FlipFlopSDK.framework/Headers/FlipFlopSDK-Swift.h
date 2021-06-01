@@ -433,7 +433,7 @@ SWIFT_CLASS("_TtC11FlipFlopSDK10FFStreamer")
 - (void)switchCamera;
 - (void)videoMirrorWithMirror:(BOOL)mirror;
 - (void)zoomWithFactor:(CGFloat)factor;
-- (void)startPictureInPictureWithOverlayImage:(UIImage * _Nonnull)overlayImage pipWidth:(CGFloat)pipWidth pipHeight:(CGFloat)pipHeight anchor:(enum Anchor)anchor offsetX:(CGFloat)offsetX offsetY:(CGFloat)offsetY;
+- (void)startPictureInPictureWithOverlayImage:(UIImage * _Nonnull)overlayImage anchor:(enum Anchor)anchor offsetX:(CGFloat)offsetX offsetY:(CGFloat)offsetY;
 - (void)stopPictureInPicture;
 - (void)muteOn:(BOOL)on;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;

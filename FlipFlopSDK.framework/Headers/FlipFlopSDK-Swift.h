@@ -430,12 +430,14 @@ SWIFT_CLASS("_TtC11FlipFlopSDK10FFStreamer")
 - (void)reset;
 - (void)sendMessageWithText:(NSString * _Nonnull)text data:(NSString * _Nullable)data customType:(NSString * _Nullable)customType;
 - (void)sendWhispherWithReceiver:(NSString * _Nonnull)receiver text:(NSString * _Nonnull)text data:(NSString * _Nullable)data customType:(NSString * _Nullable)customType;
+- (void)sendCommandWithText:(NSString * _Nonnull)text data:(NSString * _Nullable)data customType:(NSString * _Nullable)customType;
 - (void)switchCamera;
 - (void)videoMirrorWithMirror:(BOOL)mirror;
 - (void)zoomWithFactor:(CGFloat)factor;
 - (void)startPictureInPictureWithOverlayImage:(UIImage * _Nonnull)overlayImage anchor:(enum Anchor)anchor offsetX:(CGFloat)offsetX offsetY:(CGFloat)offsetY;
 - (void)stopPictureInPicture;
 - (void)muteOn:(BOOL)on;
+- (void)setPointOfInterestWithFocus:(CGPoint)focus exposure:(CGPoint)exposure;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end

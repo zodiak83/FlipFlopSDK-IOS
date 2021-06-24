@@ -216,6 +216,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 
 @class NSString;
 
+/// The ASUndefined class represents an undefined for ActionScript.
 SWIFT_CLASS("_TtC11FlipFlopSDK11ASUndefined")
 @interface ASUndefined : NSObject
 @property (nonatomic, readonly, copy) NSString * _Nonnull description;
@@ -618,38 +619,6 @@ SWIFT_CLASS("_TtC11FlipFlopSDK9HLSPlayer")
 - (void)observeValueForKeyPath:(NSString * _Nullable)keyPath ofObject:(id _Nullable)object change:(NSDictionary<NSKeyValueChangeKey, id> * _Nullable)change context:(void * _Nullable)context;
 @end
 
-
-SWIFT_CLASS("_TtC11FlipFlopSDK10NetService")
-@interface NetService : NSObject
-- (nonnull instancetype)init SWIFT_UNAVAILABLE;
-+ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
-@end
-
-
-SWIFT_CLASS("_TtC11FlipFlopSDK11HTTPService")
-@interface HTTPService : NetService
-@end
-
-
-SWIFT_CLASS("_TtC11FlipFlopSDK10HLSService")
-@interface HLSService : HTTPService
-@end
-
-
-
-/// The <code>NetStream</code> class is the foundation of a RTMPStream, HTTPStream.
-SWIFT_CLASS("_TtC11FlipFlopSDK9NetStream")
-@interface NetStream : NSObject
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
-@end
-
-
-/// The HTTPStream class represents an HLS playlist and .ts files.
-SWIFT_CLASS("_TtC11FlipFlopSDK10HTTPStream")
-@interface HTTPStream : NetStream
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
-@end
-
 @protocol MTLDevice;
 
 /// A view that displays a video content of a NetStream object which uses Metal api.
@@ -675,6 +644,7 @@ SWIFT_CLASS("_TtC11FlipFlopSDK9NetSocket")
 @end
 
 
+/// The NetClient class creates a two-way connection  between a NetService.
 SWIFT_CLASS("_TtC11FlipFlopSDK9NetClient")
 @interface NetClient : NetSocket
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
@@ -682,6 +652,11 @@ SWIFT_CLASS("_TtC11FlipFlopSDK9NetClient")
 @end
 
 
+SWIFT_CLASS("_TtC11FlipFlopSDK10NetService")
+@interface NetService : NSObject
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
 
 @class NSNetService;
 @class NSInputStream;
@@ -693,12 +668,20 @@ SWIFT_CLASS("_TtC11FlipFlopSDK9NetClient")
 
 
 
+
+
 @class NSStream;
 
 @interface NetSocket (SWIFT_EXTENSION(FlipFlopSDK)) <NSStreamDelegate>
 - (void)stream:(NSStream * _Nonnull)aStream handleEvent:(NSStreamEvent)eventCode;
 @end
 
+
+/// The <code>NetStream</code> class is the foundation of a RTMPStream, HTTPStream.
+SWIFT_CLASS("_TtC11FlipFlopSDK9NetStream")
+@interface NetStream : NSObject
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
 
 
 typedef SWIFT_ENUM(NSInteger, Preset, closed) {

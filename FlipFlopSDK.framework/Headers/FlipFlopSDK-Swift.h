@@ -425,6 +425,7 @@ enum Anchor : NSInteger;
 SWIFT_CLASS("_TtC11FlipFlopSDK10FFStreamer")
 @interface FFStreamer : NSObject
 @property (nonatomic, weak) id <FFStreamerDelegate> _Nullable delegate;
+@property (nonatomic) BOOL autoRetry;
 - (void)prepareWithPreview:(UIView * _Nonnull)preview config:(FFStreamerConfig * _Nonnull)config;
 - (UIImage * _Nullable)cameraCapture SWIFT_WARN_UNUSED_RESULT;
 - (void)stop;

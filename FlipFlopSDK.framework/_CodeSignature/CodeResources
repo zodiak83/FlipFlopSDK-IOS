@@ -6,7 +6,7 @@
 	<dict>
 		<key>Headers/FlipFlopSDK-Swift.h</key>
 		<data>
-		iBqkK87WdacDlC+i5tS6kRgz0jM=
+		8+R7Yb4G5wmwNbnp5SrdsfWIKDA=
 		</data>
 		<key>Headers/FlipFlopSDK_IOS.h</key>
 		<data>
@@ -18,11 +18,11 @@
 		</data>
 		<key>Modules/FlipFlopSDK.swiftmodule/Project/arm64-apple-ios.swiftsourceinfo</key>
 		<data>
-		OmoZzTlgkpsbGJt8E7CstDE5+bI=
+		5dSHzXEsG4WcTJLV7QmEcBwzLic=
 		</data>
 		<key>Modules/FlipFlopSDK.swiftmodule/Project/arm64.swiftsourceinfo</key>
 		<data>
-		OmoZzTlgkpsbGJt8E7CstDE5+bI=
+		5dSHzXEsG4WcTJLV7QmEcBwzLic=
 		</data>
 		<key>Modules/FlipFlopSDK.swiftmodule/arm64-apple-ios.swiftdoc</key>
 		<data>
@@ -30,7 +30,7 @@
 		</data>
 		<key>Modules/FlipFlopSDK.swiftmodule/arm64-apple-ios.swiftmodule</key>
 		<data>
-		Z8JGc4lZRe9yPjRczEa/sj+PiZ4=
+		an5X9NhNVj3Xy/o9SKiAKk5PmMw=
 		</data>
 		<key>Modules/FlipFlopSDK.swiftmodule/arm64.swiftdoc</key>
 		<data>
@@ -38,7 +38,7 @@
 		</data>
 		<key>Modules/FlipFlopSDK.swiftmodule/arm64.swiftmodule</key>
 		<data>
-		Z8JGc4lZRe9yPjRczEa/sj+PiZ4=
+		an5X9NhNVj3Xy/o9SKiAKk5PmMw=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -51,7 +51,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			O3TvGFgNdmcZtDvSQqX98k1KJT9T/1fsPq783dHWbzE=
+			kVg9omqT6oeIR2Zda14TCsKy6wWKQiTHsZrJuV2AxPE=
 			</data>
 		</dict>
 		<key>Headers/FlipFlopSDK_IOS.h</key>
@@ -65,14 +65,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			oxH3JcyxkIP/JgV4o0rC3BJWGC6kh1sNYjHR6esw588=
+			dMNyL+UHQQU2olf+jZfnROTkeDsiguD807WYWmZgM0A=
 			</data>
 		</dict>
 		<key>Modules/FlipFlopSDK.swiftmodule/Project/arm64.swiftsourceinfo</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			oxH3JcyxkIP/JgV4o0rC3BJWGC6kh1sNYjHR6esw588=
+			dMNyL+UHQQU2olf+jZfnROTkeDsiguD807WYWmZgM0A=
 			</data>
 		</dict>
 		<key>Modules/FlipFlopSDK.swiftmodule/arm64-apple-ios.swiftdoc</key>
@@ -86,7 +86,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			G0Zdrl/B4DdPR26e29l6k3tiAO7MXpewcfuhG8RgSqw=
+			CwivuSiqtdFs/AwyVIA+OZIT8gJVLjkKNcoZWLqjoyE=
 			</data>
 		</dict>
 		<key>Modules/FlipFlopSDK.swiftmodule/arm64.swiftdoc</key>
@@ -100,7 +100,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			G0Zdrl/B4DdPR26e29l6k3tiAO7MXpewcfuhG8RgSqw=
+			CwivuSiqtdFs/AwyVIA+OZIT8gJVLjkKNcoZWLqjoyE=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

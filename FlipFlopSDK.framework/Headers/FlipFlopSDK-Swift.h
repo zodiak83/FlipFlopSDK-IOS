@@ -196,6 +196,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 @import GLKit;
 @import MetalKit;
 @import ObjectiveC;
+@import SocketRocket;
 @import UIKit;
 #endif
 
@@ -426,6 +427,7 @@ SWIFT_CLASS("_TtC11FlipFlopSDK10FFStreamer")
 @interface FFStreamer : NSObject
 @property (nonatomic, weak) id <FFStreamerDelegate> _Nullable delegate;
 @property (nonatomic) double autoRetryTime;
+@property (nonatomic) double chatHeartbitTime;
 - (void)prepareWithPreview:(UIView * _Nonnull)preview config:(FFStreamerConfig * _Nonnull)config;
 - (UIImage * _Nullable)cameraCapture SWIFT_WARN_UNUSED_RESULT;
 - (void)stop;
@@ -730,6 +732,54 @@ SWIFT_CLASS("_TtC11FlipFlopSDK20ScreenCaptureSession")
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
 
+
+@class NSURLRequest;
+@protocol StompClientLibDelegate;
+@class SRWebSocket;
+@class NSData;
+
+SWIFT_CLASS("_TtC11FlipFlopSDK14StompClientLib")
+@interface StompClientLib : NSObject <SRWebSocketDelegate>
+@property (nonatomic) BOOL connection;
+@property (nonatomic) BOOL certificateCheckEnabled;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class) double defaultHeartBitTime;)
++ (double)defaultHeartBitTime SWIFT_WARN_UNUSED_RESULT;
++ (void)setDefaultHeartBitTime:(double)value;
+- (void)sendPing;
+- (void)sendJSONForDictWithDict:(id _Nonnull)dict toDestination:(NSString * _Nonnull)destination;
+- (void)openSocketWithURLRequestWithRequest:(NSURLRequest * _Nonnull)request delegate:(id <StompClientLibDelegate> _Nonnull)delegate connectionHeaders:(NSDictionary<NSString *, NSString *> * _Nullable)connectionHeaders;
+- (void)webSocket:(SRWebSocket * _Null_unspecified)webSocket didReceiveMessage:(id _Null_unspecified)message;
+- (void)webSocketDidOpen:(SRWebSocket * _Null_unspecified)webSocket;
+- (void)webSocket:(SRWebSocket * _Null_unspecified)webSocket didFailWithError:(NSError * _Null_unspecified)error;
+- (void)webSocket:(SRWebSocket * _Null_unspecified)webSocket didCloseWithCode:(NSInteger)code reason:(NSString * _Null_unspecified)reason wasClean:(BOOL)wasClean;
+- (void)webSocket:(SRWebSocket * _Null_unspecified)webSocket didReceivePong:(NSData * _Null_unspecified)pongPayload;
+- (void)sendMessageWithMessage:(NSString * _Nonnull)message toDestination:(NSString * _Nonnull)destination withHeaders:(NSDictionary<NSString *, NSString *> * _Nullable)headers withReceipt:(NSString * _Nullable)receipt;
+- (BOOL)isConnected SWIFT_WARN_UNUSED_RESULT;
+- (void)subscribeWithDestination:(NSString * _Nonnull)destination;
+- (void)subscribeWithHeaderWithDestination:(NSString * _Nonnull)destination withHeader:(NSDictionary<NSString *, NSString *> * _Nonnull)header;
+- (void)unsubscribeWithDestination:(NSString * _Nonnull)destination;
+- (void)beginWithTransactionId:(NSString * _Nonnull)transactionId;
+- (void)commitWithTransactionId:(NSString * _Nonnull)transactionId;
+- (void)abortWithTransactionId:(NSString * _Nonnull)transactionId;
+- (void)ackWithMessageId:(NSString * _Nonnull)messageId;
+- (void)ackWithMessageId:(NSString * _Nonnull)messageId withSubscription:(NSString * _Nonnull)subscription;
+- (void)disconnect;
+- (void)reconnectWithRequest:(NSURLRequest * _Nonnull)request delegate:(id <StompClientLibDelegate> _Nonnull)delegate connectionHeaders:(NSDictionary<NSString *, NSString *> * _Nonnull)connectionHeaders time:(double)time exponentialBackoff:(BOOL)exponentialBackoff;
+- (void)stopReconnect;
+- (void)autoDisconnectWithTime:(double)time;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+SWIFT_PROTOCOL("_TtP11FlipFlopSDK22StompClientLibDelegate_")
+@protocol StompClientLibDelegate
+- (void)stompClientWithClient:(StompClientLib * _Null_unspecified)client didReceiveMessageWithJSONBody:(id _Nullable)jsonBody akaStringBody:(NSString * _Nullable)stringBody withHeader:(NSDictionary<NSString *, NSString *> * _Nullable)header withDestination:(NSString * _Nonnull)destination;
+- (void)stompClientDidDisconnectWithClient:(StompClientLib * _Null_unspecified)client;
+- (void)stompClientDidConnectWithClient:(StompClientLib * _Null_unspecified)client;
+- (void)serverDidSendReceiptWithClient:(StompClientLib * _Null_unspecified)client withReceiptId:(NSString * _Nonnull)receiptId;
+- (void)serverDidSendErrorWithClient:(StompClientLib * _Null_unspecified)client withErrorMessage:(NSString * _Nonnull)description detailedErrorMessage:(NSString * _Nullable)message;
+- (void)serverDidSendPing;
+@end
 
 typedef SWIFT_ENUM(NSInteger, StreamingProtocol, closed) {
   StreamingProtocolRtmp = 0,

@@ -463,6 +463,7 @@ SWIFT_CLASS("_TtC11FlipFlopSDK16FFStreamerConfig")
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
+@class NSNotification;
 
 /// FFStreamer Delegate
 SWIFT_PROTOCOL("_TtP11FlipFlopSDK18FFStreamerDelegate_")
@@ -470,6 +471,7 @@ SWIFT_PROTOCOL("_TtP11FlipFlopSDK18FFStreamerDelegate_")
 - (void)onPrepared;
 - (void)onStarted;
 - (void)onStopped;
+- (void)onStreamStatusWithNotification:(NSNotification * _Nonnull)notification;
 - (void)onErrorWithError:(FFError * _Nonnull)error;
 - (void)onChatMessgeReceivedWithMessage:(FFMessage * _Nonnull)message;
 - (void)onChatStatReceivedWithStat:(FFStat * _Nonnull)stat;

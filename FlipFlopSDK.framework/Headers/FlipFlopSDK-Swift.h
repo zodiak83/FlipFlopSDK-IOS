@@ -454,6 +454,7 @@ enum Preset : NSInteger;
 SWIFT_CLASS("_TtC11FlipFlopSDK16FFStreamerConfig")
 @interface FFStreamerConfig : NSObject
 @property (nonatomic) enum Preset preset;
+@property (nonatomic, copy) NSString * _Nonnull videoProfile;
 @property (nonatomic) NSInteger videoBitrate;
 @property (nonatomic) NSInteger keyFrameInterval;
 @property (nonatomic) NSInteger fps;

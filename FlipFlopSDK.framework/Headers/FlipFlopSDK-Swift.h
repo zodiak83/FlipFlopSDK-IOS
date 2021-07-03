@@ -406,6 +406,11 @@ SWIFT_CLASS("_TtC11FlipFlopSDK6FFStat")
 @end
 
 
+@interface FFStat (SWIFT_EXTENSION(FlipFlopSDK))
+@property (nonatomic, readonly, copy) NSString * _Nonnull description;
+@end
+
+
 SWIFT_PROTOCOL("_TtP11FlipFlopSDK14FFStreamConfig_")
 @protocol FFStreamConfig
 @property (nonatomic) NSInteger width;

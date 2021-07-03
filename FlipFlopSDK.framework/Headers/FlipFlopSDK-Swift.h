@@ -322,11 +322,10 @@ SWIFT_CLASS("_TtC11FlipFlopSDK7FFError")
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
 
-enum FFMessageType : NSInteger;
 
 SWIFT_CLASS("_TtC11FlipFlopSDK9FFMessage")
 @interface FFMessage : NSObject
-@property (nonatomic, readonly) enum FFMessageType type;
+@property (nonatomic, readonly, copy) NSString * _Nonnull type;
 @property (nonatomic, readonly, copy) NSString * _Nonnull id;
 @property (nonatomic, readonly, copy) NSString * _Nonnull message;
 @property (nonatomic, readonly) uint64_t createAt;
@@ -351,7 +350,8 @@ typedef SWIFT_ENUM(NSInteger, FFMessageType, closed) {
   FFMessageTypeAdmin = 3,
   FFMessageTypeStat = 4,
   FFMessageTypeWhisper = 5,
-  FFMessageTypeUnknown = 6,
+  FFMessageTypeCommand = 6,
+  FFMessageTypeUnknown = 7,
 };
 
 @protocol FFPlayerDelegate;
@@ -441,7 +441,8 @@ SWIFT_CLASS("_TtC11FlipFlopSDK10FFStreamer")
 - (void)startPictureInPictureWithOverlayImage:(UIImage * _Nonnull)overlayImage anchor:(enum Anchor)anchor offsetX:(CGFloat)offsetX offsetY:(CGFloat)offsetY;
 - (void)stopPictureInPicture;
 - (void)muteOn:(BOOL)on;
-- (void)setPointOfInterestWithFocus:(CGPoint)focus exposure:(CGPoint)exposure;
+- (void)setPointOfInterestWithFocus:(CGPoint)focus;
+- (void)setPointOfInterestWithExposure:(CGPoint)exposure;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end

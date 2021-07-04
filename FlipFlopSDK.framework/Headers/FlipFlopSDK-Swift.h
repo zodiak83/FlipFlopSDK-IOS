@@ -354,6 +354,23 @@ typedef SWIFT_ENUM(NSInteger, FFMessageType, closed) {
   FFMessageTypeUnknown = 7,
 };
 
+@class FFVideoInfo;
+@class FFStreamEvent;
+
+SWIFT_CLASS("_TtC11FlipFlopSDK9FFMyLives")
+@interface FFMyLives : NSObject
+@property (nonatomic, readonly, strong) FFVideoInfo * _Nullable video;
+@property (nonatomic, readonly, strong) FFStreamEvent * _Nullable stream_event;
+@property (nonatomic, readonly) NSInteger available_live_count;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+@interface FFMyLives (SWIFT_EXTENSION(FlipFlopSDK))
+@property (nonatomic, readonly, copy) NSString * _Nonnull description;
+@end
+
 @protocol FFPlayerDelegate;
 
 SWIFT_CLASS("_TtC11FlipFlopSDK8FFPlayer")
@@ -421,6 +438,13 @@ SWIFT_PROTOCOL("_TtP11FlipFlopSDK14FFStreamConfig_")
 @property (nonatomic) NSInteger sampleRate;
 @property (nonatomic) NSInteger audioBitrate;
 @property (nonatomic) AVCaptureDevicePosition cameraPos;
+@end
+
+
+SWIFT_CLASS("_TtC11FlipFlopSDK13FFStreamEvent")
+@interface FFStreamEvent : NSObject
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
 
 @protocol FFStreamerDelegate;

@@ -443,6 +443,11 @@ SWIFT_PROTOCOL("_TtP11FlipFlopSDK14FFStreamConfig_")
 
 SWIFT_CLASS("_TtC11FlipFlopSDK13FFStreamEvent")
 @interface FFStreamEvent : NSObject
+@property (nonatomic, readonly) int64_t id;
+@property (nonatomic, readonly, copy) NSString * _Nonnull video_key;
+@property (nonatomic, readonly, copy) NSString * _Nonnull stream_key;
+@property (nonatomic, readonly, copy) NSString * _Nonnull state;
+@property (nonatomic, readonly) uint64_t created_at;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end

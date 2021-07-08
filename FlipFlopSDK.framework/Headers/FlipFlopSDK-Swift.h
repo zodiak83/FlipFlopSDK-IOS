@@ -599,6 +599,10 @@ SWIFT_CLASS("_TtC11FlipFlopSDK17FFVideoListLoader")
 
 SWIFT_CLASS("_TtC11FlipFlopSDK8FlipFlop")
 @interface FlipFlop : NSObject
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _Nonnull AppKey;)
++ (NSString * _Nonnull)AppKey SWIFT_WARN_UNUSED_RESULT;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _Nonnull AppSecret;)
++ (NSString * _Nonnull)AppSecret SWIFT_WARN_UNUSED_RESULT;
 @property (nonatomic, readonly, copy) NSString * _Nonnull userID;
 @property (nonatomic, readonly, copy) NSString * _Nonnull userName;
 @property (nonatomic, readonly, copy) NSString * _Nonnull avatarProfileURL;

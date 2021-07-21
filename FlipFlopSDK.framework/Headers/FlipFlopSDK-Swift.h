@@ -493,6 +493,7 @@ SWIFT_CLASS("_TtC11FlipFlopSDK16FFStreamerConfig")
 @property (nonatomic) enum Preset preset;
 @property (nonatomic, copy) NSString * _Nonnull videoProfile;
 @property (nonatomic) NSInteger videoBitrate;
+@property (nonatomic) double videoBitrateChangeRatio;
 @property (nonatomic) NSInteger keyFrameInterval;
 @property (nonatomic) NSInteger fps;
 @property (nonatomic) NSInteger sampleRate;
@@ -515,6 +516,8 @@ SWIFT_PROTOCOL("_TtP11FlipFlopSDK18FFStreamerDelegate_")
 - (void)onErrorWithError:(FFError * _Nonnull)error;
 - (void)onChatMessgeReceivedWithMessage:(FFMessage * _Nonnull)message;
 - (void)onChatStatReceivedWithStat:(FFStat * _Nonnull)stat;
+- (void)onInSufficentBW;
+- (void)onSufficentBW;
 @end
 
 

@@ -502,6 +502,7 @@ SWIFT_CLASS("_TtC11FlipFlopSDK16FFStreamerConfig")
 @property (nonatomic, copy) NSString * _Nonnull visibility;
 @property (nonatomic) AVLayerVideoGravity _Nonnull videoGravity;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@property (nonatomic, readonly, copy) NSString * _Nonnull description;
 @end
 
 @class NSNotification;

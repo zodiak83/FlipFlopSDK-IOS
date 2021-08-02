@@ -455,7 +455,6 @@ SWIFT_CLASS("_TtC11FlipFlopSDK13FFStreamEvent")
 @protocol FFStreamerDelegate;
 @class FFStreamerConfig;
 @class UIImage;
-enum Anchor : NSInteger;
 
 SWIFT_CLASS("_TtC11FlipFlopSDK10FFStreamer")
 @interface FFStreamer : NSObject
@@ -464,6 +463,9 @@ SWIFT_CLASS("_TtC11FlipFlopSDK10FFStreamer")
 @property (nonatomic) double chatHeartbitTime;
 @property (nonatomic) BOOL continuousAutofocus;
 @property (nonatomic) BOOL continuousExposure;
+@property (nonatomic) float exposureTargetBias;
+@property (nonatomic, readonly) float minExposureTargetBias;
+@property (nonatomic, readonly) float maxExposureTargetBias;
 - (void)prepareWithPreview:(UIView * _Nonnull)preview config:(FFStreamerConfig * _Nonnull)config;
 - (UIImage * _Nullable)cameraCapture SWIFT_WARN_UNUSED_RESULT;
 - (void)stop;
@@ -474,8 +476,7 @@ SWIFT_CLASS("_TtC11FlipFlopSDK10FFStreamer")
 - (void)switchCamera;
 - (void)videoMirrorWithMirror:(BOOL)mirror;
 - (void)zoomWithFactor:(CGFloat)factor;
-- (void)startPictureInPictureWithOverlayImage:(UIImage * _Nonnull)overlayImage anchor:(enum Anchor)anchor offsetX:(CGFloat)offsetX offsetY:(CGFloat)offsetY;
-- (void)stopPictureInPicture;
+- (void)setBackgroundWithBackgroundImage:(UIImage * _Nullable)backgroundImage scale:(CGFloat)scale;
 - (void)muteOn:(BOOL)on;
 - (void)setPointOfInterestWithFocus:(CGPoint)focus;
 - (void)setPointOfInterestWithExposure:(CGPoint)exposure;
@@ -615,7 +616,8 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _No
 + (void)debugWithLevel:(NSInteger)level;
 + (void)authenticationWithUserID:(NSString * _Nonnull)userID userName:(NSString * _Nonnull)userName avatarProfileURL:(NSString * _Nonnull)avatarProfileURL onSuccess:(void (^ _Nullable)(FlipFlop * _Nonnull))onSuccess onFailure:(void (^ _Nullable)(FFError * _Nonnull))onFailure;
 - (void)updateUserInfoWithUserName:(NSString * _Nullable)userName avatarProfileURL:(NSString * _Nullable)avatarProfileURL onSuccess:(void (^ _Nullable)(void))onSuccess onFailure:(void (^ _Nullable)(FFError * _Nonnull))onFailure;
-+ (FFStreamer * _Nonnull)getStreamer SWIFT_WARN_UNUSED_RESULT;
++ (FFStreamer * _Nonnull)getRTMPStreamer SWIFT_WARN_UNUSED_RESULT;
++ (FFStreamer * _Nonnull)getWebRTCStreamer SWIFT_WARN_UNUSED_RESULT;
 - (FFPlayer * _Nonnull)getPlayerWithVideo_key:(NSString * _Nonnull)video_key SWIFT_WARN_UNUSED_RESULT;
 - (FFConference * _Nonnull)getConferenceWithRoom:(NSString * _Nonnull)room SWIFT_WARN_UNUSED_RESULT;
 - (FFVideoListLoader * _Nonnull)getVideoListLoaderWithCursor:(NSString * _Nullable)cursor count:(NSInteger)count userID:(NSString * _Nullable)userID type:(NSString * _Nullable)type state:(NSString * _Nullable)state SWIFT_WARN_UNUSED_RESULT;

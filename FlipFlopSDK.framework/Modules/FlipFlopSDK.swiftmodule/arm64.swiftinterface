@@ -393,6 +393,8 @@ public protocol RTMPStreamerDelegate : AnyObject {
   open func zoom(factor: CoreGraphics.CGFloat)
   open func setFilter(filter: FlipFlopSDK.VideoFilter)
   open func playGif(image: UIKit.UIImage, completion: (() -> Swift.Void)?)
+  open func startMoveInPicture(asset: AVFoundation.AVAsset)
+  open func stopMovieInPicture()
   open func startPictureInPicture(overlayImage: UIKit.UIImage, anchor: FlipFlopSDK.RTMPStreamer.Anchor = .right, offsetX: CoreGraphics.CGFloat, offsetY: CoreGraphics.CGFloat, scale: CoreGraphics.CGFloat)
   open func stopPictureInPicture()
   open func setPointOfInterest(focus: CoreGraphics.CGPoint)
@@ -1318,7 +1320,7 @@ public protocol WebRTCConferenceDelegate : AnyObject {
 }
 @objc @_inheritsConvenienceInitializers open class VideoEffect : ObjectiveC.NSObject {
   open var ciContext: CoreImage.CIContext?
-  open func execute(_ image: CoreImage.CIImage, info: CoreMedia.CMSampleBuffer?) -> CoreImage.CIImage
+  open func execute(_ image: CoreImage.CIImage) -> CoreImage.CIImage
   @objc override dynamic public init()
   @objc deinit
 }

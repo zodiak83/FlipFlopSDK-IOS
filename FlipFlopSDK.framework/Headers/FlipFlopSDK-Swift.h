@@ -343,7 +343,7 @@ SWIFT_CLASS("_TtC11FlipFlopSDK9FFMessage")
 @property (nonatomic, readonly, copy) NSString * _Nonnull description;
 @end
 
-typedef SWIFT_ENUM(NSInteger, FFMessageType, open) {
+typedef SWIFT_ENUM(NSInteger, FFMessageType, closed) {
   FFMessageTypeMsg = 0,
   FFMessageTypeJoin = 1,
   FFMessageTypeLeave = 2,
@@ -737,7 +737,7 @@ SWIFT_CLASS("_TtC11FlipFlopSDK9NetStream")
 @end
 
 
-typedef SWIFT_ENUM(NSInteger, Preset, open) {
+typedef SWIFT_ENUM(NSInteger, Preset, closed) {
   PresetHd1920x1080 = 0,
   PresetHd1280x720 = 1,
   PresetVga640x480 = 2,
@@ -765,7 +765,7 @@ SWIFT_CLASS("_TtC11FlipFlopSDK12RTMPStreamer")
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
 
-typedef SWIFT_ENUM(NSInteger, Anchor, open) {
+typedef SWIFT_ENUM(NSInteger, Anchor, closed) {
   AnchorRight = 0,
 };
 
@@ -829,7 +829,7 @@ SWIFT_PROTOCOL("_TtP11FlipFlopSDK22StompClientLibDelegate_")
 - (void)serverDidSendPing;
 @end
 
-typedef SWIFT_ENUM(NSInteger, StreamingProtocol, open) {
+typedef SWIFT_ENUM(NSInteger, StreamingProtocol, closed) {
   StreamingProtocolRtmp = 0,
   StreamingProtocolWebrtc = 1,
 };

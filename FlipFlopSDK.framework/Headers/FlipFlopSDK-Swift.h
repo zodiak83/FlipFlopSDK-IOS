@@ -466,6 +466,8 @@ SWIFT_CLASS("_TtC11FlipFlopSDK10FFStreamer")
 @property (nonatomic) float exposureTargetBias;
 @property (nonatomic, readonly) float minExposureTargetBias;
 @property (nonatomic, readonly) float maxExposureTargetBias;
+@property (nonatomic, readonly) NSInteger currentBitrate;
+@property (nonatomic) NSInteger videoBitrateOnFly;
 - (void)prepareWithPreview:(UIView * _Nonnull)preview config:(FFStreamerConfig * _Nonnull)config;
 - (UIImage * _Nullable)cameraCapture SWIFT_WARN_UNUSED_RESULT;
 - (void)stop;
@@ -520,6 +522,7 @@ SWIFT_PROTOCOL("_TtP11FlipFlopSDK18FFStreamerDelegate_")
 - (void)onChatStatReceivedWithStat:(FFStat * _Nonnull)stat;
 - (void)onInSufficentBW;
 - (void)onSufficentBW;
+- (void)onVideoBitrateChangedWithNewBitrate:(NSInteger)newBitrate;
 @end
 
 

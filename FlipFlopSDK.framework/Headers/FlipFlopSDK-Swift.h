@@ -468,6 +468,7 @@ SWIFT_CLASS("_TtC11FlipFlopSDK10FFStreamer")
 @property (nonatomic, readonly) float maxExposureTargetBias;
 @property (nonatomic, readonly) NSInteger currentBitrate;
 @property (nonatomic) NSInteger videoBitrateOnFly;
+@property (nonatomic) BOOL adaptiveBitrate;
 - (void)prepareWithPreview:(UIView * _Nonnull)preview config:(FFStreamerConfig * _Nonnull)config;
 - (UIImage * _Nullable)cameraCapture SWIFT_WARN_UNUSED_RESULT;
 - (void)stop;
@@ -758,19 +759,6 @@ SWIFT_CLASS("_TtC11FlipFlopSDK10RTMPStream")
 @end
 
 
-
-
-
-
-SWIFT_CLASS("_TtC11FlipFlopSDK12RTMPStreamer")
-@interface RTMPStreamer : NSObject
-- (nonnull instancetype)init SWIFT_UNAVAILABLE;
-+ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
-@end
-
-typedef SWIFT_ENUM(NSInteger, Anchor, closed) {
-  AnchorRight = 0,
-};
 
 
 

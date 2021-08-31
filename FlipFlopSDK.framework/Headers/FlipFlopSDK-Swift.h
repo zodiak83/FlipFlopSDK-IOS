@@ -198,6 +198,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 @import ObjectiveC;
 @import SocketRocket;
 @import UIKit;
+@import WebRTC;
 #endif
 
 #pragma clang diagnostic ignored "-Wproperty-attribute-mismatch"
@@ -214,6 +215,15 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 # pragma clang attribute push(__attribute__((external_source_symbol(language="Swift", defined_in="FlipFlopSDK",generated_declaration))), apply_to=any(function,enum,objc_interface,objc_category,objc_protocol))
 # pragma pop_macro("any")
 #endif
+
+
+/// This class communicate with flipflop server using http restful api.
+SWIFT_CLASS("_TtC11FlipFlopSDK9APIClient")
+@interface APIClient : NSObject
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
 
 @class NSString;
 
@@ -259,6 +269,22 @@ SWIFT_CLASS("_TtC11FlipFlopSDK13ASXMLDocument")
 
 
 
+@class NSNotification;
+
+SWIFT_CLASS("_TtC11FlipFlopSDK14AVOutputPlayer")
+@interface AVOutputPlayer : NSObject
+- (void)playerDidFinishPlaying:(NSNotification * _Nonnull)notification;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+@class AVPlayerItemOutput;
+
+@interface AVOutputPlayer (SWIFT_EXTENSION(FlipFlopSDK)) <AVPlayerItemOutputPullDelegate>
+- (void)outputMediaDataWillChange:(AVPlayerItemOutput * _Nonnull)sender;
+@end
+
+
 SWIFT_CLASS("_TtC11FlipFlopSDK10AVRecorder")
 @interface AVRecorder : NSObject
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
@@ -272,6 +298,63 @@ SWIFT_CLASS("_TtC11FlipFlopSDK11AudioEffect")
 @end
 
 
+SWIFT_CLASS("_TtC11FlipFlopSDK11IOComponent")
+@interface IOComponent : NSObject
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+SWIFT_CLASS("_TtC11FlipFlopSDK16AudioIOComponent")
+@interface AudioIOComponent : IOComponent
+@end
+
+
+
+@class AVCaptureOutput;
+@class AVCaptureConnection;
+
+@interface AudioIOComponent (SWIFT_EXTENSION(FlipFlopSDK)) <AVCaptureAudioDataOutputSampleBufferDelegate>
+- (void)captureOutput:(AVCaptureOutput * _Nonnull)output didOutputSampleBuffer:(CMSampleBufferRef _Nonnull)sampleBuffer fromConnection:(AVCaptureConnection * _Nonnull)connection;
+@end
+
+
+
+
+SWIFT_CLASS("_TtC11FlipFlopSDK14AudioResampler")
+@interface AudioResampler : NSObject
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+SWIFT_CLASS("_TtC11FlipFlopSDK11VideoEffect")
+@interface VideoEffect : NSObject
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+SWIFT_CLASS("_TtC11FlipFlopSDK9BlendMask")
+@interface BlendMask : VideoEffect
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+typedef SWIFT_ENUM(NSInteger, CameraPreset, closed) {
+  CameraPresetHd1920x1080 = 0,
+  CameraPresetHd1280x720 = 1,
+  CameraPresetVga640x480 = 2,
+  CameraPresetCif352x288 = 3,
+};
+
+
+SWIFT_CLASS("_TtC11FlipFlopSDK18ColorOverlayFilter")
+@interface ColorOverlayFilter : VideoEffect
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
 
 SWIFT_CLASS("_TtC11FlipFlopSDK25DefaultAVRecorderDelegate")
 @interface DefaultAVRecorderDelegate : NSObject
@@ -281,6 +364,7 @@ SWIFT_CLASS("_TtC11FlipFlopSDK25DefaultAVRecorderDelegate")
 
 @class AVAssetWriterInput;
 @class AVAssetWriterInputPixelBufferAdaptor;
+@class AVAssetWriter;
 
 @interface DefaultAVRecorderDelegate (SWIFT_EXTENSION(FlipFlopSDK))
 - (void)rotateFile:(AVRecorder * _Nonnull)recorder withPresentationTimeStamp:(CMTime)withPresentationTimeStamp mediaType:(AVMediaType _Nonnull)mediaType;
@@ -289,7 +373,15 @@ SWIFT_CLASS("_TtC11FlipFlopSDK25DefaultAVRecorderDelegate")
 - (void)didFinishWriting:(AVRecorder * _Nonnull)recorder;
 - (void)didStartRunning:(AVRecorder * _Nonnull)recorder;
 - (void)didStopRunning:(AVRecorder * _Nonnull)recorder;
+- (AVAssetWriter * _Nullable)createWriter:(NSString * _Nullable)fileName SWIFT_WARN_UNUSED_RESULT;
 @end
+
+
+SWIFT_CLASS("_TtC11FlipFlopSDK18DisplayLinkedQueue")
+@interface DisplayLinkedQueue : NSObject
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
 
 @protocol FFConferenceDelegate;
 @class UIView;
@@ -312,50 +404,9 @@ SWIFT_PROTOCOL("_TtP11FlipFlopSDK20FFConferenceDelegate_")
 - (void)onLeavedWithConference:(FFConference * _Nonnull)conference room:(NSString * _Nonnull)room userID:(NSString * _Nonnull)userID;
 @end
 
-@class NSNumber;
-
-SWIFT_CLASS("_TtC11FlipFlopSDK7FFError")
-@interface FFError : NSObject
-@property (nonatomic, readonly) NSInteger code;
-@property (nonatomic, readonly, copy) NSString * _Nonnull message;
-- (nonnull instancetype)init SWIFT_UNAVAILABLE;
-+ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
-@end
-
-
-SWIFT_CLASS("_TtC11FlipFlopSDK9FFMessage")
-@interface FFMessage : NSObject
-@property (nonatomic, readonly, copy) NSString * _Nonnull type;
-@property (nonatomic, readonly, copy) NSString * _Nonnull id;
-@property (nonatomic, readonly, copy) NSString * _Nonnull message;
-@property (nonatomic, readonly) uint64_t createAt;
-@property (nonatomic, readonly, copy) NSString * _Nonnull userID;
-@property (nonatomic, copy) NSString * _Nonnull userName;
-@property (nonatomic, copy) NSString * _Nullable avatarProfileURL;
-@property (nonatomic, readonly, copy) NSString * _Nullable data;
-@property (nonatomic, readonly, copy) NSString * _Nullable customType;
-- (nonnull instancetype)init SWIFT_UNAVAILABLE;
-+ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
-@end
-
-
-@interface FFMessage (SWIFT_EXTENSION(FlipFlopSDK))
-@property (nonatomic, readonly, copy) NSString * _Nonnull description;
-@end
-
-typedef SWIFT_ENUM(NSInteger, FFMessageType, closed) {
-  FFMessageTypeMsg = 0,
-  FFMessageTypeJoin = 1,
-  FFMessageTypeLeave = 2,
-  FFMessageTypeAdmin = 3,
-  FFMessageTypeStat = 4,
-  FFMessageTypeWhisper = 5,
-  FFMessageTypeCommand = 6,
-  FFMessageTypeUnknown = 7,
-};
-
 @class FFVideoInfo;
 @class FFStreamEvent;
+@class NSNumber;
 
 SWIFT_CLASS("_TtC11FlipFlopSDK9FFMyLives")
 @interface FFMyLives : NSObject
@@ -396,6 +447,8 @@ SWIFT_CLASS("_TtC11FlipFlopSDK8FFPlayer")
 
 
 
+@class FFError;
+@class FFMessage;
 @class FFStat;
 
 SWIFT_PROTOCOL("_TtP11FlipFlopSDK16FFPlayerDelegate_")
@@ -414,33 +467,6 @@ SWIFT_PROTOCOL("_TtP11FlipFlopSDK16FFPlayerDelegate_")
 @end
 
 
-SWIFT_CLASS("_TtC11FlipFlopSDK6FFStat")
-@interface FFStat : NSObject
-@property (nonatomic) int64_t participantCount;
-@property (nonatomic) int64_t totalUserCount;
-- (nonnull instancetype)init SWIFT_UNAVAILABLE;
-+ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
-@end
-
-
-@interface FFStat (SWIFT_EXTENSION(FlipFlopSDK))
-@property (nonatomic, readonly, copy) NSString * _Nonnull description;
-@end
-
-
-SWIFT_PROTOCOL("_TtP11FlipFlopSDK14FFStreamConfig_")
-@protocol FFStreamConfig
-@property (nonatomic) NSInteger width;
-@property (nonatomic) NSInteger height;
-@property (nonatomic) NSInteger videoBitrate;
-@property (nonatomic) NSInteger keyFrameInterval;
-@property (nonatomic) NSInteger fps;
-@property (nonatomic) NSInteger sampleRate;
-@property (nonatomic) NSInteger audioBitrate;
-@property (nonatomic) AVCaptureDevicePosition cameraPos;
-@end
-
-
 SWIFT_CLASS("_TtC11FlipFlopSDK13FFStreamEvent")
 @interface FFStreamEvent : NSObject
 @property (nonatomic, readonly) int64_t id;
@@ -452,15 +478,16 @@ SWIFT_CLASS("_TtC11FlipFlopSDK13FFStreamEvent")
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
 
-@protocol FFStreamerDelegate;
-@class FFStreamerConfig;
+enum StreamingProtocol : NSInteger;
+@class FFStreamerImplConfig;
 @class UIImage;
+@class AVAsset;
 
-SWIFT_CLASS("_TtC11FlipFlopSDK10FFStreamer")
-@interface FFStreamer : NSObject
-@property (nonatomic, weak) id <FFStreamerDelegate> _Nullable delegate;
-@property (nonatomic) double autoRetryTime;
-@property (nonatomic) double chatHeartbitTime;
+SWIFT_CLASS("_TtC11FlipFlopSDK14FFStreamerImpl")
+@interface FFStreamerImpl : NSObject
+@property (nonatomic) CGFloat zoom;
+@property (nonatomic) BOOL videoMirror;
+@property (nonatomic) BOOL mute;
 @property (nonatomic) BOOL continuousAutofocus;
 @property (nonatomic) BOOL continuousExposure;
 @property (nonatomic) float exposureTargetBias;
@@ -469,7 +496,12 @@ SWIFT_CLASS("_TtC11FlipFlopSDK10FFStreamer")
 @property (nonatomic, readonly) NSInteger currentBitrate;
 @property (nonatomic) NSInteger videoBitrateOnFly;
 @property (nonatomic) BOOL adaptiveBitrate;
-- (void)prepareWithPreview:(UIView * _Nonnull)preview config:(FFStreamerConfig * _Nonnull)config;
+- (nonnull instancetype)initWithStreamingProtocol:(enum StreamingProtocol)streamingProtocol OBJC_DESIGNATED_INITIALIZER;
+- (void)willResignActiveNotification:(NSNotification * _Nonnull)notification;
+- (void)handleRouteChange:(NSNotification * _Nonnull)notification;
+- (void)didBecomeActiveNotification:(NSNotification * _Nonnull)notification;
+- (void)prepareWithPreview:(UIView * _Nonnull)preview config:(FFStreamerImplConfig * _Nonnull)config;
+- (void)startWithAccessToken:(NSString * _Nonnull)accessToken userID:(NSString * _Nonnull)userID userName:(NSString * _Nonnull)userName avatarProfileURL:(NSString * _Nonnull)avatarProfileURL streamkey:(NSString * _Nonnull)streamkey livekey:(NSString * _Nonnull)livekey;
 - (UIImage * _Nullable)cameraCapture SWIFT_WARN_UNUSED_RESULT;
 - (void)stop;
 - (void)reset;
@@ -477,10 +509,9 @@ SWIFT_CLASS("_TtC11FlipFlopSDK10FFStreamer")
 - (void)sendWhispherWithReceiver:(NSString * _Nonnull)receiver text:(NSString * _Nonnull)text data:(NSString * _Nullable)data customType:(NSString * _Nullable)customType;
 - (void)sendCommandWithText:(NSString * _Nonnull)text data:(NSString * _Nullable)data customType:(NSString * _Nullable)customType;
 - (void)switchCamera;
-- (void)videoMirrorWithMirror:(BOOL)mirror;
-- (void)zoomWithFactor:(CGFloat)factor;
 - (void)setBackgroundWithBackgroundImage:(UIImage * _Nullable)backgroundImage scale:(CGFloat)scale;
-- (void)muteOn:(BOOL)on;
+- (void)setBackgroundWithAsset:(AVAsset * _Nullable)asset;
+- (BOOL)playGifWithNamed:(NSString * _Nonnull)named error:(NSError * _Nullable * _Nullable)error completion:(void (^ _Nullable)(void))completion;
 - (void)setPointOfInterestWithFocus:(CGPoint)focus;
 - (void)setPointOfInterestWithExposure:(CGPoint)exposure;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
@@ -490,14 +521,12 @@ SWIFT_CLASS("_TtC11FlipFlopSDK10FFStreamer")
 
 
 
-enum Preset : NSInteger;
 
-SWIFT_CLASS("_TtC11FlipFlopSDK16FFStreamerConfig")
-@interface FFStreamerConfig : NSObject
-@property (nonatomic) enum Preset preset;
+SWIFT_CLASS("_TtC11FlipFlopSDK20FFStreamerImplConfig")
+@interface FFStreamerImplConfig : NSObject
+@property (nonatomic) enum CameraPreset preset;
 @property (nonatomic, copy) NSString * _Nonnull videoProfile;
 @property (nonatomic) NSInteger videoBitrate;
-@property (nonatomic) double videoBitrateChangeRatio;
 @property (nonatomic) NSInteger keyFrameInterval;
 @property (nonatomic) NSInteger fps;
 @property (nonatomic) NSInteger sampleRate;
@@ -507,23 +536,6 @@ SWIFT_CLASS("_TtC11FlipFlopSDK16FFStreamerConfig")
 @property (nonatomic) AVLayerVideoGravity _Nonnull videoGravity;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @property (nonatomic, readonly, copy) NSString * _Nonnull description;
-@end
-
-@class NSNotification;
-
-/// FFStreamer Delegate
-SWIFT_PROTOCOL("_TtP11FlipFlopSDK18FFStreamerDelegate_")
-@protocol FFStreamerDelegate
-- (void)onPrepared;
-- (void)onStarted;
-- (void)onStopped;
-- (void)onStreamStatusWithNotification:(NSNotification * _Nonnull)notification;
-- (void)onErrorWithError:(FFError * _Nonnull)error;
-- (void)onChatMessgeReceivedWithMessage:(FFMessage * _Nonnull)message;
-- (void)onChatStatReceivedWithStat:(FFStat * _Nonnull)stat;
-- (void)onInSufficentBW;
-- (void)onSufficentBW;
-- (void)onVideoBitrateChangedWithNewBitrate:(NSInteger)newBitrate;
 @end
 
 
@@ -539,75 +551,10 @@ SWIFT_CLASS("_TtC11FlipFlopSDK10FFVideoEnd")
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
 
+@class NSData;
 
-SWIFT_CLASS("_TtC11FlipFlopSDK11FFVideoInfo")
-@interface FFVideoInfo : NSObject
-/// video key
-@property (nonatomic, readonly, copy) NSString * _Nonnull video_key;
-/// video type. ‘BROADCASTED’ or ‘UPLOADED’
-@property (nonatomic, readonly, copy) NSString * _Nonnull type;
-/// owner ID
-@property (nonatomic, readonly, copy) NSString * _Nonnull user_id;
-/// owner name
-@property (nonatomic, readonly, copy) NSString * _Nonnull user_name;
-/// owner avatar url
-@property (nonatomic, readonly, copy) NSString * _Nonnull user_avatar_url;
-/// video title
-@property (nonatomic, readonly, copy) NSString * _Nonnull title;
-/// video description
-@property (nonatomic, readonly, copy) NSString * _Nonnull content;
-/// video state. ‘CREATED’ or ‘LIVE’ or ‘VOD’
-@property (nonatomic, readonly, copy) NSString * _Nonnull state;
-/// video duration, if the broadcast status is ‘VOD’, in miliseconds unit
-@property (nonatomic, readonly) uint64_t duration;
-/// Public scope, ‘PUBLIC’, ‘PRIVATE’
-@property (nonatomic, readonly, copy) NSString * _Nonnull visibility;
-/// mute audio, true | false
-@property (nonatomic, readonly) BOOL muted;
-/// lock video, true | false
-@property (nonatomic, readonly) BOOL locked;
-/// repository url
-@property (nonatomic, readonly, copy) NSString * _Nonnull url;
-/// video thumbnail url
-@property (nonatomic, readonly, copy) NSString * _Nonnull thumbnail_url;
-@property (nonatomic, readonly, copy) NSString * _Nullable stream_key;
-@property (nonatomic, readonly, copy) NSString * _Nullable live_key;
-/// custom data
-@property (nonatomic, readonly, copy) NSString * _Nonnull data;
-@property (nonatomic, readonly, copy) NSString * _Nonnull data2;
-/// live video view count
-@property (nonatomic, readonly) uint64_t watch_count;
-/// live video heart count
-@property (nonatomic, readonly) uint64_t heart_count;
-/// VOD video view count
-@property (nonatomic, readonly) uint64_t view_count;
-/// VOD video like count
-@property (nonatomic, readonly) uint64_t like_count;
-/// liked by me
-@property (nonatomic, readonly) BOOL liked_by_me;
-/// created video time. Unix timestamp value in milliseconds.
-@property (nonatomic, readonly) uint64_t created_at;
-- (nonnull instancetype)init SWIFT_UNAVAILABLE;
-+ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
-@end
-
-
-@interface FFVideoInfo (SWIFT_EXTENSION(FlipFlopSDK))
-- (NSString * _Nonnull)getGoods SWIFT_WARN_UNUSED_RESULT;
-@end
-
-
-SWIFT_CLASS("_TtC11FlipFlopSDK17FFVideoListLoader")
-@interface FFVideoListLoader : NSObject
-- (void)reset;
-- (void)nextOnSuccess:(void (^ _Nullable)(NSArray<FFVideoInfo *> * _Nonnull))onSuccess onFailure:(void (^ _Nullable)(NSError * _Nonnull))onFailure;
-- (nonnull instancetype)init SWIFT_UNAVAILABLE;
-+ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
-@end
-
-
-SWIFT_CLASS("_TtC11FlipFlopSDK8FlipFlop")
-@interface FlipFlop : NSObject
+SWIFT_CLASS("_TtC11FlipFlopSDK12FlipFlopImpl")
+@interface FlipFlopImpl : NSObject
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _Nonnull AppKey;)
 + (NSString * _Nonnull)AppKey SWIFT_WARN_UNUSED_RESULT;
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _Nonnull AppSecret;)
@@ -618,13 +565,18 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _No
 + (void)initializeWithAppKey:(NSString * _Nonnull)appKey appSecret:(NSString * _Nonnull)appSecret;
 + (void)uninitialize;
 + (void)debugWithLevel:(NSInteger)level;
-+ (void)authenticationWithUserID:(NSString * _Nonnull)userID userName:(NSString * _Nonnull)userName avatarProfileURL:(NSString * _Nonnull)avatarProfileURL onSuccess:(void (^ _Nullable)(FlipFlop * _Nonnull))onSuccess onFailure:(void (^ _Nullable)(FFError * _Nonnull))onFailure;
++ (void)authenticationWithUserID:(NSString * _Nonnull)userID userName:(NSString * _Nonnull)userName avatarProfileURL:(NSString * _Nonnull)avatarProfileURL onSuccess:(void (^ _Nullable)(FlipFlopImpl * _Nonnull))onSuccess onFailure:(void (^ _Nullable)(FFError * _Nonnull))onFailure;
 - (void)updateUserInfoWithUserName:(NSString * _Nullable)userName avatarProfileURL:(NSString * _Nullable)avatarProfileURL onSuccess:(void (^ _Nullable)(void))onSuccess onFailure:(void (^ _Nullable)(FFError * _Nonnull))onFailure;
-+ (FFStreamer * _Nonnull)getRTMPStreamer SWIFT_WARN_UNUSED_RESULT;
-+ (FFStreamer * _Nonnull)getWebRTCStreamer SWIFT_WARN_UNUSED_RESULT;
-- (FFPlayer * _Nonnull)getPlayerWithVideo_key:(NSString * _Nonnull)video_key SWIFT_WARN_UNUSED_RESULT;
 - (FFConference * _Nonnull)getConferenceWithRoom:(NSString * _Nonnull)room SWIFT_WARN_UNUSED_RESULT;
-- (FFVideoListLoader * _Nonnull)getVideoListLoaderWithCursor:(NSString * _Nullable)cursor count:(NSInteger)count userID:(NSString * _Nullable)userID type:(NSString * _Nullable)type state:(NSString * _Nullable)state SWIFT_WARN_UNUSED_RESULT;
+- (void)createVideoWithTitle:(NSString * _Nullable)title content:(NSString * _Nullable)content visibility:(NSString * _Nullable)visibility thumbnail_url:(NSString * _Nullable)thumbnail_url data:(NSString * _Nullable)data data2:(NSString * _Nullable)data2 source_type:(NSInteger)source_type onSuccess:(void (^ _Nullable)(FFVideoInfo * _Nonnull))onSuccess onFailure:(void (^ _Nullable)(FFError * _Nonnull))onFailure;
+- (void)endVideoWithVideokey:(NSString * _Nonnull)videokey keepLive:(BOOL)keepLive onSuccess:(void (^ _Nullable)(FFVideoEnd * _Nonnull))onSuccess onFailure:(void (^ _Nullable)(FFError * _Nonnull))onFailure;
+- (void)getVideoWithVideokey:(NSString * _Nonnull)videokey onSuccess:(void (^ _Nullable)(FFVideoInfo * _Nonnull))onSuccess onFailure:(void (^ _Nullable)(FFError * _Nonnull))onFailure;
+- (void)editVideoWithVideoKey:(NSString * _Nonnull)videoKey title:(NSString * _Nullable)title content:(NSString * _Nullable)content visibility:(NSString * _Nullable)visibility thumbnail_url:(NSString * _Nullable)thumbnail_url data:(NSString * _Nullable)data data2:(NSString * _Nullable)data2 onSuccess:(void (^ _Nullable)(FFVideoInfo * _Nonnull))onSuccess onFailure:(void (^ _Nullable)(FFError * _Nonnull))onFailure;
+- (void)deleteVideoWithVideoKey:(NSString * _Nonnull)videoKey onSuccess:(void (^ _Nullable)(void))onSuccess onFailure:(void (^ _Nullable)(FFError * _Nonnull))onFailure;
+- (void)getMyLivesOnSuccess:(void (^ _Nullable)(FFMyLives * _Nullable))onSuccess onFailure:(void (^ _Nullable)(FFError * _Nonnull))onFailure;
+- (void)updateVideoSourceWithKey:(NSString * _Nonnull)key source_type:(NSInteger)source_type onSuccess:(void (^ _Nullable)(FFVideoInfo * _Nullable))onSuccess onFailure:(void (^ _Nullable)(FFError * _Nonnull))onFailure;
+- (void)uploadVideoThumbnailWithVideokey:(NSString * _Nonnull)videokey image:(UIImage * _Nonnull)image jpegQuality:(CGFloat)jpegQuality onSuccess:(void (^ _Nullable)(NSString * _Nonnull))onSuccess onFailure:(void (^ _Nullable)(FFError * _Nonnull))onFailure;
+- (void)uploadVideoThumbnailWithVideokey:(NSString * _Nonnull)videokey data:(NSData * _Nonnull)data onSuccess:(void (^ _Nullable)(NSString * _Nonnull))onSuccess onFailure:(void (^ _Nullable)(FFError * _Nonnull))onFailure;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
@@ -645,6 +597,30 @@ SWIFT_CLASS("_TtC11FlipFlopSDK8GLHKView")
 
 @interface GLHKView (SWIFT_EXTENSION(FlipFlopSDK)) <GLKViewDelegate>
 - (void)glkView:(GLKView * _Nonnull)view drawInRect:(CGRect)rect;
+@end
+
+
+SWIFT_CLASS("_TtC11FlipFlopSDK9GifFilter")
+@interface GifFilter : VideoEffect
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+@class NSURL;
+
+SWIFT_PROTOCOL("_TtP11FlipFlopSDK17SwiftyGifDelegate_")
+@protocol SwiftyGifDelegate
+@optional
+- (void)gifDidStartWithSender:(UIImage * _Nonnull)sender;
+- (void)gifDidLoopWithSender:(UIImage * _Nonnull)sender;
+- (void)gifDidStopWithSender:(UIImage * _Nonnull)sender;
+- (void)gifURLDidFinishWithSender:(UIImage * _Nonnull)sender;
+- (void)gifURLDidFailWithSender:(UIImage * _Nonnull)sender url:(NSURL * _Nonnull)url error:(NSError * _Nullable)error;
+@end
+
+
+@interface GifFilter (SWIFT_EXTENSION(FlipFlopSDK)) <SwiftyGifDelegate>
+- (void)gifDidStopWithSender:(UIImage * _Nonnull)sender;
 @end
 
 @class AVCaptureVideoPreviewLayer;
@@ -673,8 +649,29 @@ SWIFT_CLASS("_TtC11FlipFlopSDK9HLSPlayer")
 
 
 @interface HLSPlayer (SWIFT_EXTENSION(FlipFlopSDK))
+/// a new error log entry has been added
+- (void)newErrorLogEntry:(NSNotification * _Nonnull)notification;
+/// item has failed to play to its end time
+- (void)failedToPlayToEndTime:(NSNotification * _Nonnull)notification;
+/// playback completed event
+- (void)playerDidFinishPlaying:(NSNotification * _Nonnull)notification;
 - (void)observeValueForKeyPath:(NSString * _Nullable)keyPath ofObject:(id _Nullable)object change:(NSDictionary<NSKeyValueChangeKey, id> * _Nullable)change context:(void * _Nullable)context;
 @end
+
+
+SWIFT_CLASS("_TtC11FlipFlopSDK21HighPassSkinSmoothing")
+@interface HighPassSkinSmoothing : VideoEffect
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+
+SWIFT_CLASS("_TtC11FlipFlopSDK14IngestorPlugin")
+@interface IngestorPlugin : NSObject
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
 
 @protocol MTLDevice;
 
@@ -694,6 +691,12 @@ SWIFT_CLASS("_TtC11FlipFlopSDK8MTHKView")
 @end
 
 
+SWIFT_CLASS("_TtC11FlipFlopSDK5Movie")
+@interface Movie : VideoEffect
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
 /// The NetSocket class creates a two-way connection  between a client and a server. This class is wrapper for a InputStream and an OutputStream.
 SWIFT_CLASS("_TtC11FlipFlopSDK9NetSocket")
 @interface NetSocket : NSObject
@@ -706,6 +709,16 @@ SWIFT_CLASS("_TtC11FlipFlopSDK9NetClient")
 @interface NetClient : NetSocket
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+SWIFT_PROTOCOL("_TtP11FlipFlopSDK17NetClientDelegate_")
+@protocol NetClientDelegate
+@optional
+- (void)clientWithInputBuffer:(NetClient * _Nonnull)client;
+- (void)clientWithDidAccepetConnection:(NetClient * _Nonnull)client;
+@required
+- (void)clientWithClient:(NetClient * _Nonnull)client isDisconnected:(BOOL)isDisconnected;
 @end
 
 
@@ -724,6 +737,10 @@ SWIFT_CLASS("_TtC11FlipFlopSDK10NetService")
 @end
 
 
+@interface NetService (SWIFT_EXTENSION(FlipFlopSDK)) <NetClientDelegate>
+- (void)clientWithClient:(NetClient * _Nonnull)client isDisconnected:(BOOL)isDisconnected;
+@end
+
 
 
 
@@ -741,12 +758,26 @@ SWIFT_CLASS("_TtC11FlipFlopSDK9NetStream")
 @end
 
 
-typedef SWIFT_ENUM(NSInteger, Preset, closed) {
-  PresetHd1920x1080 = 0,
-  PresetHd1280x720 = 1,
-  PresetVga640x480 = 2,
-  PresetCif352x288 = 3,
-};
+
+SWIFT_CLASS("_TtC11FlipFlopSDK3PIP")
+@interface PIP : VideoEffect
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+SWIFT_CLASS("_TtC11FlipFlopSDK12PLAudioMixer")
+@interface PLAudioMixer : NSObject
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+
+SWIFT_CLASS("_TtC11FlipFlopSDK10RTMPSocket")
+@interface RTMPSocket : NetSocket
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
 
 
 /// flash.net.NetStream for Swift
@@ -762,6 +793,32 @@ SWIFT_CLASS("_TtC11FlipFlopSDK10RTMPStream")
 
 
 
+
+SWIFT_CLASS("_TtC11FlipFlopSDK12RTMPStreamer")
+@interface RTMPStreamer : NSObject
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+typedef SWIFT_ENUM(NSInteger, Anchor, closed) {
+  AnchorRight = 0,
+};
+
+
+
+
+SWIFT_CLASS("_TtC11FlipFlopSDK11RTMPTSocket")
+@interface RTMPTSocket : NSObject
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+@class NSURLSession;
+@class NSURLSessionTask;
+
+@interface RTMPTSocket (SWIFT_EXTENSION(FlipFlopSDK)) <NSURLSessionTaskDelegate>
+- (void)URLSession:(NSURLSession * _Nonnull)session task:(NSURLSessionTask * _Nonnull)task didSendBodyData:(int64_t)bytesSent totalBytesSent:(int64_t)totalBytesSent totalBytesExpectedToSend:(int64_t)totalBytesExpectedToSend;
+@end
+
 @class CADisplayLink;
 
 SWIFT_CLASS("_TtC11FlipFlopSDK20ScreenCaptureSession")
@@ -772,13 +829,30 @@ SWIFT_CLASS("_TtC11FlipFlopSDK20ScreenCaptureSession")
 @end
 
 
-@class NSURLRequest;
-@protocol StompClientLibDelegate;
+
+SWIFT_CLASS("_TtC11FlipFlopSDK9SepiaTone")
+@interface SepiaTone : VideoEffect
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
+SWIFT_CLASS("_TtC11FlipFlopSDK18SourceOverComposit")
+@interface SourceOverComposit : VideoEffect
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
 @class SRWebSocket;
-@class NSData;
+@protocol StompClientLibDelegate;
+@class NSURLRequest;
 
 SWIFT_CLASS("_TtC11FlipFlopSDK14StompClientLib")
 @interface StompClientLib : NSObject <SRWebSocketDelegate>
+@property (nonatomic, strong) SRWebSocket * _Nullable socket;
+@property (nonatomic, copy) NSString * _Nullable sessionId;
+@property (nonatomic, weak) id <StompClientLibDelegate> _Nullable delegate;
+@property (nonatomic, copy) NSDictionary<NSString *, NSString *> * _Nullable connectionHeaders;
 @property (nonatomic) BOOL connection;
 @property (nonatomic) BOOL certificateCheckEnabled;
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class) double defaultHeartBitTime;)
@@ -825,16 +899,25 @@ typedef SWIFT_ENUM(NSInteger, StreamingProtocol, closed) {
   StreamingProtocolWebrtc = 1,
 };
 
-@class NSURL;
 
-SWIFT_PROTOCOL("_TtP11FlipFlopSDK17SwiftyGifDelegate_")
-@protocol SwiftyGifDelegate
-@optional
-- (void)gifDidStartWithSender:(UIImage * _Nonnull)sender;
-- (void)gifDidLoopWithSender:(UIImage * _Nonnull)sender;
-- (void)gifDidStopWithSender:(UIImage * _Nonnull)sender;
-- (void)gifURLDidFinishWithSender:(UIImage * _Nonnull)sender;
-- (void)gifURLDidFailWithSender:(UIImage * _Nonnull)sender url:(NSURL * _Nonnull)url error:(NSError * _Nullable)error;
+
+
+
+
+
+
+
+
+
+SWIFT_CLASS("_TtC11FlipFlopSDK16VideoIOComponent")
+@interface VideoIOComponent : IOComponent
+@end
+
+
+
+
+@interface VideoIOComponent (SWIFT_EXTENSION(FlipFlopSDK)) <AVCaptureVideoDataOutputSampleBufferDelegate>
+- (void)captureOutput:(AVCaptureOutput * _Nonnull)captureOutput didOutputSampleBuffer:(CMSampleBufferRef _Nonnull)sampleBuffer fromConnection:(AVCaptureConnection * _Nonnull)connection;
 @end
 
 
@@ -844,11 +927,11 @@ SWIFT_PROTOCOL("_TtP11FlipFlopSDK17SwiftyGifDelegate_")
 
 
 
-
-SWIFT_CLASS("_TtC11FlipFlopSDK11VideoEffect")
-@interface VideoEffect : NSObject
+SWIFT_CLASS("_TtC11FlipFlopSDK15VideoRoomPlugin")
+@interface VideoRoomPlugin : NSObject
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
+
 
 
 SWIFT_CLASS("_TtC11FlipFlopSDK16WebRTCConference")
@@ -874,6 +957,39 @@ SWIFT_CLASS("_TtC11FlipFlopSDK14WebRTCStreamer")
 @end
 
 
+
+
+SWIFT_CLASS("_TtC11FlipFlopSDK11WebRTCStuff")
+@interface WebRTCStuff : NSObject
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+@class RTCDataChannel;
+@class RTCDataBuffer;
+
+@interface WebRTCStuff (SWIFT_EXTENSION(FlipFlopSDK)) <RTCDataChannelDelegate>
+- (void)dataChannelDidChangeState:(RTCDataChannel * _Nonnull)dataChannel;
+- (void)dataChannel:(RTCDataChannel * _Nonnull)dataChannel didReceiveMessageWithBuffer:(RTCDataBuffer * _Nonnull)buffer;
+@end
+
+@class RTCPeerConnection;
+@class RTCRtpTransceiver;
+@class RTCMediaStream;
+@class RTCIceCandidate;
+
+@interface WebRTCStuff (SWIFT_EXTENSION(FlipFlopSDK)) <RTCPeerConnectionDelegate>
+- (void)peerConnection:(RTCPeerConnection * _Nonnull)peerConnection didStartReceivingOnTransceiver:(RTCRtpTransceiver * _Nonnull)transceiver;
+- (void)peerConnection:(RTCPeerConnection * _Nonnull)peerConnection didChangeSignalingState:(RTCSignalingState)stateChanged;
+- (void)peerConnection:(RTCPeerConnection * _Nonnull)peerConnection didAddStream:(RTCMediaStream * _Nonnull)stream;
+- (void)peerConnection:(RTCPeerConnection * _Nonnull)peerConnection didRemoveStream:(RTCMediaStream * _Nonnull)stream;
+- (void)peerConnectionShouldNegotiate:(RTCPeerConnection * _Nonnull)peerConnection;
+- (void)peerConnection:(RTCPeerConnection * _Nonnull)peerConnection didChangeIceConnectionState:(RTCIceConnectionState)newState;
+- (void)peerConnection:(RTCPeerConnection * _Nonnull)peerConnection didChangeIceGatheringState:(RTCIceGatheringState)newState;
+- (void)peerConnection:(RTCPeerConnection * _Nonnull)peerConnection didGenerateIceCandidate:(RTCIceCandidate * _Nonnull)candidate;
+- (void)peerConnection:(RTCPeerConnection * _Nonnull)peerConnection didRemoveIceCandidates:(NSArray<RTCIceCandidate *> * _Nonnull)candidates;
+- (void)peerConnection:(RTCPeerConnection * _Nonnull)peerConnection didOpenDataChannel:(RTCDataChannel * _Nonnull)dataChannel;
+@end
 
 #if __has_attribute(external_source_symbol)
 # pragma clang attribute pop

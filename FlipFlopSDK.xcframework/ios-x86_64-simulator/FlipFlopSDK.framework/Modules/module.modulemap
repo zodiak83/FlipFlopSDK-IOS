@@ -1,0 +1,4 @@
+framework module FlipFlopSDK {
+  header "FlipFlopSDK-Swift.h"
+  requires objc
+}

@@ -1,0 +1,1978 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.4 (swiftlang-1205.0.26.9 clang-1205.0.19.55)
+// swift-module-flags: -target x86_64-apple-ios11.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name FlipFlopSDK
+import AVFoundation
+import AVKit
+import AWSLogs
+import AWSS3
+import AudioToolbox
+import CoreAudio
+import CoreFoundation
+import CoreImage
+import CoreMedia
+import CoreVideo
+import DeviceKit
+import Foundation
+import GLKit
+import ImageIO
+import Logboard
+import MetalKit
+import Network
+import Queuer
+import SocketRocket
+import Starscream
+import Swift
+import SystemConfiguration
+import UIKit
+import VideoToolbox
+import WebRTC
+import YUCIHighPassSkinSmoothing
+public let kASUndefined: FlipFlopSDK.ASUndefined
+public typealias ASObject = [Swift.String : Any?]
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers final public class ASUndefined : ObjectiveC.NSObject {
+  @objc override final public var description: Swift.String {
+    @objc get
+  }
+  @objc deinit
+}
+public struct ASTypedObject {
+  public typealias TypedObjectDecoder = (Swift.String, FlipFlopSDK.ASObject) throws -> Any
+  public static func register(typeNamed name: Swift.String, decoder: @escaping FlipFlopSDK.ASTypedObject.TypedObjectDecoder)
+  public static func register<T>(type: T.Type, named name: Swift.String) where T : Swift.Decodable
+  public static func unregister(typeNamed name: Swift.String)
+}
+public struct ASArray {
+  public var length: Swift.Int {
+    get
+  }
+  public init(count: Swift.Int)
+  public init(data: [Any?])
+}
+extension ASArray : Swift.ExpressibleByArrayLiteral {
+  public init(arrayLiteral elements: Any?...)
+  public subscript(i: Any) -> Any? {
+    get
+    set
+  }
+  public typealias ArrayLiteralElement = Any?
+}
+extension ASArray : Swift.CustomDebugStringConvertible {
+  public var debugDescription: Swift.String {
+    get
+  }
+}
+extension ASArray : Swift.Equatable {
+  public static func == (lhs: FlipFlopSDK.ASArray, rhs: FlipFlopSDK.ASArray) -> Swift.Bool
+}
+@objc final public class ASXMLDocument : ObjectiveC.NSObject {
+  @objc override final public var description: Swift.String {
+    @objc get
+  }
+  public init(data: Swift.String)
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc final public class ASXML : ObjectiveC.NSObject {
+  @objc override final public var description: Swift.String {
+    @objc get
+  }
+  public init(data: Swift.String)
+  @objc override dynamic public init()
+  @objc deinit
+}
+extension AudioStreamBasicDescription : Swift.Equatable {
+  public static func == (lhs: CoreAudioTypes.AudioStreamBasicDescription, rhs: CoreAudioTypes.AudioStreamBasicDescription) -> Swift.Bool
+}
+public protocol WebRTCStreamerDelegate : AnyObject {
+  func onWebRTCConnected()
+  func onWebRTCDisconnected()
+  func onWebRTCStarted()
+  func onWebRTCStopped()
+  func onWebRTCError(notification: Foundation.Notification)
+}
+@objc @_hasMissingDesignatedInitializers open class WebRTCStreamer : ObjectiveC.NSObject {
+  public var isStarted: Swift.Bool
+  open func start(url: Swift.String, streamkey: Swift.String)
+  open func stop()
+  open func reset()
+  open func switchCamera()
+  @objc override dynamic public init()
+  @objc deinit
+}
+public class WebRTCStreamerBuilder {
+  public init()
+  public func withCaptureSettings(_ fps: Swift.Int = 30, sessionPreset: FlipFlopSDK.Preset = Preset.hd1280x720, isVideoMirrored: Swift.Bool = false, continuousAutofocus: Swift.Bool = false, continuousExposure: Swift.Bool = false, preferredVideoStabilizationMode: AVFoundation.AVCaptureVideoStabilizationMode = AVCaptureVideoStabilizationMode.off) -> FlipFlopSDK.WebRTCStreamerBuilder
+  public func withVideoSettings(_ bitrate: Swift.Int = 2000 * 1000, profileLevel: Swift.String = kVTProfileLevel_H264_Baseline_AutoLevel as String, maxKeyFrameIntervalDuration: Swift.Int = 2) -> FlipFlopSDK.WebRTCStreamerBuilder
+  public func withAudioSettings(_ muted: Swift.Bool = false) -> FlipFlopSDK.WebRTCStreamerBuilder
+  public func withView(_ view: UIKit.UIView) -> FlipFlopSDK.WebRTCStreamerBuilder
+  public func withEnableAudio(_ enable: Swift.Bool) -> FlipFlopSDK.WebRTCStreamerBuilder
+  public func withEnableVideo(_ enable: Swift.Bool, position: AVFoundation.AVCaptureDevice.Position) -> FlipFlopSDK.WebRTCStreamerBuilder
+  public func build() -> FlipFlopSDK.WebRTCStreamer?
+  @objc deinit
+}
+extension WebRTCStreamer {
+  public typealias Builder = FlipFlopSDK.WebRTCStreamerBuilder
+}
+public struct DeviceUtil {
+  public static func device(withPosition: AVFoundation.AVCaptureDevice.Position) -> AVFoundation.AVCaptureDevice?
+  public static func device(withLocalizedName: Swift.String, mediaType: AVFoundation.AVMediaType) -> AVFoundation.AVCaptureDevice?
+}
+public protocol Running : AnyObject {
+  var isRunning: FlipFlopSDK.Atomic<Swift.Bool> { get }
+  func startRunning()
+  func stopRunning()
+}
+public struct Config {
+  public init(isDev: Swift.Bool)
+  public init(apiServerURI: Swift.String, rtmpServerURI: Swift.String, webrtcServerURI: Swift.String, gossipServerURI: Swift.String)
+}
+@_hasMissingDesignatedInitializers @objc public class FlipFlop : ObjectiveC.NSObject {
+  @objc public static var AppKey: Swift.String {
+    @objc get
+  }
+  @objc public static var AppSecret: Swift.String {
+    @objc get
+  }
+  @objc public var userID: Swift.String {
+    @objc get
+  }
+  @objc public var userName: Swift.String {
+    @objc get
+  }
+  @objc public var avatarProfileURL: Swift.String {
+    @objc get
+  }
+  @objc deinit
+  public static func setConfig(config: FlipFlopSDK.Config)
+  @objc public static func initialize(appKey: Swift.String, appSecret: Swift.String)
+  @objc public static func uninitialize()
+  @objc public static func debug(level: Swift.Int)
+  @objc public static func authentication(userID: Swift.String, userName: Swift.String, avatarProfileURL: Swift.String, onSuccess: ((FlipFlopSDK.FlipFlop) -> Swift.Void)?, onFailure: ((FlipFlopSDK.FFError) -> Swift.Void)?)
+  public static func authentication(userID: Swift.String, userName: Swift.String, avatarProfileURL: Swift.String, completion: ((Swift.Result<FlipFlopSDK.FlipFlop, FlipFlopSDK.FFError>) -> Swift.Void)?)
+  @objc public func updateUserInfo(userName: Swift.String? = nil, avatarProfileURL: Swift.String? = nil, onSuccess: (() -> Swift.Void)?, onFailure: ((FlipFlopSDK.FFError) -> Swift.Void)?)
+  public func updateUserInfo(userName: Swift.String? = nil, avatarProfileURL: Swift.String? = nil, completion: ((Swift.Result<Swift.Void, FlipFlopSDK.FFError>) -> Swift.Void)?)
+  @objc public static func getRTMPStreamer() -> FlipFlopSDK.FFStreamer
+  @objc public static func getWebRTCStreamer() -> FlipFlopSDK.FFStreamer
+  @objc public func getPlayer(video_key: Swift.String) -> FlipFlopSDK.FFPlayer
+  @objc public func getConference(room: Swift.String) -> FlipFlopSDK.FFConference
+  @objc public func getVideoListLoader(cursor: Swift.String?, count: Swift.Int, userID: Swift.String?, type: Swift.String?, state: Swift.String?) -> FlipFlopSDK.FFVideoListLoader
+  public func getVideoListLoader(cursor: Swift.String? = nil, count: Swift.Int? = nil, userID: Swift.String? = nil, type: Swift.String? = nil, state: Swift.String? = nil) -> FlipFlopSDK.FFVideoListLoader
+  public func createVideo(title: Swift.String? = nil, content: Swift.String? = nil, visibility: Swift.String? = nil, thumbnail_url: Swift.String? = nil, data: Swift.String? = nil, data2: Swift.String? = nil, source_type: Swift.Int? = nil, completion: ((Swift.Result<FlipFlopSDK.FFVideoInfo, FlipFlopSDK.FFError>) -> Swift.Void)?)
+  public func endVideo(videokey: Swift.String, keepLive: Swift.Bool = false, completion: ((Swift.Result<FlipFlopSDK.FFVideoEnd, FlipFlopSDK.FFError>) -> Swift.Void)?)
+  public func getVideo(videokey: Swift.String, completion: ((Swift.Result<FlipFlopSDK.FFVideoInfo, FlipFlopSDK.FFError>) -> Swift.Void)?)
+  public func editVideo(videoKey: Swift.String, title: Swift.String? = nil, content: Swift.String? = nil, visibility: Swift.String? = nil, thumbnail_url: Swift.String? = nil, data: Swift.String? = nil, data2: Swift.String? = nil, completion: ((Swift.Result<FlipFlopSDK.FFVideoInfo, FlipFlopSDK.FFError>) -> Swift.Void)?)
+  public func deleteVideo(videoKey: Swift.String, completion: ((Swift.Result<Swift.Void, FlipFlopSDK.FFError>) -> Swift.Void)?)
+  public func getMyLives(within: Swift.Int? = nil, completion: ((Swift.Result<FlipFlopSDK.FFMyLives?, FlipFlopSDK.FFError>) -> Swift.Void)?)
+  public func updateVideoSource(key: Swift.String, source_type: Swift.Int, completion: ((Swift.Result<FlipFlopSDK.FFVideoInfo?, FlipFlopSDK.FFError>) -> Swift.Void)?)
+  public func uploadVideoThumbnail(videokey: Swift.String, image: UIKit.UIImage, jpegQuality: CoreGraphics.CGFloat = 0.7, completion: ((Swift.Result<Swift.String, FlipFlopSDK.FFError>) -> Swift.Void)?)
+  public func uploadVideoThumbnail(videokey: Swift.String, data: Foundation.Data, completion: ((Swift.Result<Swift.String, FlipFlopSDK.FFError>) -> Swift.Void)?)
+  @objc override dynamic public init()
+}
+public enum FLVAVCPacketType : Swift.UInt8 {
+  case seq
+  case nal
+  case eos
+  public init?(rawValue: Swift.UInt8)
+  public typealias RawValue = Swift.UInt8
+  public var rawValue: Swift.UInt8 {
+    get
+  }
+}
+public enum FLVFrameType : Swift.UInt8 {
+  case key
+  case inter
+  case disposable
+  case generated
+  case command
+  public init?(rawValue: Swift.UInt8)
+  public typealias RawValue = Swift.UInt8
+  public var rawValue: Swift.UInt8 {
+    get
+  }
+}
+extension UIColor {
+  public func imageWithColor(width: CoreGraphics.CGFloat, height: CoreGraphics.CGFloat) -> UIKit.UIImage
+}
+extension CIImage {
+  public class func image(width: CoreGraphics.CGFloat, height: CoreGraphics.CGFloat, color: UIKit.UIColor, cornerRadius: CoreGraphics.CGFloat) -> CoreImage.CIImage
+  public class func alphaImage(width: CoreGraphics.CGFloat, height: CoreGraphics.CGFloat, color: UIKit.UIColor, cornerRadius: CoreGraphics.CGFloat, alpha: CoreGraphics.CGFloat) -> CoreImage.CIImage
+}
+@objc @_inheritsConvenienceInitializers open class HKView : UIKit.UIView {
+  public static var defaultBackgroundColor: UIKit.UIColor
+  @objc override dynamic open class var layerClass: Swift.AnyClass {
+    @objc get
+  }
+  @objc override dynamic open var layer: AVFoundation.AVCaptureVideoPreviewLayer {
+    @objc get
+  }
+  public var videoGravity: AVFoundation.AVLayerVideoGravity {
+    get
+    set
+  }
+  public var videoFormatDescription: CoreMedia.CMVideoFormatDescription? {
+    get
+  }
+  @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
+  @objc deinit
+  @objc override dynamic open func awakeFromNib()
+  open func attachStream(_ stream: FlipFlopSDK.NetStream?)
+}
+public enum FLVTagType : Swift.UInt8 {
+  case audio
+  case video
+  case data
+  public init?(rawValue: Swift.UInt8)
+  public typealias RawValue = Swift.UInt8
+  public var rawValue: Swift.UInt8 {
+    get
+  }
+}
+public protocol FLVTag : Swift.CustomDebugStringConvertible {
+  var tagType: FlipFlopSDK.FLVTagType { get set }
+  var dataSize: Swift.UInt32 { get set }
+  var timestamp: Swift.UInt32 { get set }
+  var timestampExtended: Swift.UInt8 { get set }
+  var streamId: Swift.UInt32 { get set }
+  var offset: Swift.UInt64 { get set }
+  init()
+  mutating func readData(_ fileHandler: Foundation.FileHandle)
+}
+extension FLVTag {
+  public var debugDescription: Swift.String {
+    get
+  }
+}
+public struct FLVDataTag : FlipFlopSDK.FLVTag {
+  public var tagType: FlipFlopSDK.FLVTagType
+  public var dataSize: Swift.UInt32
+  public var timestamp: Swift.UInt32
+  public var timestampExtended: Swift.UInt8
+  public var streamId: Swift.UInt32
+  public var offset: Swift.UInt64
+  public init()
+  public mutating func readData(_ fileHandler: Foundation.FileHandle)
+}
+public struct FLVAudioTag : FlipFlopSDK.FLVTag {
+  public var tagType: FlipFlopSDK.FLVTagType
+  public var dataSize: Swift.UInt32
+  public var timestamp: Swift.UInt32
+  public var timestampExtended: Swift.UInt8
+  public var streamId: Swift.UInt32
+  public var offset: Swift.UInt64
+  public var codec: FlipFlopSDK.FLVAudioCodec
+  public var soundRate: FlipFlopSDK.FLVSoundRate
+  public var soundSize: FlipFlopSDK.FLVSoundSize
+  public var soundType: FlipFlopSDK.FLVSoundType
+  public init()
+  public mutating func readData(_ fileHandler: Foundation.FileHandle)
+}
+public struct FLVVideoTag : FlipFlopSDK.FLVTag {
+  public var tagType: FlipFlopSDK.FLVTagType
+  public var dataSize: Swift.UInt32
+  public var timestamp: Swift.UInt32
+  public var timestampExtended: Swift.UInt8
+  public var streamId: Swift.UInt32
+  public var offset: Swift.UInt64
+  public var frameType: FlipFlopSDK.FLVFrameType
+  public var codec: FlipFlopSDK.FLVVideoCodec
+  public var avcPacketType: FlipFlopSDK.FLVAVCPacketType
+  public var compositionTime: Swift.Int32
+  public init()
+  public mutating func readData(_ fileHandler: Foundation.FileHandle)
+}
+@objc public protocol SwiftyGifDelegate {
+  @objc optional func gifDidStart(sender: UIKit.UIImage)
+  @objc optional func gifDidLoop(sender: UIKit.UIImage)
+  @objc optional func gifDidStop(sender: UIKit.UIImage)
+  @objc optional func gifURLDidFinish(sender: UIKit.UIImage)
+  @objc optional func gifURLDidFail(sender: UIKit.UIImage, url: Foundation.URL, error: Swift.Error?)
+}
+public typealias GifLevelOfIntegrity = Swift.Float
+extension Float {
+  public static let highestNoFrameSkipping: FlipFlopSDK.GifLevelOfIntegrity
+  public static let `default`: FlipFlopSDK.GifLevelOfIntegrity
+  public static let lowForManyGifs: FlipFlopSDK.GifLevelOfIntegrity
+  public static let lowForTooManyGifs: FlipFlopSDK.GifLevelOfIntegrity
+  public static let superLowForSlideShow: FlipFlopSDK.GifLevelOfIntegrity
+}
+extension UIImage {
+  convenience public init?(imageData: Foundation.Data, levelOfIntegrity: FlipFlopSDK.GifLevelOfIntegrity = .default) throws
+  convenience public init?(imageName: Swift.String, levelOfIntegrity: FlipFlopSDK.GifLevelOfIntegrity = .default) throws
+}
+extension UIImage {
+  convenience public init(gifData: Foundation.Data, levelOfIntegrity: FlipFlopSDK.GifLevelOfIntegrity = .default) throws
+  convenience public init(gifName: Swift.String, levelOfIntegrity: FlipFlopSDK.GifLevelOfIntegrity = .default) throws
+  public func setGifFromData(_ data: Foundation.Data, levelOfIntegrity: FlipFlopSDK.GifLevelOfIntegrity) throws
+  public func setGif(_ name: Swift.String) throws
+  public func framesCount() -> Swift.Int
+  public func setGif(_ name: Swift.String, levelOfIntegrity: FlipFlopSDK.GifLevelOfIntegrity) throws
+  public func clear()
+}
+extension UIImage {
+  public var imageSource: ImageIO.CGImageSource? {
+    get
+    set
+  }
+  public var displayRefreshFactor: Swift.Int? {
+    get
+    set
+  }
+  public var imageSize: Swift.Int? {
+    get
+    set
+  }
+  public var imageCount: Swift.Int? {
+    get
+    set
+  }
+  public var displayOrder: [Swift.Int]? {
+    get
+    set
+  }
+  public var imageData: Foundation.Data? {
+    get
+    set
+  }
+  public var delegate: FlipFlopSDK.SwiftyGifDelegate? {
+    get
+    set
+  }
+}
+public enum VideoFilter {
+  case none
+  case sephia(value: Swift.Float)
+  case blendMaks(overlayImage: CoreImage.CIImage, maskImage: CoreImage.CIImage)
+  case sourceOverComposit(overlayImage: CoreImage.CIImage)
+  case highpassSkinSmooth
+  case highpassSkinSmoothColor(color: UIKit.UIColor)
+}
+public struct MachUtil {
+  public static let nanosPerUsec: Swift.UInt64
+  public static let nanosPerMsec: Swift.UInt64
+  public static let nanosPerSec: Swift.UInt64
+  public static func nanosToAbs(_ nanos: Swift.UInt64) -> Swift.UInt64
+  public static func absToNanos(_ abs: Swift.UInt64) -> Swift.UInt64
+}
+public protocol WebRTCPlayerDelegate : AnyObject {
+  func onStarted(player: FlipFlopSDK.WebRTCPlayer)
+  func onStopped(player: FlipFlopSDK.WebRTCPlayer)
+  func onCompleted(player: FlipFlopSDK.WebRTCPlayer)
+  func onError(player: FlipFlopSDK.WebRTCPlayer, error: Foundation.Notification)
+}
+@objc open class WebRTCPlayer : ObjectiveC.NSObject {
+  public var isStarted: Swift.Bool
+  public init(url: Foundation.URL, streamkey: Swift.String, view: UIKit.UIView, delegate: FlipFlopSDK.WebRTCPlayerDelegate?)
+  open func start()
+  open func stop()
+  @objc override dynamic public init()
+  @objc deinit
+}
+public struct Atomic<A> {
+  public var value: A {
+    get
+  }
+  public init(_ value: A)
+  public mutating func mutate(_ transform: (inout A) -> Swift.Void)
+}
+public enum ReachabilityError : Swift.Error {
+  case failedToCreateWithAddress(Darwin.sockaddr, Swift.Int32)
+  case failedToCreateWithHostname(Swift.String, Swift.Int32)
+  case unableToSetCallback(Swift.Int32)
+  case unableToSetDispatchQueue(Swift.Int32)
+  case unableToGetFlags(Swift.Int32)
+}
+extension NSNotification.Name {
+  public static let reachabilityChanged: Foundation.Notification.Name
+}
+public class Reachability {
+  public typealias NetworkReachable = (FlipFlopSDK.Reachability) -> ()
+  public typealias NetworkUnreachable = (FlipFlopSDK.Reachability) -> ()
+  public enum Connection : Swift.CustomStringConvertible {
+    case unavailable, wifi, cellular
+    public var description: Swift.String {
+      get
+    }
+    public static func == (a: FlipFlopSDK.Reachability.Connection, b: FlipFlopSDK.Reachability.Connection) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
+  }
+  public var whenReachable: FlipFlopSDK.Reachability.NetworkReachable?
+  public var whenUnreachable: FlipFlopSDK.Reachability.NetworkUnreachable?
+  @available(*, deprecated, renamed: "allowsCellularConnection")
+  final public let reachableOnWWAN: Swift.Bool
+  public var allowsCellularConnection: Swift.Bool
+  public var notificationCenter: Foundation.NotificationCenter
+  public var connection: FlipFlopSDK.Reachability.Connection {
+    get
+  }
+  required public init(reachabilityRef: SystemConfiguration.SCNetworkReachability, queueQoS: Dispatch.DispatchQoS = .default, targetQueue: Dispatch.DispatchQueue? = nil, notificationQueue: Dispatch.DispatchQueue? = .main)
+  convenience public init(hostname: Swift.String, queueQoS: Dispatch.DispatchQoS = .default, targetQueue: Dispatch.DispatchQueue? = nil, notificationQueue: Dispatch.DispatchQueue? = .main) throws
+  convenience public init(queueQoS: Dispatch.DispatchQoS = .default, targetQueue: Dispatch.DispatchQueue? = nil, notificationQueue: Dispatch.DispatchQueue? = .main) throws
+  @objc deinit
+}
+extension Reachability {
+  public func startNotifier() throws
+  public func stopNotifier()
+  public var description: Swift.String {
+    get
+  }
+}
+@objc public protocol FFPlayerDelegate {
+  @objc func onPrepared(player: FlipFlopSDK.FFPlayer)
+  @objc func onStarted(player: FlipFlopSDK.FFPlayer)
+  @objc func onPaused(player: FlipFlopSDK.FFPlayer)
+  @objc func onStopped(player: FlipFlopSDK.FFPlayer)
+  @objc func onCompleted(player: FlipFlopSDK.FFPlayer)
+  @objc func onProgressUpdated(player: FlipFlopSDK.FFPlayer, sec: Swift.Float64)
+  @objc func onError(player: FlipFlopSDK.FFPlayer, error: FlipFlopSDK.FFError)
+  @objc func onChatMessgeReceived(player: FlipFlopSDK.FFPlayer, message: FlipFlopSDK.FFMessage)
+  @objc func onChatStatReceived(player: FlipFlopSDK.FFPlayer, stat: FlipFlopSDK.FFStat)
+  @objc func onBackground(player: FlipFlopSDK.FFPlayer)
+  @objc func onForeground(player: FlipFlopSDK.FFPlayer)
+}
+@_hasMissingDesignatedInitializers @objc public class FFPlayer : ObjectiveC.NSObject {
+  @objc weak public var delegate: FlipFlopSDK.FFPlayerDelegate?
+  @objc public var duration: Swift.Float64 {
+    @objc get
+  }
+  @objc public var isMuted: Swift.Bool {
+    @objc get
+    @objc set
+  }
+  @objc public func prepare(view: UIKit.UIView)
+  @objc public func start()
+  @objc public func pause()
+  @objc public func resume()
+  @objc public func stop()
+  @objc public func seekTo(sec: Swift.Float64, exactly: Swift.Bool = false, completion: ((Swift.Float64) -> Swift.Void)?)
+  @objc public func startPIP()
+  @objc public func stopPIP()
+  @objc public func reset()
+  @objc public func sendMessage(text: Swift.String, data: Swift.String? = nil, customType: Swift.String? = nil)
+  @objc public func sendWhispher(receiver: Swift.String, text: Swift.String, data: Swift.String? = nil, customType: Swift.String? = nil)
+  @objc override dynamic public init()
+  @objc deinit
+}
+extension FFPlayer : FlipFlopSDK.HLSPlayerDelegate {
+  public func onProgressUpdated(player: FlipFlopSDK.HLSPlayer, seconds: Swift.Float64)
+  public func onPrepared(player: FlipFlopSDK.HLSPlayer)
+  public func onPaused(player: FlipFlopSDK.HLSPlayer)
+  public func onStarted(player: FlipFlopSDK.HLSPlayer)
+  public func onStopped(player: FlipFlopSDK.HLSPlayer)
+  public func onCompleted(player: FlipFlopSDK.HLSPlayer)
+  public func onError(player: FlipFlopSDK.HLSPlayer, error: Swift.Error)
+  public func onVideoResolutionSize(player: FlipFlopSDK.HLSPlayer, size: CoreGraphics.CGSize)
+  public func onBackground(player: FlipFlopSDK.HLSPlayer)
+  public func onForeground(player: FlipFlopSDK.HLSPlayer)
+}
+extension FFPlayer : FlipFlopSDK.WebRTCPlayerDelegate {
+  public func onStarted(player: FlipFlopSDK.WebRTCPlayer)
+  public func onStopped(player: FlipFlopSDK.WebRTCPlayer)
+  public func onCompleted(player: FlipFlopSDK.WebRTCPlayer)
+  public func onError(player: FlipFlopSDK.WebRTCPlayer, error: Foundation.Notification)
+}
+public protocol ScreenCaptureOutputPixelBufferDelegate : AnyObject {
+  func didSet(size: CoreGraphics.CGSize)
+  func output(pixelBuffer: CoreVideo.CVPixelBuffer, withPresentationTime: CoreMedia.CMTime)
+}
+public protocol CustomCaptureSession : FlipFlopSDK.Running {
+  var attributes: [Foundation.NSString : ObjectiveC.NSObject] { get }
+  var delegate: FlipFlopSDK.ScreenCaptureOutputPixelBufferDelegate? { get set }
+}
+@objc open class ScreenCaptureSession : ObjectiveC.NSObject, FlipFlopSDK.CustomCaptureSession {
+  public var enabledScale: Swift.Bool
+  public var frameInterval: Swift.Int
+  public var attributes: [Foundation.NSString : ObjectiveC.NSObject] {
+    get
+  }
+  weak public var delegate: FlipFlopSDK.ScreenCaptureOutputPixelBufferDelegate?
+  public var isRunning: FlipFlopSDK.Atomic<Swift.Bool> {
+    get
+  }
+  public var afterScreenUpdates: Swift.Bool
+  public init(shared: UIKit.UIApplication)
+  public init(viewToCapture: UIKit.UIView)
+  @objc public func onScreen(_ displayLink: QuartzCore.CADisplayLink)
+  open func onScreenProcess(_ displayLink: QuartzCore.CADisplayLink)
+  @objc override dynamic public init()
+  @objc deinit
+}
+extension ScreenCaptureSession : FlipFlopSDK.Running {
+  public func startRunning()
+  public func stopRunning()
+}
+@objc public enum FFMessageType : Swift.Int {
+  case msg
+  case join
+  case leave
+  case admin
+  case stat
+  case whisper
+  case command
+  case unknown
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers @objc public class FFStat : ObjectiveC.NSObject {
+  @objc public var participantCount: Swift.Int64
+  @objc public var totalUserCount: Swift.Int64
+  @objc override dynamic public init()
+  @objc deinit
+}
+extension FFStat {
+  @objc override dynamic public var description: Swift.String {
+    @objc get
+  }
+}
+@_hasMissingDesignatedInitializers @objc public class FFMessage : ObjectiveC.NSObject {
+  @objc final public let type: Swift.String
+  @objc final public let id: Swift.String
+  @objc final public let message: Swift.String
+  @objc final public let createAt: Swift.UInt64
+  @objc final public let userID: Swift.String
+  @objc public var userName: Swift.String
+  @objc public var avatarProfileURL: Swift.String?
+  @objc final public let data: Swift.String?
+  @objc final public let customType: Swift.String?
+  @objc override dynamic public init()
+  @objc deinit
+}
+extension FFMessage {
+  @objc override dynamic public var description: Swift.String {
+    @objc get
+  }
+}
+@_hasMissingDesignatedInitializers @objc public class FFError : ObjectiveC.NSObject, Swift.Error {
+  @objc final public let code: Swift.Int
+  @objc final public let message: Swift.String
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc public protocol FFStreamConfig {
+  @objc var width: Swift.Int { get set }
+  @objc var height: Swift.Int { get set }
+  @objc var videoBitrate: Swift.Int { get set }
+  @objc var keyFrameInterval: Swift.Int { get set }
+  @objc var fps: Swift.Int { get set }
+  @objc var sampleRate: Swift.Int { get set }
+  @objc var audioBitrate: Swift.Int { get set }
+  @objc var cameraPos: AVFoundation.AVCaptureDevice.Position { get set }
+}
+public struct FFPlan : Swift.CustomStringConvertible {
+  public let name: Swift.String
+  public let channel_count: Swift.Int
+  public let retention_period: Swift.Int
+  public let vod_count: Swift.Int
+  public let expose_goods_count: Swift.Int
+  public let resolutions: Swift.String?
+  public let support: Swift.Bool
+  public var description: Swift.String {
+    get
+  }
+}
+public struct FFMyPlan : Swift.CustomStringConvertible {
+  public let member_id: Swift.Int64
+  public let plan: FlipFlopSDK.FFPlan
+  public let started_at: Swift.Int64
+  public let ended_at: Swift.Int64?
+  public var description: Swift.String {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers @objc public class FFVideoEnd : ObjectiveC.NSObject {
+  @objc final public let like_count: Swift.UInt64
+  @objc final public let total_message_count: Swift.UInt64
+  @objc final public let total_watcher_count: Swift.UInt64
+  @objc final public let duration: Swift.UInt64
+  @objc final public let created_at: Swift.UInt64
+  @objc final public let vod_url: Swift.String
+  @objc override dynamic public init()
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers @objc public class FFStreamEvent : ObjectiveC.NSObject {
+  @objc final public let id: Swift.Int64
+  @objc final public let video_key: Swift.String
+  @objc final public let stream_key: Swift.String
+  @objc final public let state: Swift.String
+  @objc final public let created_at: Swift.UInt64
+  @objc override dynamic public init()
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers @objc public class FFMyLives : ObjectiveC.NSObject {
+  @objc final public let video: FlipFlopSDK.FFVideoInfo?
+  @objc final public let stream_event: FlipFlopSDK.FFStreamEvent?
+  @objc final public let available_live_count: Swift.Int
+  @objc override dynamic public init()
+  @objc deinit
+}
+extension FFMyLives {
+  @objc override dynamic public var description: Swift.String {
+    @objc get
+  }
+}
+@_hasMissingDesignatedInitializers @objc public class FFVideoInfo : ObjectiveC.NSObject {
+  @objc final public let video_key: Swift.String
+  @objc final public let type: Swift.String
+  @objc final public let user_id: Swift.String
+  @objc final public let user_name: Swift.String
+  @objc final public let user_avatar_url: Swift.String
+  @objc final public let title: Swift.String
+  @objc final public let content: Swift.String
+  @objc final public let state: Swift.String
+  @objc final public let duration: Swift.UInt64
+  @objc final public let visibility: Swift.String
+  @objc final public let muted: Swift.Bool
+  @objc final public let locked: Swift.Bool
+  @objc final public let url: Swift.String
+  @objc final public let thumbnail_url: Swift.String
+  @objc final public let stream_key: Swift.String?
+  @objc final public let live_key: Swift.String?
+  @objc final public let data: Swift.String
+  @objc final public let data2: Swift.String
+  @objc final public let watch_count: Swift.UInt64
+  @objc final public let heart_count: Swift.UInt64
+  @objc final public let view_count: Swift.UInt64
+  @objc final public let like_count: Swift.UInt64
+  @objc final public let liked_by_me: Swift.Bool
+  @objc final public let created_at: Swift.UInt64
+  @objc override dynamic public init()
+  @objc deinit
+}
+extension FFVideoInfo {
+  public func getGoods<T>() -> T? where T : Swift.Decodable
+  @objc dynamic public func getGoods() -> Swift.String
+}
+public protocol FFCursorLoader {
+  associatedtype Response
+  var cursor: Swift.String? { get set }
+  var count: Swift.Int? { get set }
+  func reset()
+  func next(completion: ((Swift.Result<Self.Response, Swift.Error>) -> Swift.Void)?)
+}
+@_hasMissingDesignatedInitializers @objc public class FFVideoListLoader : ObjectiveC.NSObject, FlipFlopSDK.FFCursorLoader {
+  public typealias Response = [FlipFlopSDK.FFVideoInfo]
+  public var cursor: Swift.String?
+  public var count: Swift.Int?
+  @objc public func reset()
+  @objc public func next(onSuccess: (([FlipFlopSDK.FFVideoInfo]) -> Swift.Void)?, onFailure: ((Swift.Error) -> Swift.Void)?)
+  public func next(completion: ((Swift.Result<FlipFlopSDK.FFVideoListLoader.Response, Swift.Error>) -> Swift.Void)?)
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc open class MTHKView : MetalKit.MTKView {
+  open var isMirrored: Swift.Bool
+  open var videoGravity: AVFoundation.AVLayerVideoGravity
+  open var videoFormatDescription: CoreMedia.CMVideoFormatDescription? {
+    get
+  }
+  @objc dynamic public init(frame: CoreGraphics.CGRect)
+  @objc required dynamic public init(coder aDecoder: Foundation.NSCoder)
+  @objc override dynamic open func awakeFromNib()
+  open func attachStream(_ stream: FlipFlopSDK.NetStream?)
+  @objc override dynamic public init(frame frameRect: CoreGraphics.CGRect, device: Metal.MTLDevice?)
+  @objc deinit
+}
+extension MTHKView : MetalKit.MTKViewDelegate {
+  @objc dynamic public func mtkView(_ view: MetalKit.MTKView, drawableSizeWillChange size: CoreGraphics.CGSize)
+  @objc dynamic public func draw(in view: MetalKit.MTKView)
+}
+public protocol KeyPathRepresentable : Swift.CaseIterable, Swift.Hashable {
+  var keyPath: Swift.AnyKeyPath { get }
+}
+public class Setting<T, Key> : Swift.ExpressibleByDictionaryLiteral where T : AnyObject, Key : FlipFlopSDK.KeyPathRepresentable {
+  public typealias Key = Key
+  public typealias Value = Any
+  required public init(dictionaryLiteral elements: (Key, Any)...)
+  public subscript(key: Key) -> Any? {
+    get
+    set
+  }
+  @objc deinit
+}
+extension Setting : Swift.CustomDebugStringConvertible {
+  public var debugDescription: Swift.String {
+    get
+  }
+}
+public struct SoundTransform {
+  public static let defaultVolume: Swift.Float
+  public static let defaultPan: Swift.Float
+  public var volume: Swift.Float
+  public var pan: Swift.Float
+}
+extension SoundTransform : Swift.CustomDebugStringConvertible {
+  public var debugDescription: Swift.String {
+    get
+  }
+}
+@objc @_inheritsConvenienceInitializers open class NetSocket : ObjectiveC.NSObject {
+  public static let defaultTimeout: Swift.Int
+  public static let defaultWindowSizeC: Swift.Int
+  open var inputBuffer: Foundation.Data
+  open var timeout: Swift.Int
+  open var connected: Swift.Bool
+  open var windowSizeC: Swift.Int
+  open var totalBytesIn: FlipFlopSDK.Atomic<Swift.Int64>
+  open var qualityOfService: Dispatch.DispatchQoS
+  open var securityLevel: Foundation.StreamSocketSecurityLevel
+  open var totalBytesOut: FlipFlopSDK.Atomic<Swift.Int64> {
+    get
+  }
+  open var queueBytesOut: FlipFlopSDK.Atomic<Swift.Int64> {
+    get
+  }
+  @objc deinit
+  public func connect(withName: Swift.String, port: Swift.Int)
+  @discardableResult
+  public func doOutput(data: Foundation.Data, locked: Swift.UnsafeMutablePointer<Swift.UInt32>? = nil) -> Swift.Int
+  open func close()
+  open func listen()
+  @objc override dynamic public init()
+}
+extension NetSocket : Foundation.StreamDelegate {
+  @objc dynamic public func stream(_ aStream: Foundation.Stream, handle eventCode: Foundation.Stream.Event)
+}
+public protocol VideoEncoderDelegate : AnyObject {
+  func didSetFormatDescription(video formatDescription: CoreMedia.CMFormatDescription?)
+  func sampleOutput(video sampleBuffer: CoreMedia.CMSampleBuffer)
+}
+@_hasMissingDesignatedInitializers final public class H264Encoder {
+  public enum Option : Swift.String, FlipFlopSDK.KeyPathRepresentable, Swift.CaseIterable {
+    case muted
+    case width
+    case height
+    case bitrate
+    case profileLevel
+    case maxKeyFrameIntervalDuration
+    case scalingMode
+    public var keyPath: Swift.AnyKeyPath {
+      get
+    }
+    public init?(rawValue: Swift.String)
+    public typealias AllCases = [FlipFlopSDK.H264Encoder.Option]
+    public typealias RawValue = Swift.String
+    public static var allCases: [FlipFlopSDK.H264Encoder.Option] {
+      get
+    }
+    public var rawValue: Swift.String {
+      get
+    }
+  }
+  public static let defaultWidth: Swift.Int32
+  public static let defaultHeight: Swift.Int32
+  public static let defaultBitrate: Swift.UInt32
+  public static let defaultScalingMode: FlipFlopSDK.ScalingMode
+  final public var settings: FlipFlopSDK.Setting<FlipFlopSDK.H264Encoder, FlipFlopSDK.H264Encoder.Option> {
+    get
+    set
+  }
+  final public var isRunning: FlipFlopSDK.Atomic<Swift.Bool> {
+    get
+  }
+  @objc deinit
+}
+extension H264Encoder : FlipFlopSDK.Running {
+  final public func startRunning()
+  final public func stopRunning()
+}
+extension DeviceUtil {
+  public static func videoOrientation(by notification: Foundation.Notification) -> AVFoundation.AVCaptureVideoOrientation?
+  public static func videoOrientation(by orientation: UIKit.UIDeviceOrientation) -> AVFoundation.AVCaptureVideoOrientation?
+  public static func videoOrientation(by orientation: UIKit.UIInterfaceOrientation) -> AVFoundation.AVCaptureVideoOrientation?
+}
+@objc @_inheritsConvenienceInitializers open class NetStream : ObjectiveC.NSObject {
+  final public let lockQueue: Dispatch.DispatchQueue
+  open var mixer: FlipFlopSDK.AVMixer {
+    get
+  }
+  open var metadata: [Swift.String : Any?]
+  open var context: CoreImage.CIContext? {
+    get
+    set
+  }
+  open var torch: Swift.Bool {
+    get
+    set
+  }
+  open var audioSettings: FlipFlopSDK.Setting<FlipFlopSDK.AudioCodec, FlipFlopSDK.AudioCodec.Option> {
+    get
+    set
+  }
+  open var videoSettings: FlipFlopSDK.Setting<FlipFlopSDK.H264Encoder, FlipFlopSDK.H264Encoder.Option> {
+    get
+    set
+  }
+  open var captureSettings: FlipFlopSDK.Setting<FlipFlopSDK.AVMixer, FlipFlopSDK.AVMixer.Option> {
+    get
+    set
+  }
+  open var recorderSettings: [AVFoundation.AVMediaType : [Swift.String : Any]] {
+    get
+    set
+  }
+  @objc deinit
+  open func attachCamera(_ camera: AVFoundation.AVCaptureDevice?, onError: ((Foundation.NSError) -> Swift.Void)? = nil)
+  open func attachAudio(_ audio: AVFoundation.AVCaptureDevice?, automaticallyConfiguresApplicationAudioSession: Swift.Bool = false, onError: ((Foundation.NSError) -> Swift.Void)? = nil)
+  open func setPointOfInterest(focus: CoreGraphics.CGPoint)
+  open func setPointOfInterest(exposure: CoreGraphics.CGPoint)
+  open func setExposureTargetBias(bias: Swift.Float)
+  open func appendSampleBuffer(_ sampleBuffer: CoreMedia.CMSampleBuffer, withType: AVFoundation.AVMediaType, options: [ObjectiveC.NSObject : Swift.AnyObject]? = nil)
+  open func registerVideoEffect(_ effect: FlipFlopSDK.VideoEffect) -> Swift.Bool
+  open func unregisterVideoEffect(_ effect: FlipFlopSDK.VideoEffect) -> Swift.Bool
+  open func registerAudioEffect(_ effect: FlipFlopSDK.AudioEffect) -> Swift.Bool
+  open func unregisterAudioEffect(_ effect: FlipFlopSDK.AudioEffect) -> Swift.Bool
+  open func dispose()
+  @objc override dynamic public init()
+}
+public protocol AVRecorderDelegate : AnyObject {
+  var moviesDirectory: Foundation.URL { get }
+  func rotateFile(_ recorder: FlipFlopSDK.AVRecorder, withPresentationTimeStamp: CoreMedia.CMTime, mediaType: AVFoundation.AVMediaType)
+  func getPixelBufferAdaptor(_ recorder: FlipFlopSDK.AVRecorder, withWriterInput: AVFoundation.AVAssetWriterInput?) -> AVFoundation.AVAssetWriterInputPixelBufferAdaptor?
+  func getWriterInput(_ recorder: FlipFlopSDK.AVRecorder, mediaType: AVFoundation.AVMediaType, sourceFormatHint: CoreMedia.CMFormatDescription?) -> AVFoundation.AVAssetWriterInput?
+  func didStartRunning(_ recorder: FlipFlopSDK.AVRecorder)
+  func didStopRunning(_ recorder: FlipFlopSDK.AVRecorder)
+  func didFinishWriting(_ recorder: FlipFlopSDK.AVRecorder)
+}
+@objc @_inheritsConvenienceInitializers open class AVRecorder : ObjectiveC.NSObject {
+  public static let defaultOutputSettings: [AVFoundation.AVMediaType : [Swift.String : Any]]
+  open var writer: AVFoundation.AVAssetWriter?
+  open var fileName: Swift.String?
+  weak open var delegate: FlipFlopSDK.AVRecorderDelegate?
+  open var writerInputs: [AVFoundation.AVMediaType : AVFoundation.AVAssetWriterInput]
+  open var outputSettings: [AVFoundation.AVMediaType : [Swift.String : Any]]
+  open var pixelBufferAdaptor: AVFoundation.AVAssetWriterInputPixelBufferAdaptor?
+  final public let lockQueue: Dispatch.DispatchQueue
+  public var isRunning: FlipFlopSDK.Atomic<Swift.Bool> {
+    get
+  }
+  @objc override dynamic public init()
+  @objc deinit
+}
+extension AVRecorder : FlipFlopSDK.Running {
+  public func startRunning()
+  public func stopRunning()
+}
+@objc open class DefaultAVRecorderDelegate : ObjectiveC.NSObject {
+  public enum FileType {
+    case mp4
+    case mov
+    public var AVFileType: AVFoundation.AVFileType {
+      get
+    }
+    public var fileExtension: Swift.String {
+      get
+    }
+    public static func == (a: FlipFlopSDK.DefaultAVRecorderDelegate.FileType, b: FlipFlopSDK.DefaultAVRecorderDelegate.FileType) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
+  }
+  public static let shared: FlipFlopSDK.DefaultAVRecorderDelegate
+  open var duration: Swift.Int64
+  open var dateFormat: Swift.String
+  public var fileType: FlipFlopSDK.DefaultAVRecorderDelegate.FileType {
+    get
+  }
+  open var moviesDirectory: Foundation.URL {
+    get
+    set
+  }
+  public init(fileType: FlipFlopSDK.DefaultAVRecorderDelegate.FileType = .mp4)
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc extension DefaultAVRecorderDelegate : FlipFlopSDK.AVRecorderDelegate {
+  @objc dynamic open func rotateFile(_ recorder: FlipFlopSDK.AVRecorder, withPresentationTimeStamp: CoreMedia.CMTime, mediaType: AVFoundation.AVMediaType)
+  @objc dynamic open func getPixelBufferAdaptor(_ recorder: FlipFlopSDK.AVRecorder, withWriterInput: AVFoundation.AVAssetWriterInput?) -> AVFoundation.AVAssetWriterInputPixelBufferAdaptor?
+  @objc dynamic open func getWriterInput(_ recorder: FlipFlopSDK.AVRecorder, mediaType: AVFoundation.AVMediaType, sourceFormatHint: CoreMedia.CMFormatDescription?) -> AVFoundation.AVAssetWriterInput?
+  @objc dynamic open func didFinishWriting(_ recorder: FlipFlopSDK.AVRecorder)
+  @objc dynamic open func didStartRunning(_ recorder: FlipFlopSDK.AVRecorder)
+  @objc dynamic open func didStopRunning(_ recorder: FlipFlopSDK.AVRecorder)
+}
+extension UIImage {
+  public func rounded(radius: CoreGraphics.CGFloat) -> UIKit.UIImage
+  public func roundedImageWithBorder(cornerRadius: CoreGraphics.CGFloat, width: CoreGraphics.CGFloat, color: UIKit.UIColor) -> UIKit.UIImage?
+  public func alpha(_ value: CoreGraphics.CGFloat) -> UIKit.UIImage
+  public func scalePreservingAspectRatio(targetSize: CoreGraphics.CGSize, scale: CoreGraphics.CGFloat) -> UIKit.UIImage
+}
+public enum FLVVideoCodec : Swift.UInt8 {
+  case sorensonH263
+  case screen1
+  case on2VP6
+  case on2VP6Alpha
+  case screen2
+  case avc
+  case unknown
+  public init?(rawValue: Swift.UInt8)
+  public typealias RawValue = Swift.UInt8
+  public var rawValue: Swift.UInt8 {
+    get
+  }
+}
+public enum HKPictureInPicureControllerPosition {
+  case topLeft
+  case topRight
+  case bottomRight
+  case bottomLeft
+  public static func == (a: FlipFlopSDK.HKPictureInPicureControllerPosition, b: FlipFlopSDK.HKPictureInPicureControllerPosition) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public enum ScalingMode : Swift.String {
+  case normal
+  case letterbox
+  case cropSourceToCleanAperture
+  case trim
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+extension HKPictureInPicureController where Self : UIKit.UIViewController {
+  public var isPictureInPictureActive: Swift.Bool {
+    get
+  }
+  public var pictureInPictureSize: CoreGraphics.CGSize {
+    get
+    set
+  }
+  public var pictureInPicturePosition: FlipFlopSDK.HKPictureInPicureControllerPosition {
+    get
+    set
+  }
+  public var pictureInPictureMargin: CoreGraphics.CGFloat {
+    get
+    set
+  }
+  public var pictureInPictureCornerRadius: CoreGraphics.CGFloat {
+    get
+    set
+  }
+  public var pictureInPictureAnimationDuration: Foundation.TimeInterval {
+    get
+    set
+  }
+  public func startPictureInPicture()
+  public func stopPictureInPicture()
+}
+public struct Empty : Swift.Decodable {
+  public init(from decoder: Swift.Decoder) throws
+}
+extension UIDevice {
+  public var type: Swift.String {
+    get
+  }
+}
+@objc public protocol FFConferenceDelegate {
+  @objc func onJoined(conference: FlipFlopSDK.FFConference, room: Swift.String, userID: Swift.String) -> UIKit.UIView?
+  @objc func onLeaved(conference: FlipFlopSDK.FFConference, room: Swift.String, userID: Swift.String)
+}
+@_hasMissingDesignatedInitializers @objc public class FFConference : ObjectiveC.NSObject {
+  @objc weak public var delegate: FlipFlopSDK.FFConferenceDelegate?
+  @objc deinit
+  @objc public func prepare(preview: UIKit.UIView)
+  @objc public func join()
+  @objc public func leave()
+  @objc override dynamic public init()
+}
+extension FFConference : FlipFlopSDK.WebRTCConferenceDelegate {
+  public func onJoined(conference: FlipFlopSDK.WebRTCConference, room: Swift.String, userID: Swift.String) -> UIKit.UIView?
+  public func onLeaved(conference: FlipFlopSDK.WebRTCConference, room: Swift.String, userID: Swift.String)
+}
+@_hasMissingDesignatedInitializers public class MP4Sampler {
+  public typealias Handler = () -> Swift.Void
+  public var isRunning: FlipFlopSDK.Atomic<Swift.Bool> {
+    get
+  }
+  @objc deinit
+}
+extension MP4Sampler : FlipFlopSDK.Running {
+  public func startRunning()
+  public func stopRunning()
+}
+public class AVMixer {
+  public static let bufferEmpty: Foundation.Notification.Name
+  public static let defaultFPS: Swift.Double
+  public static let defaultVideoSettings: [Foundation.NSString : Swift.AnyObject]
+  public enum Option : Swift.String, FlipFlopSDK.KeyPathRepresentable, Swift.CaseIterable {
+    case fps
+    case sessionPreset
+    case isVideoMirrored
+    case continuousAutofocus
+    case continuousExposure
+    case preferredVideoStabilizationMode
+    public var keyPath: Swift.AnyKeyPath {
+      get
+    }
+    public init?(rawValue: Swift.String)
+    public typealias AllCases = [FlipFlopSDK.AVMixer.Option]
+    public typealias RawValue = Swift.String
+    public static var allCases: [FlipFlopSDK.AVMixer.Option] {
+      get
+    }
+    public var rawValue: Swift.String {
+      get
+    }
+  }
+  public var session: AVFoundation.AVCaptureSession {
+    get
+    set
+  }
+  public var recorder: FlipFlopSDK.AVRecorder! {
+    get
+  }
+  @objc deinit
+  public init()
+  public func dispose()
+}
+extension AVMixer {
+  public func startEncoding(delegate: Any)
+  public func stopEncoding()
+}
+extension AVMixer : FlipFlopSDK.Running {
+  public var isRunning: FlipFlopSDK.Atomic<Swift.Bool> {
+    get
+  }
+  public func startRunning()
+  public func stopRunning()
+}
+@objc open class NetService : ObjectiveC.NSObject {
+  open var txtData: Foundation.Data? {
+    get
+  }
+  public var domain: Swift.String {
+    get
+  }
+  public var name: Swift.String {
+    get
+  }
+  public var port: Swift.Int32 {
+    get
+  }
+  public var type: Swift.String {
+    get
+  }
+  public var isRunning: FlipFlopSDK.Atomic<Swift.Bool> {
+    get
+  }
+  public var clients: [FlipFlopSDK.NetClient] {
+    get
+  }
+  public init(domain: Swift.String, type: Swift.String, name: Swift.String, port: Swift.Int32)
+  @objc override dynamic public init()
+  @objc deinit
+}
+extension NetService : Foundation.NetServiceDelegate {
+  @objc dynamic public func netService(_ sender: Foundation.NetService, didAcceptConnectionWith inputStream: Foundation.InputStream, outputStream: Foundation.OutputStream)
+}
+extension NetService : FlipFlopSDK.Running {
+  public func startRunning()
+  public func stopRunning()
+}
+@_hasMissingDesignatedInitializers open class ByteArray {
+  public enum Error : Swift.Error {
+    case eof
+    case parse
+    public static func == (a: FlipFlopSDK.ByteArray.Error, b: FlipFlopSDK.ByteArray.Error) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
+  }
+  open var length: Swift.Int {
+    get
+    set
+  }
+  open var position: Swift.Int
+  open var bytesAvailable: Swift.Int {
+    get
+  }
+  open subscript(i: Swift.Int) -> Swift.UInt8 {
+    get
+    set
+  }
+  open func readUInt8() throws -> Swift.UInt8
+  @discardableResult
+  open func writeUInt8(_ value: Swift.UInt8) -> Self
+  open func readInt8() throws -> Swift.Int8
+  @discardableResult
+  open func writeInt8(_ value: Swift.Int8) -> Self
+  open func readUInt16() throws -> Swift.UInt16
+  @discardableResult
+  open func writeUInt16(_ value: Swift.UInt16) -> Self
+  open func readInt16() throws -> Swift.Int16
+  @discardableResult
+  open func writeInt16(_ value: Swift.Int16) -> Self
+  open func readUInt24() throws -> Swift.UInt32
+  @discardableResult
+  open func writeUInt24(_ value: Swift.UInt32) -> Self
+  open func readUInt32() throws -> Swift.UInt32
+  @discardableResult
+  open func writeUInt32(_ value: Swift.UInt32) -> Self
+  open func readInt32() throws -> Swift.Int32
+  @discardableResult
+  open func writeInt32(_ value: Swift.Int32) -> Self
+  open func readDouble() throws -> Swift.Double
+  @discardableResult
+  open func writeDouble(_ value: Swift.Double) -> Self
+  open func readFloat() throws -> Swift.Float
+  @discardableResult
+  open func writeFloat(_ value: Swift.Float) -> Self
+  open func readUTF8() throws -> Swift.String
+  @discardableResult
+  open func writeUTF8(_ value: Swift.String) throws -> Self
+  open func readUTF8Bytes(_ length: Swift.Int) throws -> Swift.String
+  @discardableResult
+  open func writeUTF8Bytes(_ value: Swift.String) -> Self
+  open func readBytes(_ length: Swift.Int) throws -> Foundation.Data
+  @discardableResult
+  open func writeBytes(_ value: Foundation.Data) -> Self
+  @discardableResult
+  open func clear() -> Self
+  @objc deinit
+}
+extension ByteArray : Swift.CustomDebugStringConvertible {
+  public var debugDescription: Swift.String {
+    get
+  }
+}
+public protocol HKPictureInPicureController : AnyObject {
+  var isPictureInPictureActive: Swift.Bool { get }
+  var pictureInPictureSize: CoreGraphics.CGSize { get set }
+  var pictureInPicturePosition: FlipFlopSDK.HKPictureInPicureControllerPosition { get set }
+  var pictureInPictureMargin: CoreGraphics.CGFloat { get set }
+  var pictureInPictureCornerRadius: CoreGraphics.CGFloat { get set }
+  var pictureInPictureAnimationDuration: Foundation.TimeInterval { get set }
+  func startPictureInPicture()
+  func stopPictureInPicture()
+}
+extension CMSampleBuffer {
+}
+public enum FLVAudioCodec : Swift.UInt8 {
+  case pcm
+  case adpcm
+  case mp3
+  case pcmle
+  case nellymoser16K
+  case nellymoser8K
+  case nellymoser
+  case g711A
+  case g711MU
+  case aac
+  case speex
+  case mp3_8k
+  case unknown
+  public init?(rawValue: Swift.UInt8)
+  public typealias RawValue = Swift.UInt8
+  public var rawValue: Swift.UInt8 {
+    get
+  }
+}
+public protocol WebRTCConferenceDelegate : AnyObject {
+  func onJoined(conference: FlipFlopSDK.WebRTCConference, room: Swift.String, userID: Swift.String) -> UIKit.UIView?
+  func onLeaved(conference: FlipFlopSDK.WebRTCConference, room: Swift.String, userID: Swift.String)
+}
+@objc @_hasMissingDesignatedInitializers open class WebRTCConference : ObjectiveC.NSObject {
+  open func preprare(preview: UIKit.UIView)
+  open func join(url: Swift.String)
+  open func leave()
+  @objc deinit
+  @objc override dynamic public init()
+}
+@objc @_inheritsConvenienceInitializers open class VideoEffect : ObjectiveC.NSObject {
+  open var ciContext: CoreImage.CIContext?
+  open func execute(_ image: CoreImage.CIImage) -> CoreImage.CIImage
+  @objc override dynamic public init()
+  @objc deinit
+}
+public protocol TimerDriverDelegate : AnyObject {
+  func tick(_ driver: FlipFlopSDK.TimerDriver)
+}
+@_hasMissingDesignatedInitializers public class TimerDriver {
+  public var interval: Swift.UInt64
+  public func setDelegate(_ delegate: FlipFlopSDK.TimerDriverDelegate, withQueue: Dispatch.DispatchQueue? = nil)
+  @objc deinit
+}
+extension TimerDriver : FlipFlopSDK.Running {
+  public var isRunning: FlipFlopSDK.Atomic<Swift.Bool> {
+    get
+  }
+  public func startRunning()
+  public func stopRunning()
+}
+extension NetStream {
+  open var orientation: AVFoundation.AVCaptureVideoOrientation {
+    get
+    set
+  }
+  open func attachScreen(_ screen: FlipFlopSDK.CustomCaptureSession?, useScreenSize: Swift.Bool = true)
+  open var zoomFactor: CoreGraphics.CGFloat {
+    get
+  }
+  open func setZoomFactor(_ zoomFactor: CoreGraphics.CGFloat, ramping: Swift.Bool = false, withRate: Swift.Float = 2.0)
+}
+@objc @_inheritsConvenienceInitializers open class AudioEffect : ObjectiveC.NSObject {
+  open func execute(_ buffer: CoreAudio.UnsafeMutableAudioBufferListPointer?, format: CoreAudioTypes.AudioStreamBasicDescription?)
+  @objc override dynamic public init()
+  @objc deinit
+}
+public typealias HttpCompletion = ((Swift.Int, Foundation.Data?, Swift.Error?) -> Swift.Void)?
+public enum FLVSoundSize : Swift.UInt8 {
+  case snd8bit
+  case snd16bit
+  public init?(rawValue: Swift.UInt8)
+  public typealias RawValue = Swift.UInt8
+  public var rawValue: Swift.UInt8 {
+    get
+  }
+}
+@objc open class GLHKView : GLKit.GLKView {
+  public static var defaultBackgroundColor: UIKit.UIColor
+  open var isMirrored: Swift.Bool
+  open var videoGravity: AVFoundation.AVLayerVideoGravity
+  open var videoFormatDescription: CoreMedia.CMVideoFormatDescription? {
+    get
+  }
+  @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
+  @objc override dynamic open func awakeFromNib()
+  open func attachStream(_ stream: FlipFlopSDK.NetStream?)
+  @objc override dynamic public init(frame: CoreGraphics.CGRect, context: OpenGLES.EAGLContext)
+  @objc deinit
+}
+extension GLHKView : GLKit.GLKViewDelegate {
+  @objc dynamic public func glkView(_ view: GLKit.GLKView, drawIn rect: CoreGraphics.CGRect)
+}
+public enum FLVSoundType : Swift.UInt8 {
+  case mono
+  case stereo
+  public init?(rawValue: Swift.UInt8)
+  public typealias RawValue = Swift.UInt8
+  public var rawValue: Swift.UInt8 {
+    get
+  }
+}
+extension AudioCodec {
+  public enum Destination {
+    case aac
+    case pcm
+    public static func == (a: FlipFlopSDK.AudioCodec.Destination, b: FlipFlopSDK.AudioCodec.Destination) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
+  }
+}
+@objc public enum Preset : Swift.Int {
+  case hd1920x1080
+  case hd1280x720
+  case vga640x480
+  case cif352x288
+  public var value: AVFoundation.AVCaptureSession.Preset {
+    get
+  }
+  public var resolution: (width: Swift.Int, height: Swift.Int) {
+    get
+  }
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public enum FLVSoundRate : Swift.UInt8 {
+  case kHz5_5
+  case kHz11
+  case kHz22
+  case kHz44
+  public var floatValue: Swift.Float64 {
+    get
+  }
+  public init?(rawValue: Swift.UInt8)
+  public typealias RawValue = Swift.UInt8
+  public var rawValue: Swift.UInt8 {
+    get
+  }
+}
+@objc open class RTMPStream : FlipFlopSDK.NetStream {
+  public enum Code : Swift.String {
+    case bufferEmpty
+    case bufferFlush
+    case bufferFull
+    case connectClosed
+    case connectFailed
+    case connectRejected
+    case connectSuccess
+    case drmUpdateNeeded
+    case failed
+    case multicastStreamReset
+    case pauseNotify
+    case playFailed
+    case playFileStructureInvalid
+    case playInsufficientBW
+    case playNoSupportedTrackFound
+    case playReset
+    case playStart
+    case playStop
+    case playStreamNotFound
+    case playTransition
+    case playUnpublishNotify
+    case publishBadName
+    case publishIdle
+    case publishStart
+    case recordAlreadyExists
+    case recordFailed
+    case recordNoAccess
+    case recordStart
+    case recordStop
+    case recordDiskQuotaExceeded
+    case secondScreenStart
+    case secondScreenStop
+    case seekFailed
+    case seekInvalidTime
+    case seekNotify
+    case stepNotify
+    case unpauseNotify
+    case unpublishSuccess
+    case videoDimensionChange
+    public var level: Swift.String {
+      get
+    }
+    public init?(rawValue: Swift.String)
+    public typealias RawValue = Swift.String
+    public var rawValue: Swift.String {
+      get
+    }
+  }
+  public enum PlayTransition : Swift.String {
+    case append
+    case appendAndWait
+    case reset
+    case resume
+    case stop
+    case swap
+    case `switch`
+    public init?(rawValue: Swift.String)
+    public typealias RawValue = Swift.String
+    public var rawValue: Swift.String {
+      get
+    }
+  }
+  public struct PlayOption : Swift.CustomDebugStringConvertible {
+    public var len: Swift.Double
+    public var offset: Swift.Double
+    public var oldStreamName: Swift.String
+    public var start: Swift.Double
+    public var streamName: Swift.String
+    public var transition: FlipFlopSDK.RTMPStream.PlayTransition
+    public var debugDescription: Swift.String {
+      get
+    }
+  }
+  public enum HowToPublish : Swift.String {
+    case record
+    case append
+    case appendWithGap
+    case live
+    case localRecord
+    public init?(rawValue: Swift.String)
+    public typealias RawValue = Swift.String
+    public var rawValue: Swift.String {
+      get
+    }
+  }
+  public static let defaultAudioBitrate: Swift.UInt32
+  public static let defaultVideoBitrate: Swift.UInt32
+  open var info: FlipFlopSDK.RTMPStreamInfo {
+    get
+  }
+  open var objectEncoding: FlipFlopSDK.RTMPObjectEncoding {
+    get
+  }
+  @objc dynamic open var currentFPS: Swift.UInt16 {
+    get
+  }
+  open var soundTransform: FlipFlopSDK.SoundTransform {
+    get
+    set
+  }
+  open var receiveAudio: Swift.Bool {
+    get
+    set
+  }
+  open var receiveVideo: Swift.Bool {
+    get
+    set
+  }
+  open var paused: Swift.Bool {
+    get
+    set
+  }
+  public init(connection: FlipFlopSDK.RTMPConnection)
+  @objc deinit
+  open func play(_ arguments: Any?...)
+  open func seek(_ offset: Swift.Double)
+  open func publish(_ name: Swift.String?, type: FlipFlopSDK.RTMPStream.HowToPublish = .live)
+  open func close()
+  open func send(handlerName: Swift.String, arguments: Any?...)
+  open func appendFile(_ file: Foundation.URL, completionHandler: FlipFlopSDK.MP4Sampler.Handler? = nil)
+  open func createMetaData() -> FlipFlopSDK.ASObject
+  @objc override dynamic public init()
+}
+public struct RTMPStreamInfo {
+  public var byteCount: FlipFlopSDK.Atomic<Swift.Int64> {
+    get
+  }
+  public var resourceName: Swift.String? {
+    get
+  }
+  public var currentBytesPerSecond: Swift.Int32 {
+    get
+  }
+}
+extension RTMPStreamInfo : Swift.CustomDebugStringConvertible {
+  public var debugDescription: Swift.String {
+    get
+  }
+}
+public enum EventPhase : Swift.UInt8 {
+  case capturing
+  case atTarget
+  case bubbling
+  case dispose
+  public init?(rawValue: Swift.UInt8)
+  public typealias RawValue = Swift.UInt8
+  public var rawValue: Swift.UInt8 {
+    get
+  }
+}
+open class Event {
+  public struct Name : Swift.RawRepresentable, Swift.ExpressibleByStringLiteral {
+    public typealias RawValue = Swift.String
+    public typealias StringLiteralType = Swift.String
+    public static let sync: FlipFlopSDK.Event.Name
+    public static let event: FlipFlopSDK.Event.Name
+    public static let ioError: FlipFlopSDK.Event.Name
+    public static let rtmpStatus: FlipFlopSDK.Event.Name
+    public let rawValue: Swift.String
+    public init(rawValue: Swift.String)
+    public init(stringLiteral value: Swift.String)
+    public typealias ExtendedGraphemeClusterLiteralType = FlipFlopSDK.Event.Name.StringLiteralType
+    public typealias UnicodeScalarLiteralType = FlipFlopSDK.Event.Name.StringLiteralType
+  }
+  public static func from(_ notification: Foundation.Notification) -> FlipFlopSDK.Event
+  open var type: FlipFlopSDK.Event.Name {
+    get
+  }
+  open var bubbles: Swift.Bool {
+    get
+  }
+  open var data: Any? {
+    get
+  }
+  open var target: Swift.AnyObject? {
+    get
+  }
+  public init(type: FlipFlopSDK.Event.Name, bubbles: Swift.Bool = false, data: Any? = nil)
+  @objc deinit
+}
+extension Event : Swift.CustomDebugStringConvertible {
+  public var debugDescription: Swift.String {
+    get
+  }
+}
+open class EventDispatcher {
+  public init()
+  public init(target: Swift.AnyObject)
+  @objc deinit
+  public func addEventListener(_ type: FlipFlopSDK.Event.Name, selector: ObjectiveC.Selector, observer: Swift.AnyObject? = nil, useCapture: Swift.Bool = false)
+  public func removeEventListener(_ type: FlipFlopSDK.Event.Name, selector: ObjectiveC.Selector, observer: Swift.AnyObject? = nil, useCapture: Swift.Bool = false)
+  open func dispatch(event: FlipFlopSDK.Event)
+  public func dispatch(_ type: FlipFlopSDK.Event.Name, bubbles: Swift.Bool, data: Any?)
+}
+public protocol AudioCodecDelegate : AnyObject {
+  func didSetFormatDescription(audio formatDescription: CoreMedia.CMFormatDescription?)
+  func sampleOutput(audio data: CoreAudio.UnsafeMutableAudioBufferListPointer, presentationTimeStamp: CoreMedia.CMTime)
+}
+public class AudioCodec {
+  public enum Option : Swift.String, FlipFlopSDK.KeyPathRepresentable {
+    case muted
+    case bitrate
+    case sampleRate
+    case actualBitrate
+    public var keyPath: Swift.AnyKeyPath {
+      get
+    }
+    public init?(rawValue: Swift.String)
+    public typealias AllCases = [FlipFlopSDK.AudioCodec.Option]
+    public typealias RawValue = Swift.String
+    public static var allCases: [FlipFlopSDK.AudioCodec.Option] {
+      get
+    }
+    public var rawValue: Swift.String {
+      get
+    }
+  }
+  public static let minimumBitrate: Swift.UInt32
+  public static let defaultBitrate: Swift.UInt32
+  public static let defaultChannels: Swift.UInt32
+  public static let defaultSampleRate: Swift.Double
+  public static let defaultMaximumBuffers: Swift.Int
+  public var destination: FlipFlopSDK.AudioCodec.Destination
+  weak public var delegate: FlipFlopSDK.AudioCodecDelegate?
+  public var isRunning: FlipFlopSDK.Atomic<Swift.Bool> {
+    get
+  }
+  public var settings: FlipFlopSDK.Setting<FlipFlopSDK.AudioCodec, FlipFlopSDK.AudioCodec.Option> {
+    get
+    set
+  }
+  public init()
+  public func encodeBytes(_ bytes: Swift.UnsafeMutableRawPointer?, count: Swift.Int, presentationTimeStamp: CoreMedia.CMTime)
+  public func encodeSampleBuffer(_ sampleBuffer: CoreMedia.CMSampleBuffer, offset: Swift.Int = 0)
+  @objc deinit
+}
+extension AudioCodec : FlipFlopSDK.Running {
+  public func startRunning()
+  public func stopRunning()
+}
+open class FLVReader {
+  public static let header: Foundation.Data
+  final public let url: Foundation.URL
+  public init(url: Foundation.URL)
+  public func getData(_ tag: FlipFlopSDK.FLVTag) -> Foundation.Data?
+  @objc deinit
+}
+extension FLVReader : Swift.IteratorProtocol {
+  public func next() -> FlipFlopSDK.FLVTag?
+  public typealias Element = FlipFlopSDK.FLVTag
+}
+public enum StompAckMode {
+  case AutoMode
+  case ClientMode
+  case ClientIndividualMode
+  public static func == (a: FlipFlopSDK.StompAckMode, b: FlipFlopSDK.StompAckMode) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+@objc public protocol StompClientLibDelegate {
+  @objc func stompClient(client: FlipFlopSDK.StompClientLib!, didReceiveMessageWithJSONBody jsonBody: Swift.AnyObject?, akaStringBody stringBody: Swift.String?, withHeader header: [Swift.String : Swift.String]?, withDestination destination: Swift.String)
+  @objc func stompClientDidDisconnect(client: FlipFlopSDK.StompClientLib!)
+  @objc func stompClientDidConnect(client: FlipFlopSDK.StompClientLib!)
+  @objc func serverDidSendReceipt(client: FlipFlopSDK.StompClientLib!, withReceiptId receiptId: Swift.String)
+  @objc func serverDidSendError(client: FlipFlopSDK.StompClientLib!, withErrorMessage description: Swift.String, detailedErrorMessage message: Swift.String?)
+  @objc func serverDidSendPing()
+}
+@objc @_inheritsConvenienceInitializers @objcMembers public class StompClientLib : ObjectiveC.NSObject, SocketRocket.SRWebSocketDelegate {
+  @objc public var connection: Swift.Bool
+  @objc public var certificateCheckEnabled: Swift.Bool
+  @objc public static var defaultHeartBitTime: Swift.Double
+  @objc public func sendPing()
+  @objc public func sendJSONForDict(dict: Swift.AnyObject, toDestination destination: Swift.String)
+  @objc public func openSocketWithURLRequest(request: Foundation.NSURLRequest, delegate: FlipFlopSDK.StompClientLibDelegate, connectionHeaders: [Swift.String : Swift.String]? = nil)
+  @objc public func webSocket(_ webSocket: SocketRocket.SRWebSocket!, didReceiveMessage message: Any!)
+  @objc public func webSocketDidOpen(_ webSocket: SocketRocket.SRWebSocket!)
+  @objc public func webSocket(_ webSocket: SocketRocket.SRWebSocket!, didFailWithError error: Swift.Error!)
+  @objc public func webSocket(_ webSocket: SocketRocket.SRWebSocket!, didCloseWithCode code: Swift.Int, reason: Swift.String!, wasClean: Swift.Bool)
+  @objc public func webSocket(_ webSocket: SocketRocket.SRWebSocket!, didReceivePong pongPayload: Foundation.Data!)
+  @objc public func sendMessage(message: Swift.String, toDestination destination: Swift.String, withHeaders headers: [Swift.String : Swift.String]?, withReceipt receipt: Swift.String?)
+  @objc public func isConnected() -> Swift.Bool
+  @objc public func subscribe(destination: Swift.String)
+  public func subscribeToDestination(destination: Swift.String, ackMode: FlipFlopSDK.StompAckMode)
+  @objc public func subscribeWithHeader(destination: Swift.String, withHeader header: [Swift.String : Swift.String])
+  @objc public func unsubscribe(destination: Swift.String)
+  @objc public func begin(transactionId: Swift.String)
+  @objc public func commit(transactionId: Swift.String)
+  @objc public func abort(transactionId: Swift.String)
+  @objc public func ack(messageId: Swift.String)
+  @objc public func ack(messageId: Swift.String, withSubscription subscription: Swift.String)
+  @objc public func disconnect()
+  @objc public func reconnect(request: Foundation.NSURLRequest, delegate: FlipFlopSDK.StompClientLibDelegate, connectionHeaders: [Swift.String : Swift.String] = [String: String](), time: Swift.Double = 1.0, exponentialBackoff: Swift.Bool = true)
+  @objc public func stopReconnect()
+  @objc public func autoDisconnect(time: Swift.Double)
+  @objc override dynamic public init()
+  @objc deinit
+}
+public enum FLVAACPacketType : Swift.UInt8 {
+  case seq
+  case raw
+  public init?(rawValue: Swift.UInt8)
+  public typealias RawValue = Swift.UInt8
+  public var rawValue: Swift.UInt8 {
+    get
+  }
+}
+open class SwiftyGifManager {
+  public static var defaultManager: FlipFlopSDK.SwiftyGifManager
+  open var haveCache: Swift.Bool
+  open var remoteCache: [Foundation.URL : Foundation.Data]
+  public init(memoryLimit: Swift.Int)
+  @objc deinit
+  public func startTimerIfNeeded()
+  public func stopTimer()
+  open func addImage(_ image: UIKit.UIImage)
+  open func deleteImage(_ image: UIKit.UIImage)
+  open func clear()
+}
+public protocol HLSPlayerDelegate : AnyObject {
+  func onPrepared(player: FlipFlopSDK.HLSPlayer)
+  func onPaused(player: FlipFlopSDK.HLSPlayer)
+  func onStarted(player: FlipFlopSDK.HLSPlayer)
+  func onStopped(player: FlipFlopSDK.HLSPlayer)
+  func onCompleted(player: FlipFlopSDK.HLSPlayer)
+  func onProgressUpdated(player: FlipFlopSDK.HLSPlayer, seconds: Swift.Float64)
+  func onError(player: FlipFlopSDK.HLSPlayer, error: Swift.Error)
+  func onVideoResolutionSize(player: FlipFlopSDK.HLSPlayer, size: CoreGraphics.CGSize)
+}
+@objc open class HLSPlayer : ObjectiveC.NSObject {
+  open var isRepeat: Swift.Bool
+  open var isPictureInPictureSupported: Swift.Bool {
+    get
+  }
+  open var isPictureInPictureActive: Swift.Bool {
+    get
+  }
+  open var videoGravity: AVFoundation.AVLayerVideoGravity {
+    get
+    set
+  }
+  open var isMuted: Swift.Bool {
+    get
+    set
+  }
+  open var duration: Swift.Float64 {
+    get
+  }
+  open var forwardPlaybackEndtime: CoreMedia.CMTime? {
+    get
+    set
+  }
+  public init(url: Foundation.URL, view: UIKit.UIView, delegate: FlipFlopSDK.HLSPlayerDelegate?)
+  @objc deinit
+  open func start()
+  open func pause()
+  open func resume()
+  open func seekTo(seconds: Swift.Float64, exactly: Swift.Bool = false, completion: ((Swift.Float64) -> Swift.Void)?)
+  open func stop()
+  open func startPIP()
+  open func stopPIP()
+  @objc override dynamic public init()
+}
+extension HLSPlayer {
+  @objc override dynamic open func observeValue(forKeyPath keyPath: Swift.String?, of object: Any?, change: [Foundation.NSKeyValueChangeKey : Any]?, context: Swift.UnsafeMutableRawPointer?)
+}
+extension HLSPlayer : AVKit.AVPictureInPictureControllerDelegate {
+}
+open class Responder {
+  public typealias Handler = ([Any?]) -> Swift.Void
+  public init(result: @escaping FlipFlopSDK.Responder.Handler, status: FlipFlopSDK.Responder.Handler? = nil)
+  @objc deinit
+}
+open class RTMPConnection : FlipFlopSDK.EventDispatcher {
+  public static let defaultWindowSizeS: Swift.Int64
+  public static let supportedProtocols: Swift.Set<Swift.String>
+  public static let defaultPort: Swift.Int
+  public static let defaultSecurePort: Swift.Int
+  public static let defaultFlashVer: Swift.String
+  public static let defaultChunkSizeS: Swift.Int
+  public static let defaultCapabilities: Swift.Int
+  public static let defaultObjectEncoding: FlipFlopSDK.RTMPObjectEncoding
+  public enum Code : Swift.String {
+    case callBadVersion
+    case callFailed
+    case callProhibited
+    case connectAppshutdown
+    case connectClosed
+    case connectFailed
+    case connectIdleTimeOut
+    case connectInvalidApp
+    case connectNetworkChange
+    case connectRejected
+    case connectSuccess
+    public var level: Swift.String {
+      get
+    }
+    public init?(rawValue: Swift.String)
+    public typealias RawValue = Swift.String
+    public var rawValue: Swift.String {
+      get
+    }
+  }
+  open var swfUrl: Swift.String?
+  open var pageUrl: Swift.String?
+  open var timeout: Swift.Int {
+    get
+    set
+  }
+  open var qualityOfService: Dispatch.DispatchQoS {
+    get
+    set
+  }
+  open var flashVer: Swift.String
+  open var chunkSize: Swift.Int
+  open var uri: Foundation.URL? {
+    get
+  }
+  open var connected: Swift.Bool {
+    get
+  }
+  open var requireNetworkFramework: Swift.Bool
+  open var parameters: Any?
+  open var objectEncoding: FlipFlopSDK.RTMPObjectEncoding
+  open var totalBytesIn: Swift.Int64 {
+    get
+  }
+  open var totalBytesOut: Swift.Int64 {
+    get
+  }
+  open var totalStreamsCount: Swift.Int {
+    get
+  }
+  @objc dynamic open var previousQueueBytesOut: [Swift.Int64] {
+    get
+  }
+  @objc dynamic open var currentBytesInPerSecond: Swift.Int32 {
+    get
+  }
+  @objc dynamic open var currentBytesOutPerSecond: Swift.Int32 {
+    get
+  }
+  override public init()
+  @objc deinit
+  open func call(_ commandName: Swift.String, responder: FlipFlopSDK.Responder?, arguments: Any?...)
+  open func connect(_ command: Swift.String, arguments: Any?...)
+  open func close()
+  override public init(target: Swift.AnyObject)
+}
+public enum RTMPObjectEncoding : Swift.UInt8 {
+  case amf0
+  case amf3
+  public init?(rawValue: Swift.UInt8)
+  public typealias RawValue = Swift.UInt8
+  public var rawValue: Swift.UInt8 {
+    get
+  }
+}
+@_inheritsConvenienceInitializers @objc public class FFStreamerConfig : ObjectiveC.NSObject {
+  @objc public var preset: FlipFlopSDK.Preset
+  @objc public var videoProfile: Swift.String
+  @objc public var videoBitrate: Swift.Int
+  @objc public var videoBitrateChangeRatio: Swift.Double
+  @objc public var keyFrameInterval: Swift.Int
+  @objc public var fps: Swift.Int
+  @objc public var sampleRate: Swift.Int
+  @objc public var audioBitrate: Swift.Int
+  @objc public var cameraPos: AVFoundation.AVCaptureDevice.Position
+  @objc public var visibility: Swift.String
+  @objc public var videoGravity: AVFoundation.AVLayerVideoGravity
+  @objc override dynamic public init()
+  @objc override dynamic public var description: Swift.String {
+    @objc get
+  }
+  @objc deinit
+}
+@objc public protocol FFStreamerDelegate {
+  @objc func onPrepared()
+  @objc func onStarted()
+  @objc func onStopped()
+  @objc func onStreamStatus(notification: Foundation.Notification)
+  @objc func onError(error: FlipFlopSDK.FFError)
+  @objc func onChatMessgeReceived(message: FlipFlopSDK.FFMessage)
+  @objc func onChatStatReceived(stat: FlipFlopSDK.FFStat)
+  @objc func onInSufficentBW()
+  @objc func onSufficentBW()
+  @objc func onVideoBitrateChanged(newBitrate: Swift.Int)
+}
+@objc public enum StreamingProtocol : Swift.Int {
+  case rtmp
+  case webrtc
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers @objc public class FFStreamer : ObjectiveC.NSObject {
+  @objc weak public var delegate: FlipFlopSDK.FFStreamerDelegate?
+  @objc public var autoRetryTime: Swift.Double
+  @objc public var chatHeartbitTime: Swift.Double
+  @objc public var continuousAutofocus: Swift.Bool {
+    @objc get
+    @objc set
+  }
+  @objc public var continuousExposure: Swift.Bool {
+    @objc get
+    @objc set
+  }
+  @objc public var exposureTargetBias: Swift.Float {
+    @objc get
+    @objc set
+  }
+  @objc public var minExposureTargetBias: Swift.Float {
+    @objc get
+  }
+  @objc public var maxExposureTargetBias: Swift.Float {
+    @objc get
+  }
+  @objc public var currentBitrate: Swift.Int {
+    @objc get
+  }
+  @objc public var videoBitrateOnFly: Swift.Int {
+    @objc get
+    @objc set
+  }
+  @objc public var adaptiveBitrate: Swift.Bool {
+    @objc get
+    @objc set
+  }
+  @objc deinit
+  @objc public func prepare(preview: UIKit.UIView, config: FlipFlopSDK.FFStreamerConfig = FFStreamerConfig())
+  public func start(sdk: FlipFlopSDK.FlipFlop, streamkey: Swift.String, livekey: Swift.String)
+  @objc public func cameraCapture() -> UIKit.UIImage?
+  @objc public func stop()
+  @objc public func reset()
+  @objc public func sendMessage(text: Swift.String, data: Swift.String? = nil, customType: Swift.String? = nil)
+  @objc public func sendWhispher(receiver: Swift.String, text: Swift.String, data: Swift.String? = nil, customType: Swift.String? = nil)
+  @objc public func sendCommand(text: Swift.String, data: Swift.String? = nil, customType: Swift.String? = nil)
+  @objc public func switchCamera()
+  @objc public func videoMirror(mirror: Swift.Bool)
+  @objc public func zoom(factor: CoreGraphics.CGFloat)
+  @objc public func setBackground(backgroundImage: UIKit.UIImage?, scale: CoreGraphics.CGFloat = 0.25)
+  public func setFilter(filter: FlipFlopSDK.VideoFilter)
+  public func playGif(named: Swift.String, completion: (() -> Swift.Void)?) throws
+  @objc public func mute(on: Swift.Bool)
+  @objc public func setPointOfInterest(focus: CoreGraphics.CGPoint)
+  @objc public func setPointOfInterest(exposure: CoreGraphics.CGPoint)
+  @objc override dynamic public init()
+}
+extension FFStreamer {
+  public func onInSufficentBW()
+  public func onSufficentBW()
+  public func onRTMPConnected()
+  public func onRTMPDisconnected()
+  public func onRTMPStarted()
+  public func onRTMPStatus(notification: Foundation.Notification)
+  public func onRTMPStopped()
+  public func onRTMPError(notification: Foundation.Notification)
+  public func onVideoBitrateChanged(newBitrate: Swift.Int, maxBitrate: Swift.Int)
+}
+extension FFStreamer : FlipFlopSDK.WebRTCStreamerDelegate {
+  public func onWebRTCConnected()
+  public func onWebRTCDisconnected()
+  public func onWebRTCStarted()
+  public func onWebRTCStopped()
+  public func onWebRTCError(notification: Foundation.Notification)
+}
+extension FFStreamer {
+  public func onConnected()
+}
+@_hasMissingDesignatedInitializers open class RTMPSharedObject : FlipFlopSDK.EventDispatcher {
+  public static func getRemote(withName: Swift.String, remotePath: Swift.String, persistence: Swift.Bool) -> FlipFlopSDK.RTMPSharedObject
+  open var objectEncoding: FlipFlopSDK.RTMPObjectEncoding {
+    get
+  }
+  open var data: [Swift.String : Any?] {
+    get
+  }
+  open func setProperty(_ name: Swift.String, _ value: Any?)
+  open func connect(_ rtmpConnection: FlipFlopSDK.RTMPConnection)
+  open func clear()
+  open func close()
+  override public init()
+  override public init(target: Swift.AnyObject)
+  @objc deinit
+}
+extension RTMPSharedObject : Swift.CustomDebugStringConvertible {
+  public var debugDescription: Swift.String {
+    get
+  }
+}
+@objc @_hasMissingDesignatedInitializers final public class NetClient : FlipFlopSDK.NetSocket {
+  override final public func listen()
+  @objc override dynamic public init()
+  @objc deinit
+}
+extension FlipFlopSDK.FLVAVCPacketType : Swift.Equatable {}
+extension FlipFlopSDK.FLVAVCPacketType : Swift.Hashable {}
+extension FlipFlopSDK.FLVAVCPacketType : Swift.RawRepresentable {}
+extension FlipFlopSDK.FLVFrameType : Swift.Equatable {}
+extension FlipFlopSDK.FLVFrameType : Swift.Hashable {}
+extension FlipFlopSDK.FLVFrameType : Swift.RawRepresentable {}
+extension FlipFlopSDK.FLVTagType : Swift.Equatable {}
+extension FlipFlopSDK.FLVTagType : Swift.Hashable {}
+extension FlipFlopSDK.FLVTagType : Swift.RawRepresentable {}
+extension FlipFlopSDK.Reachability.Connection : Swift.Equatable {}
+extension FlipFlopSDK.Reachability.Connection : Swift.Hashable {}
+extension FlipFlopSDK.FFMessageType : Swift.Equatable {}
+extension FlipFlopSDK.FFMessageType : Swift.Hashable {}
+extension FlipFlopSDK.FFMessageType : Swift.RawRepresentable {}
+extension FlipFlopSDK.H264Encoder.Option : Swift.RawRepresentable {}
+extension FlipFlopSDK.DefaultAVRecorderDelegate.FileType : Swift.Equatable {}
+extension FlipFlopSDK.DefaultAVRecorderDelegate.FileType : Swift.Hashable {}
+extension FlipFlopSDK.FLVVideoCodec : Swift.Equatable {}
+extension FlipFlopSDK.FLVVideoCodec : Swift.Hashable {}
+extension FlipFlopSDK.FLVVideoCodec : Swift.RawRepresentable {}
+extension FlipFlopSDK.HKPictureInPicureControllerPosition : Swift.Equatable {}
+extension FlipFlopSDK.HKPictureInPicureControllerPosition : Swift.Hashable {}
+extension FlipFlopSDK.ScalingMode : Swift.Equatable {}
+extension FlipFlopSDK.ScalingMode : Swift.Hashable {}
+extension FlipFlopSDK.ScalingMode : Swift.RawRepresentable {}
+extension FlipFlopSDK.AVMixer.Option : Swift.RawRepresentable {}
+extension FlipFlopSDK.ByteArray.Error : Swift.Equatable {}
+extension FlipFlopSDK.ByteArray.Error : Swift.Hashable {}
+extension FlipFlopSDK.FLVAudioCodec : Swift.Equatable {}
+extension FlipFlopSDK.FLVAudioCodec : Swift.Hashable {}
+extension FlipFlopSDK.FLVAudioCodec : Swift.RawRepresentable {}
+extension FlipFlopSDK.FLVSoundSize : Swift.Equatable {}
+extension FlipFlopSDK.FLVSoundSize : Swift.Hashable {}
+extension FlipFlopSDK.FLVSoundSize : Swift.RawRepresentable {}
+extension FlipFlopSDK.FLVSoundType : Swift.Equatable {}
+extension FlipFlopSDK.FLVSoundType : Swift.Hashable {}
+extension FlipFlopSDK.FLVSoundType : Swift.RawRepresentable {}
+extension FlipFlopSDK.AudioCodec.Destination : Swift.Equatable {}
+extension FlipFlopSDK.AudioCodec.Destination : Swift.Hashable {}
+extension FlipFlopSDK.Preset : Swift.Equatable {}
+extension FlipFlopSDK.Preset : Swift.Hashable {}
+extension FlipFlopSDK.Preset : Swift.RawRepresentable {}
+extension FlipFlopSDK.FLVSoundRate : Swift.Equatable {}
+extension FlipFlopSDK.FLVSoundRate : Swift.Hashable {}
+extension FlipFlopSDK.FLVSoundRate : Swift.RawRepresentable {}
+extension FlipFlopSDK.RTMPStream.Code : Swift.Equatable {}
+extension FlipFlopSDK.RTMPStream.Code : Swift.Hashable {}
+extension FlipFlopSDK.RTMPStream.Code : Swift.RawRepresentable {}
+extension FlipFlopSDK.RTMPStream.PlayTransition : Swift.Equatable {}
+extension FlipFlopSDK.RTMPStream.PlayTransition : Swift.Hashable {}
+extension FlipFlopSDK.RTMPStream.PlayTransition : Swift.RawRepresentable {}
+extension FlipFlopSDK.RTMPStream.HowToPublish : Swift.Equatable {}
+extension FlipFlopSDK.RTMPStream.HowToPublish : Swift.Hashable {}
+extension FlipFlopSDK.RTMPStream.HowToPublish : Swift.RawRepresentable {}
+extension FlipFlopSDK.EventPhase : Swift.Equatable {}
+extension FlipFlopSDK.EventPhase : Swift.Hashable {}
+extension FlipFlopSDK.EventPhase : Swift.RawRepresentable {}
+extension FlipFlopSDK.AudioCodec.Option : Swift.RawRepresentable {}
+extension FlipFlopSDK.StompAckMode : Swift.Equatable {}
+extension FlipFlopSDK.StompAckMode : Swift.Hashable {}
+extension FlipFlopSDK.FLVAACPacketType : Swift.Equatable {}
+extension FlipFlopSDK.FLVAACPacketType : Swift.Hashable {}
+extension FlipFlopSDK.FLVAACPacketType : Swift.RawRepresentable {}
+extension FlipFlopSDK.RTMPConnection.Code : Swift.Equatable {}
+extension FlipFlopSDK.RTMPConnection.Code : Swift.Hashable {}
+extension FlipFlopSDK.RTMPConnection.Code : Swift.RawRepresentable {}
+extension FlipFlopSDK.RTMPObjectEncoding : Swift.Equatable {}
+extension FlipFlopSDK.RTMPObjectEncoding : Swift.Hashable {}
+extension FlipFlopSDK.RTMPObjectEncoding : Swift.RawRepresentable {}
+extension FlipFlopSDK.StreamingProtocol : Swift.Equatable {}
+extension FlipFlopSDK.StreamingProtocol : Swift.Hashable {}
+extension FlipFlopSDK.StreamingProtocol : Swift.RawRepresentable {}

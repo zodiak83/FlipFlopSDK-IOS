@@ -4,6 +4,22 @@
 <dict>
 	<key>files</key>
 	<dict>
+		<key>Frameworks/WebRTC.framework/Info.plist</key>
+		<data>
+		0Ll8sjZxIlSJUwcxhMaiAYAznLw=
+		</data>
+		<key>Frameworks/WebRTC.framework/LICENSE.md</key>
+		<data>
+		ohjceAzEJkBvRIYlPmXEAzHlK0U=
+		</data>
+		<key>Frameworks/WebRTC.framework/WebRTC</key>
+		<data>
+		NmhozCwXNR1WzSu8z6cjRBwM7lM=
+		</data>
+		<key>Frameworks/WebRTC.framework/_CodeSignature/CodeResources</key>
+		<data>
+		piKSrIRY+HPizMOpgcsTGr/wfGs=
+		</data>
 		<key>Headers/FlipFlopSDK-Swift.h</key>
 		<data>
 		p4amPmYL4j9wzhn3tCWjreLww6M=
@@ -22,11 +38,11 @@
 		</data>
 		<key>Modules/FlipFlopSDK.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		8BnHiXpuSYVHl5Jr0kjs7EdtGTQ=
+		3bVux4aNWkSWFUAKNRnd/zvaICE=
 		</data>
 		<key>Modules/FlipFlopSDK.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		tbw42nUqCou6Kw7dLSEfua3ksaE=
+		XLfp1ST+nW9yw9refnFbpdntMEo=
 		</data>
 		<key>Modules/FlipFlopSDK.swiftmodule/x86_64.swiftdoc</key>
 		<data>
@@ -34,11 +50,11 @@
 		</data>
 		<key>Modules/FlipFlopSDK.swiftmodule/x86_64.swiftinterface</key>
 		<data>
-		8BnHiXpuSYVHl5Jr0kjs7EdtGTQ=
+		3bVux4aNWkSWFUAKNRnd/zvaICE=
 		</data>
 		<key>Modules/FlipFlopSDK.swiftmodule/x86_64.swiftmodule</key>
 		<data>
-		tbw42nUqCou6Kw7dLSEfua3ksaE=
+		XLfp1ST+nW9yw9refnFbpdntMEo=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -47,6 +63,34 @@
 	</dict>
 	<key>files2</key>
 	<dict>
+		<key>Frameworks/WebRTC.framework/Info.plist</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			039K22y97RWQvl/iF4JIiaf4LERBLkxMhFWEnO3VQIk=
+			</data>
+		</dict>
+		<key>Frameworks/WebRTC.framework/LICENSE.md</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			2KjyMj9hdbh4PWwP2Lo823FEQqYDvOSqrOuhYzs8SFo=
+			</data>
+		</dict>
+		<key>Frameworks/WebRTC.framework/WebRTC</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			ryLH7JpbffEyZlsd04g03zJGG6jPMEiRCABBXZyCFKc=
+			</data>
+		</dict>
+		<key>Frameworks/WebRTC.framework/_CodeSignature/CodeResources</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			TUK1zziF0WeD8iwTzqtlkkVOzF91EwrW+uLR2fsPqaI=
+			</data>
+		</dict>
 		<key>Headers/FlipFlopSDK-Swift.h</key>
 		<dict>
 			<key>hash2</key>
@@ -72,14 +116,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			UaNg3XkFE8sUXYap/MGID7oP/rLb3m+CnU/oWgOTuHE=
+			OF/fuiDx0G/SugjObvE2xuhHWZCfY+pp4Vh/yMNE8LI=
 			</data>
 		</dict>
 		<key>Modules/FlipFlopSDK.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			zRptAH0omISaljGEdVXZUpkZ5V7vF62tRbX4fEIye7Q=
+			KLx5V9lJH0i7PgaSDCNEdgRRzpDpCpt/ir+GUAGIYX8=
 			</data>
 		</dict>
 		<key>Modules/FlipFlopSDK.swiftmodule/x86_64.swiftdoc</key>
@@ -93,14 +137,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			UaNg3XkFE8sUXYap/MGID7oP/rLb3m+CnU/oWgOTuHE=
+			OF/fuiDx0G/SugjObvE2xuhHWZCfY+pp4Vh/yMNE8LI=
 			</data>
 		</dict>
 		<key>Modules/FlipFlopSDK.swiftmodule/x86_64.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			zRptAH0omISaljGEdVXZUpkZ5V7vF62tRbX4fEIye7Q=
+			KLx5V9lJH0i7PgaSDCNEdgRRzpDpCpt/ir+GUAGIYX8=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

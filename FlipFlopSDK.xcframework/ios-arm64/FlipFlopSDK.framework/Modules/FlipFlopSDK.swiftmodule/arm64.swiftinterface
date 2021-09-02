@@ -401,8 +401,6 @@ public class Reachability {
   }
   public var whenReachable: FlipFlopSDK.Reachability.NetworkReachable?
   public var whenUnreachable: FlipFlopSDK.Reachability.NetworkUnreachable?
-  @available(*, deprecated, renamed: "allowsCellularConnection")
-  final public let reachableOnWWAN: Swift.Bool
   public var allowsCellularConnection: Swift.Bool
   public var notificationCenter: Foundation.NotificationCenter
   public var connection: FlipFlopSDK.Reachability.Connection {

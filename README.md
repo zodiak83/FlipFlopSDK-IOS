@@ -4,8 +4,8 @@ Live Commerce IOS SDK
 
 ## 요구사항
 * iOS 11.0+
-* Xcode 11+
-* Swift 4.2+
+* Xcode 12+
+* Swift 5.4+
 
 ## 설치
 ### CocoaPods
@@ -13,7 +13,7 @@ Live Commerce IOS SDK
         use_frameworks!
 
         # Pods for FlipFlopSDK
-        pod 'FlipFlopSDK', '0.0.31'
+        pod 'FlipFlopSDK', '0.1.0'
     
     end
 ### 권한 설정

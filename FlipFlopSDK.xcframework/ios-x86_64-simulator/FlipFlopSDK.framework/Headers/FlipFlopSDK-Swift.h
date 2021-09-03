@@ -196,7 +196,6 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 @import GLKit;
 @import MetalKit;
 @import ObjectiveC;
-@import SocketRocket;
 @import UIKit;
 #endif
 
@@ -310,26 +309,13 @@ SWIFT_CLASS("_TtC11FlipFlopSDK25DefaultAVRecorderDelegate")
 - (void)didStopRunning:(AVRecorder * _Nonnull)recorder;
 @end
 
-@protocol FFConferenceDelegate;
-@class UIView;
 
 SWIFT_CLASS("_TtC11FlipFlopSDK12FFConference")
 @interface FFConference : NSObject
-@property (nonatomic, weak) id <FFConferenceDelegate> _Nullable delegate;
-- (void)prepareWithPreview:(UIView * _Nonnull)preview;
-- (void)join;
-- (void)leave;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
 
-
-
-SWIFT_PROTOCOL("_TtP11FlipFlopSDK20FFConferenceDelegate_")
-@protocol FFConferenceDelegate
-- (UIView * _Nullable)onJoinedWithConference:(FFConference * _Nonnull)conference room:(NSString * _Nonnull)room userID:(NSString * _Nonnull)userID SWIFT_WARN_UNUSED_RESULT;
-- (void)onLeavedWithConference:(FFConference * _Nonnull)conference room:(NSString * _Nonnull)room userID:(NSString * _Nonnull)userID;
-@end
 
 
 SWIFT_CLASS("_TtC11FlipFlopSDK7FFError")
@@ -389,47 +375,15 @@ SWIFT_CLASS("_TtC11FlipFlopSDK9FFMyLives")
 @property (nonatomic, readonly, copy) NSString * _Nonnull description;
 @end
 
-@protocol FFPlayerDelegate;
 
 SWIFT_CLASS("_TtC11FlipFlopSDK8FFPlayer")
 @interface FFPlayer : NSObject
-@property (nonatomic, weak) id <FFPlayerDelegate> _Nullable delegate;
-@property (nonatomic, readonly) double duration;
-@property (nonatomic) BOOL isMuted;
-- (void)prepareWithView:(UIView * _Nonnull)view;
-- (void)start;
-- (void)pause;
-- (void)resume;
-- (void)stop;
-- (void)seekToSec:(double)sec exactly:(BOOL)exactly completion:(void (^ _Nullable)(double))completion;
-- (void)startPIP;
-- (void)stopPIP;
-- (void)reset;
-- (void)sendMessageWithText:(NSString * _Nonnull)text data:(NSString * _Nullable)data customType:(NSString * _Nullable)customType;
-- (void)sendWhispherWithReceiver:(NSString * _Nonnull)receiver text:(NSString * _Nonnull)text data:(NSString * _Nullable)data customType:(NSString * _Nullable)customType;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
 
 
 
-
-@class FFStat;
-
-SWIFT_PROTOCOL("_TtP11FlipFlopSDK16FFPlayerDelegate_")
-@protocol FFPlayerDelegate
-- (void)onPreparedWithPlayer:(FFPlayer * _Nonnull)player;
-- (void)onStartedWithPlayer:(FFPlayer * _Nonnull)player;
-- (void)onPausedWithPlayer:(FFPlayer * _Nonnull)player;
-- (void)onStoppedWithPlayer:(FFPlayer * _Nonnull)player;
-- (void)onCompletedWithPlayer:(FFPlayer * _Nonnull)player;
-- (void)onProgressUpdatedWithPlayer:(FFPlayer * _Nonnull)player sec:(double)sec;
-- (void)onErrorWithPlayer:(FFPlayer * _Nonnull)player error:(FFError * _Nonnull)error;
-- (void)onChatMessgeReceivedWithPlayer:(FFPlayer * _Nonnull)player message:(FFMessage * _Nonnull)message;
-- (void)onChatStatReceivedWithPlayer:(FFPlayer * _Nonnull)player stat:(FFStat * _Nonnull)stat;
-- (void)onBackgroundWithPlayer:(FFPlayer * _Nonnull)player;
-- (void)onForegroundWithPlayer:(FFPlayer * _Nonnull)player;
-@end
 
 
 SWIFT_CLASS("_TtC11FlipFlopSDK6FFStat")
@@ -470,37 +424,9 @@ SWIFT_CLASS("_TtC11FlipFlopSDK13FFStreamEvent")
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
 
-@protocol FFStreamerDelegate;
-@class FFStreamerConfig;
-@class UIImage;
 
 SWIFT_CLASS("_TtC11FlipFlopSDK10FFStreamer")
 @interface FFStreamer : NSObject
-@property (nonatomic, weak) id <FFStreamerDelegate> _Nullable delegate;
-@property (nonatomic) double autoRetryTime;
-@property (nonatomic) double chatHeartbitTime;
-@property (nonatomic) BOOL continuousAutofocus;
-@property (nonatomic) BOOL continuousExposure;
-@property (nonatomic) float exposureTargetBias;
-@property (nonatomic, readonly) float minExposureTargetBias;
-@property (nonatomic, readonly) float maxExposureTargetBias;
-@property (nonatomic, readonly) NSInteger currentBitrate;
-@property (nonatomic) NSInteger videoBitrateOnFly;
-@property (nonatomic) BOOL adaptiveBitrate;
-- (void)prepareWithPreview:(UIView * _Nonnull)preview config:(FFStreamerConfig * _Nonnull)config;
-- (UIImage * _Nullable)cameraCapture SWIFT_WARN_UNUSED_RESULT;
-- (void)stop;
-- (void)reset;
-- (void)sendMessageWithText:(NSString * _Nonnull)text data:(NSString * _Nullable)data customType:(NSString * _Nullable)customType;
-- (void)sendWhispherWithReceiver:(NSString * _Nonnull)receiver text:(NSString * _Nonnull)text data:(NSString * _Nullable)data customType:(NSString * _Nullable)customType;
-- (void)sendCommandWithText:(NSString * _Nonnull)text data:(NSString * _Nullable)data customType:(NSString * _Nullable)customType;
-- (void)switchCamera;
-- (void)videoMirrorWithMirror:(BOOL)mirror;
-- (void)zoomWithFactor:(CGFloat)factor;
-- (void)setBackgroundWithBackgroundImage:(UIImage * _Nullable)backgroundImage scale:(CGFloat)scale;
-- (void)muteOn:(BOOL)on;
-- (void)setPointOfInterestWithFocus:(CGPoint)focus;
-- (void)setPointOfInterestWithExposure:(CGPoint)exposure;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
@@ -508,40 +434,11 @@ SWIFT_CLASS("_TtC11FlipFlopSDK10FFStreamer")
 
 
 
-enum Preset : NSInteger;
 
 SWIFT_CLASS("_TtC11FlipFlopSDK16FFStreamerConfig")
 @interface FFStreamerConfig : NSObject
-@property (nonatomic) enum Preset preset;
-@property (nonatomic, copy) NSString * _Nonnull videoProfile;
-@property (nonatomic) NSInteger videoBitrate;
-@property (nonatomic) double videoBitrateChangeRatio;
-@property (nonatomic) NSInteger keyFrameInterval;
-@property (nonatomic) NSInteger fps;
-@property (nonatomic) NSInteger sampleRate;
-@property (nonatomic) NSInteger audioBitrate;
-@property (nonatomic) AVCaptureDevicePosition cameraPos;
-@property (nonatomic, copy) NSString * _Nonnull visibility;
-@property (nonatomic) AVLayerVideoGravity _Nonnull videoGravity;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @property (nonatomic, readonly, copy) NSString * _Nonnull description;
-@end
-
-@class NSNotification;
-
-/// FFStreamer Delegate
-SWIFT_PROTOCOL("_TtP11FlipFlopSDK18FFStreamerDelegate_")
-@protocol FFStreamerDelegate
-- (void)onPrepared;
-- (void)onStarted;
-- (void)onStopped;
-- (void)onStreamStatusWithNotification:(NSNotification * _Nonnull)notification;
-- (void)onErrorWithError:(FFError * _Nonnull)error;
-- (void)onChatMessgeReceivedWithMessage:(FFMessage * _Nonnull)message;
-- (void)onChatStatReceivedWithStat:(FFStat * _Nonnull)stat;
-- (void)onInSufficentBW;
-- (void)onSufficentBW;
-- (void)onVideoBitrateChangedWithNewBitrate:(NSInteger)newBitrate;
 @end
 
 
@@ -626,23 +523,6 @@ SWIFT_CLASS("_TtC11FlipFlopSDK17FFVideoListLoader")
 
 SWIFT_CLASS("_TtC11FlipFlopSDK8FlipFlop")
 @interface FlipFlop : NSObject
-SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _Nonnull AppKey;)
-+ (NSString * _Nonnull)AppKey SWIFT_WARN_UNUSED_RESULT;
-SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _Nonnull AppSecret;)
-+ (NSString * _Nonnull)AppSecret SWIFT_WARN_UNUSED_RESULT;
-@property (nonatomic, readonly, copy) NSString * _Nonnull userID;
-@property (nonatomic, readonly, copy) NSString * _Nonnull userName;
-@property (nonatomic, readonly, copy) NSString * _Nonnull avatarProfileURL;
-+ (void)initializeWithAppKey:(NSString * _Nonnull)appKey appSecret:(NSString * _Nonnull)appSecret;
-+ (void)uninitialize;
-+ (void)debugWithLevel:(NSInteger)level;
-+ (void)authenticationWithUserID:(NSString * _Nonnull)userID userName:(NSString * _Nonnull)userName avatarProfileURL:(NSString * _Nonnull)avatarProfileURL onSuccess:(void (^ _Nullable)(FlipFlop * _Nonnull))onSuccess onFailure:(void (^ _Nullable)(FFError * _Nonnull))onFailure;
-- (void)updateUserInfoWithUserName:(NSString * _Nullable)userName avatarProfileURL:(NSString * _Nullable)avatarProfileURL onSuccess:(void (^ _Nullable)(void))onSuccess onFailure:(void (^ _Nullable)(FFError * _Nonnull))onFailure;
-+ (FFStreamer * _Nonnull)getRTMPStreamer SWIFT_WARN_UNUSED_RESULT;
-+ (FFStreamer * _Nonnull)getWebRTCStreamer SWIFT_WARN_UNUSED_RESULT;
-- (FFPlayer * _Nonnull)getPlayerWithVideo_key:(NSString * _Nonnull)video_key SWIFT_WARN_UNUSED_RESULT;
-- (FFConference * _Nonnull)getConferenceWithRoom:(NSString * _Nonnull)room SWIFT_WARN_UNUSED_RESULT;
-- (FFVideoListLoader * _Nonnull)getVideoListLoaderWithCursor:(NSString * _Nullable)cursor count:(NSInteger)count userID:(NSString * _Nullable)userID type:(NSString * _Nullable)type state:(NSString * _Nullable)state SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
@@ -753,7 +633,6 @@ SWIFT_CLASS("_TtC11FlipFlopSDK10NetService")
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
 
-
 @class NSNetService;
 @class NSInputStream;
 @class NSOutputStream;
@@ -761,6 +640,7 @@ SWIFT_CLASS("_TtC11FlipFlopSDK10NetService")
 @interface NetService (SWIFT_EXTENSION(FlipFlopSDK)) <NSNetServiceDelegate>
 - (void)netService:(NSNetService * _Nonnull)sender didAcceptConnectionWithInputStream:(NSInputStream * _Nonnull)inputStream outputStream:(NSOutputStream * _Nonnull)outputStream;
 @end
+
 
 
 
@@ -809,58 +689,7 @@ SWIFT_CLASS("_TtC11FlipFlopSDK20ScreenCaptureSession")
 @end
 
 
-@class NSURLRequest;
-@protocol StompClientLibDelegate;
-@class SRWebSocket;
-
-SWIFT_CLASS("_TtC11FlipFlopSDK14StompClientLib")
-@interface StompClientLib : NSObject <SRWebSocketDelegate>
-@property (nonatomic) BOOL connection;
-@property (nonatomic) BOOL certificateCheckEnabled;
-SWIFT_CLASS_PROPERTY(@property (nonatomic, class) double defaultHeartBitTime;)
-+ (double)defaultHeartBitTime SWIFT_WARN_UNUSED_RESULT;
-+ (void)setDefaultHeartBitTime:(double)value;
-- (void)sendPing;
-- (void)sendJSONForDictWithDict:(id _Nonnull)dict toDestination:(NSString * _Nonnull)destination;
-- (void)openSocketWithURLRequestWithRequest:(NSURLRequest * _Nonnull)request delegate:(id <StompClientLibDelegate> _Nonnull)delegate connectionHeaders:(NSDictionary<NSString *, NSString *> * _Nullable)connectionHeaders;
-- (void)webSocket:(SRWebSocket * _Null_unspecified)webSocket didReceiveMessage:(id _Null_unspecified)message;
-- (void)webSocketDidOpen:(SRWebSocket * _Null_unspecified)webSocket;
-- (void)webSocket:(SRWebSocket * _Null_unspecified)webSocket didFailWithError:(NSError * _Null_unspecified)error;
-- (void)webSocket:(SRWebSocket * _Null_unspecified)webSocket didCloseWithCode:(NSInteger)code reason:(NSString * _Null_unspecified)reason wasClean:(BOOL)wasClean;
-- (void)webSocket:(SRWebSocket * _Null_unspecified)webSocket didReceivePong:(NSData * _Null_unspecified)pongPayload;
-- (void)sendMessageWithMessage:(NSString * _Nonnull)message toDestination:(NSString * _Nonnull)destination withHeaders:(NSDictionary<NSString *, NSString *> * _Nullable)headers withReceipt:(NSString * _Nullable)receipt;
-- (BOOL)isConnected SWIFT_WARN_UNUSED_RESULT;
-- (void)subscribeWithDestination:(NSString * _Nonnull)destination;
-- (void)subscribeWithHeaderWithDestination:(NSString * _Nonnull)destination withHeader:(NSDictionary<NSString *, NSString *> * _Nonnull)header;
-- (void)unsubscribeWithDestination:(NSString * _Nonnull)destination;
-- (void)beginWithTransactionId:(NSString * _Nonnull)transactionId;
-- (void)commitWithTransactionId:(NSString * _Nonnull)transactionId;
-- (void)abortWithTransactionId:(NSString * _Nonnull)transactionId;
-- (void)ackWithMessageId:(NSString * _Nonnull)messageId;
-- (void)ackWithMessageId:(NSString * _Nonnull)messageId withSubscription:(NSString * _Nonnull)subscription;
-- (void)disconnect;
-- (void)reconnectWithRequest:(NSURLRequest * _Nonnull)request delegate:(id <StompClientLibDelegate> _Nonnull)delegate connectionHeaders:(NSDictionary<NSString *, NSString *> * _Nonnull)connectionHeaders time:(double)time exponentialBackoff:(BOOL)exponentialBackoff;
-- (void)stopReconnect;
-- (void)autoDisconnectWithTime:(double)time;
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
-@end
-
-
-SWIFT_PROTOCOL("_TtP11FlipFlopSDK22StompClientLibDelegate_")
-@protocol StompClientLibDelegate
-- (void)stompClientWithClient:(StompClientLib * _Null_unspecified)client didReceiveMessageWithJSONBody:(id _Nullable)jsonBody akaStringBody:(NSString * _Nullable)stringBody withHeader:(NSDictionary<NSString *, NSString *> * _Nullable)header withDestination:(NSString * _Nonnull)destination;
-- (void)stompClientDidDisconnectWithClient:(StompClientLib * _Null_unspecified)client;
-- (void)stompClientDidConnectWithClient:(StompClientLib * _Null_unspecified)client;
-- (void)serverDidSendReceiptWithClient:(StompClientLib * _Null_unspecified)client withReceiptId:(NSString * _Nonnull)receiptId;
-- (void)serverDidSendErrorWithClient:(StompClientLib * _Null_unspecified)client withErrorMessage:(NSString * _Nonnull)description detailedErrorMessage:(NSString * _Nullable)message;
-- (void)serverDidSendPing;
-@end
-
-typedef SWIFT_ENUM(NSInteger, StreamingProtocol, open) {
-  StreamingProtocolRtmp = 0,
-  StreamingProtocolWebrtc = 1,
-};
-
+@class UIImage;
 @class NSURL;
 
 SWIFT_PROTOCOL("_TtP11FlipFlopSDK17SwiftyGifDelegate_")

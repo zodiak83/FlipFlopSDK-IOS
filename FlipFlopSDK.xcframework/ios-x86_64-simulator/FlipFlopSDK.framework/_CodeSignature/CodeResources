@@ -78,7 +78,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		bqgiQTtLeGV2JXADP3qQvmmL4hw=
+		yAfUOtfsBmejDll8Q3tjTswKdCs=
 		</data>
 		<key>Modules/FlipFlopSDK.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<data>
@@ -86,11 +86,11 @@
 		</data>
 		<key>Modules/FlipFlopSDK.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		EDUpMT6fL6FF0sETz8hRHcBy6Yg=
+		BIZHBy4bVRqwBI5/FznVth0DeRI=
 		</data>
 		<key>Modules/FlipFlopSDK.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		Qn1F/RpEL48QFBLPJGS4trKmvoo=
+		eP4LOQ1V4IxJyU5BX5I5X6OJHpQ=
 		</data>
 		<key>Modules/FlipFlopSDK.swiftmodule/x86_64.swiftdoc</key>
 		<data>
@@ -98,11 +98,11 @@
 		</data>
 		<key>Modules/FlipFlopSDK.swiftmodule/x86_64.swiftinterface</key>
 		<data>
-		EDUpMT6fL6FF0sETz8hRHcBy6Yg=
+		BIZHBy4bVRqwBI5/FznVth0DeRI=
 		</data>
 		<key>Modules/FlipFlopSDK.swiftmodule/x86_64.swiftmodule</key>
 		<data>
-		Qn1F/RpEL48QFBLPJGS4trKmvoo=
+		eP4LOQ1V4IxJyU5BX5I5X6OJHpQ=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -248,14 +248,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			hraYZvIu/gkR5i7OH2zU72AlDzO9udrw5UkpJkUPh5Q=
+			kGFaIddiQTB9Y0P2gDH0HAG4VnHOOpmmkJINv6EZwNI=
 			</data>
 		</dict>
 		<key>Modules/FlipFlopSDK.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			6zXzQipeWdm0NVv/d5x58K3bR1G37UwOqe61j4LbvM4=
+			YdbxWuITIRkgqfRvkqg8qevm260FBTsc5bGVBEtdnao=
 			</data>
 		</dict>
 		<key>Modules/FlipFlopSDK.swiftmodule/x86_64.swiftdoc</key>
@@ -269,14 +269,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			hraYZvIu/gkR5i7OH2zU72AlDzO9udrw5UkpJkUPh5Q=
+			kGFaIddiQTB9Y0P2gDH0HAG4VnHOOpmmkJINv6EZwNI=
 			</data>
 		</dict>
 		<key>Modules/FlipFlopSDK.swiftmodule/x86_64.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			6zXzQipeWdm0NVv/d5x58K3bR1G37UwOqe61j4LbvM4=
+			YdbxWuITIRkgqfRvkqg8qevm260FBTsc5bGVBEtdnao=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

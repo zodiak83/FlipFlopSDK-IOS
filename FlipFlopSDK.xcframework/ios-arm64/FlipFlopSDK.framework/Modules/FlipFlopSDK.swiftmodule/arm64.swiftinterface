@@ -1518,6 +1518,9 @@ public protocol WebRTCConferenceDelegate : AnyObject {
   @objc override dynamic public init()
 }
 @objc @_inheritsConvenienceInitializers open class VideoEffect : ObjectiveC.NSObject {
+  open var ciContext: CoreImage.CIContext? {
+    get
+  }
   open func execute(_ image: CoreImage.CIImage) -> CoreImage.CIImage
   @objc override dynamic public init()
   @objc deinit

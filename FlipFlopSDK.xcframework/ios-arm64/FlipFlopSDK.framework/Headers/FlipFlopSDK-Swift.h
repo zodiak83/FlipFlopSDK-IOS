@@ -272,6 +272,25 @@ SWIFT_CLASS("_TtC11FlipFlopSDK11AudioEffect")
 @end
 
 
+@class NSNumber;
+
+/// It allows asynchronous tasks, has a pause and resume states,
+/// can be easily added to a queue and can be created with a block.
+SWIFT_CLASS("_TtC11FlipFlopSDK19ConcurrentOperation")
+@interface ConcurrentOperation : NSOperation
+/// Set the <code>Operation</code> as asynchronous.
+@property (nonatomic, readonly, getter=isAsynchronous) BOOL asynchronous;
+/// Set if the <code>Operation</code> is executing.
+@property (nonatomic, readonly, getter=isExecuting) BOOL executing;
+/// Set if the <code>Operation</code> is finished.
+@property (nonatomic, readonly, getter=isFinished) BOOL finished;
+/// Start the <code>Operation</code>.
+- (void)start;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
 
 SWIFT_CLASS("_TtC11FlipFlopSDK25DefaultAVRecorderDelegate")
 @interface DefaultAVRecorderDelegate : NSObject
@@ -312,7 +331,6 @@ SWIFT_PROTOCOL("_TtP11FlipFlopSDK20FFConferenceDelegate_")
 - (void)onLeavedWithConference:(FFConference * _Nonnull)conference room:(NSString * _Nonnull)room userID:(NSString * _Nonnull)userID;
 @end
 
-@class NSNumber;
 
 SWIFT_CLASS("_TtC11FlipFlopSDK7FFError")
 @interface FFError : NSObject
@@ -630,6 +648,15 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _No
 @end
 
 
+@class NSStream;
+
+SWIFT_CLASS("_TtC11FlipFlopSDK19FoundationTransport")
+@interface FoundationTransport : NSObject <NSStreamDelegate>
+- (void)stream:(NSStream * _Nonnull)aStream handleEvent:(NSStreamEvent)eventCode;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
 @class NSCoder;
 @class EAGLContext;
 
@@ -693,6 +720,17 @@ SWIFT_CLASS("_TtC11FlipFlopSDK8MTHKView")
 - (void)drawInMTKView:(MTKView * _Nonnull)view;
 @end
 
+@class NSURLSession;
+@class NSURLSessionWebSocketTask;
+@class NSData;
+
+SWIFT_CLASS("_TtC11FlipFlopSDK12NativeEngine") SWIFT_AVAILABILITY(tvos,introduced=13.0) SWIFT_AVAILABILITY(watchos,introduced=6.0) SWIFT_AVAILABILITY(ios,introduced=13.0) SWIFT_AVAILABILITY(macos,introduced=10.15)
+@interface NativeEngine : NSObject <NSURLSessionDataDelegate, NSURLSessionWebSocketDelegate>
+- (void)URLSession:(NSURLSession * _Nonnull)session webSocketTask:(NSURLSessionWebSocketTask * _Nonnull)webSocketTask didOpenWithProtocol:(NSString * _Nullable)protocol;
+- (void)URLSession:(NSURLSession * _Nonnull)session webSocketTask:(NSURLSessionWebSocketTask * _Nonnull)webSocketTask didCloseWithCode:(NSURLSessionWebSocketCloseCode)closeCode reason:(NSData * _Nullable)reason;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
 
 /// The NetSocket class creates a two-way connection  between a client and a server. This class is wrapper for a InputStream and an OutputStream.
 SWIFT_CLASS("_TtC11FlipFlopSDK9NetSocket")
@@ -715,6 +753,7 @@ SWIFT_CLASS("_TtC11FlipFlopSDK10NetService")
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
 
+
 @class NSNetService;
 @class NSInputStream;
 @class NSOutputStream;
@@ -726,8 +765,6 @@ SWIFT_CLASS("_TtC11FlipFlopSDK10NetService")
 
 
 
-
-@class NSStream;
 
 @interface NetSocket (SWIFT_EXTENSION(FlipFlopSDK)) <NSStreamDelegate>
 - (void)stream:(NSStream * _Nonnull)aStream handleEvent:(NSStreamEvent)eventCode;
@@ -775,7 +812,6 @@ SWIFT_CLASS("_TtC11FlipFlopSDK20ScreenCaptureSession")
 @class NSURLRequest;
 @protocol StompClientLibDelegate;
 @class SRWebSocket;
-@class NSData;
 
 SWIFT_CLASS("_TtC11FlipFlopSDK14StompClientLib")
 @interface StompClientLib : NSObject <SRWebSocketDelegate>
@@ -835,6 +871,16 @@ SWIFT_PROTOCOL("_TtP11FlipFlopSDK17SwiftyGifDelegate_")
 - (void)gifDidStopWithSender:(UIImage * _Nonnull)sender;
 - (void)gifURLDidFinishWithSender:(UIImage * _Nonnull)sender;
 - (void)gifURLDidFailWithSender:(UIImage * _Nonnull)sender url:(NSURL * _Nonnull)url error:(NSError * _Nullable)error;
+@end
+
+
+/// It allows synchronous tasks, has a pause and resume states, can be easily added to a queue and can be created with a block.
+SWIFT_CLASS("_TtC11FlipFlopSDK20SynchronousOperation")
+@interface SynchronousOperation : ConcurrentOperation
+/// Set the <code>Operation</code> as synchronous.
+@property (nonatomic, readonly, getter=isAsynchronous) BOOL asynchronous;
+/// Advises the <code>Operation</code> object that it should stop executing its task.
+- (void)cancel;
 @end
 
 

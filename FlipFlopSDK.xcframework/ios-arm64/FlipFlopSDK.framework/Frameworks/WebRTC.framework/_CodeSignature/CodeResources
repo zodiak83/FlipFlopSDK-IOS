@@ -8,25 +8,9 @@
 		<data>
 		0Ll8sjZxIlSJUwcxhMaiAYAznLw=
 		</data>
-		<key>LICENSE.md</key>
-		<data>
-		ohjceAzEJkBvRIYlPmXEAzHlK0U=
-		</data>
 	</dict>
 	<key>files2</key>
-	<dict>
-		<key>LICENSE.md</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			ohjceAzEJkBvRIYlPmXEAzHlK0U=
-			</data>
-			<key>hash2</key>
-			<data>
-			2KjyMj9hdbh4PWwP2Lo823FEQqYDvOSqrOuhYzs8SFo=
-			</data>
-		</dict>
-	</dict>
+	<dict/>
 	<key>rules</key>
 	<dict>
 		<key>^.*</key>

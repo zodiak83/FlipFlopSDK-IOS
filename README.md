@@ -3,7 +3,7 @@
 Live Commerce IOS SDK
 
 ## 요구사항
-* iOS 11.0+
+* iOS 12.0+
 * Xcode 12+
 * Swift 5.4+
 
@@ -71,10 +71,10 @@ let streamer = sdk.getStreamer()
 streamer.delegate = self
 
 // 카메라프리뷰 및 마이크 시작 및 방송 준비
-streamer.prepare(preview: preview)
+streamer.prepare(preview: UIView, config: FlipFlopSDK.FFStreamerConfig = FFStreamerConfig())
 
 // 방송을 시작합니다. 방송 타이틀과 내용 입력. onPrepared 이후에 호출해야 함
-streamer.start(title: TITLE, content: CONTENT)
+streamer.start(sdk: FlipFlopSDK.FlipFlop, streamkey: String, livekey: String)
 
 // 방송을 종료합니다.
 streamer.stop()
@@ -84,6 +84,64 @@ streamer.reset()
 
 // 카메라 변경
 streamer.switchCamera()
+
+// 채팅 일반메시지 보내기
+streamer.sendMessage(text: String, data: String? = nil, customType: String? = nil)
+// 채팅 귓속말 보내기
+streamer.sendWhispher(receiver: String, text: String, data: String? = nil, customType: String? = nil)
+// 채팅 명령형 메시지 보내기
+streamer.sendCommand(text: String, data: String? = nil, customType: String? = nil)
+// 카메라 좌우 반전
+streamer.videoMirror(mirror: Bool)
+// 카메라 줌
+streamer.zoom(factor: CGFloat)
+// 영상 사진 pip 기능. 오른쪽 상단에 카메라 영상이 노출되며 크기는 scale로 조절
+streamer.setBackground(backgroundImage: UIImage?, scale: CGFloat = 0.25)
+// 카메라 필터 
+streamer.setFilter(filter: FlipFlopSDK.VideoFilter)
+// gif 플레이
+streamer.playGif(named: String, completion: (() -> Void)?) throws
+// 오디오 묵음
+streamer.mute(on: Bool)
+// 카메라 수동 포커스
+streamer.setPointOfInterest(focus: CGPoint)
+// 카메라 수동 노출
+streamer.setPointOfInterest(exposure: CGPoint)
+
+```
+
+### VideoFilter 
+```swift
+public enum VideoFilter {
+    case none
+    case sephia(value: Float)
+    case blendMaks(overlayImage: CIImage, maskImage: CIImage)
+    case sourceOverComposit(overlayImage: CIImage)
+    case colorOverlay(color: UIColor)
+    case custom(effect: VideoEffect)
+}
+```
+
+### Streamer Property
+```swift
+    
+    var chatHeartbitTime: Double
+    // 자동 카메라 오토포커스 true / false ( default false)
+    var continuousAutofocus: Bool
+    // 자동 카메라 노출 true / false ( default false)
+    var continuousExposure: Bool
+    // 카메라 노출 bias (minExposureTargetBias ~ maxExposureTargetBias)
+    var exposureTargetBias: Float
+    // 디바이스 최소 카메라 노출 bais
+    var minExposureTargetBias: Float { get }
+    // 디바이스 최대 카메라 노출 bais
+    var maxExposureTargetBias: Float { get }
+    // 현재 설정 된 비트레이트
+    var currentBitrate: Int { get }
+    // 방송 중 bitrate변경 시 호출 (bps)
+    var videoBitrateOnFly: Int
+    // adaptive bitrate true / false (default false)
+    var adaptiveBitrate: Bool
 ```
 
 ### 라이브 방송 이벤트 콜백
@@ -93,7 +151,7 @@ public protocol FFStreamerDelegate: class { {
     // 방송 준비 이벤트
     func onPrepared()
     // 방송 시작 이벤트
-    func onStarted(streamName: String)
+    func onStarted()
     // 방송 중지 이벤트
     func onStopped()
     // 방송 종료 이벤트
@@ -102,6 +160,14 @@ public protocol FFStreamerDelegate: class { {
     func onChatMessgeReceived(message: FFMessage)
     // 방송 에러 이벤트
     func onError(error: FFError)
+    // 스트림 정보 이벤트
+    func onStreamStatus(notification: Notification)
+    // bandwidth가 부족할때 발생하는 이벤트
+    func onInSufficentBW()
+    // bandwidth가 다시 충분해 졌을때 발생하는 이벤트
+    func onSufficentBW()
+    // 비트레이트가 변경되었을때 발생하는 이벤트
+    func onVideoBitrateChanged(newBitrate: Int)
 }
 ```
 ### 방송 보기
@@ -162,6 +228,10 @@ player.seekTo(percent: 0.5)
     func onError(player: FFPlayer, error: FFError)
     // 방송 채팅 메시지 이벤트
     func onChatMessgeReceived(message: FFMessage)
+    // 백그라운드로 진입 이벤트
+    func onBackground(player: FFPlayer)
+    // 포그라운드로 진입 이벤트
+    func onForeground(player: FFPlayer)
 }
 ```
 
@@ -219,7 +289,7 @@ sdk.deleteVideo(videoKey: VIDEO_KEY) { (result) in
     }
 }
 ```
-    
+
     
 ## License 
 MIT

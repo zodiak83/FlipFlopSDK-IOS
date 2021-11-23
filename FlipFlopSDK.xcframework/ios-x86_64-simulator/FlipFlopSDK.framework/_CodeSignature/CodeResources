@@ -4,73 +4,9 @@
 <dict>
 	<key>files</key>
 	<dict>
-		<key>Frameworks/AWSCore.framework/AWSCore</key>
-		<data>
-		9aYSC9CNKTvPoug/L9V3EhK0AM8=
-		</data>
-		<key>Frameworks/AWSCore.framework/Info.plist</key>
-		<data>
-		mraxoKcCwlk3XTVUQqH8Xa5eRyg=
-		</data>
-		<key>Frameworks/AWSCore.framework/_CodeSignature/CodeResources</key>
-		<data>
-		60dA+stSwxnPvONpweeU3df7BXQ=
-		</data>
-		<key>Frameworks/AWSCore.framework/strip-frameworks.sh</key>
-		<data>
-		bENFeKfMHTdHyWS5AygjhdAo44Q=
-		</data>
-		<key>Frameworks/AWSLogs.framework/AWSLogs</key>
-		<data>
-		WsO/DRZqWpJX9M/+XRLm0ZGt4hE=
-		</data>
-		<key>Frameworks/AWSLogs.framework/Info.plist</key>
-		<data>
-		n+mT2uzUJPOy3ptz/dD+bQ84cgA=
-		</data>
-		<key>Frameworks/AWSLogs.framework/_CodeSignature/CodeResources</key>
-		<data>
-		DsXdQP7rpx97jxDFHSDd1+suSUU=
-		</data>
-		<key>Frameworks/AWSS3.framework/AWSS3</key>
-		<data>
-		X28rPS3d5jxJhPKc6ugJRq59ZPc=
-		</data>
-		<key>Frameworks/AWSS3.framework/Info.plist</key>
-		<data>
-		S+ALUTGfE5T0tnkwrTiYWGhf3G8=
-		</data>
-		<key>Frameworks/AWSS3.framework/_CodeSignature/CodeResources</key>
-		<data>
-		JMV1DoFV8g2ZKBk7OnRIoCDY7mA=
-		</data>
-		<key>Frameworks/SocketRocket.framework/Info.plist</key>
-		<data>
-		C4ZYuw48Fb2A05mbbRh0RDQ3zxo=
-		</data>
-		<key>Frameworks/SocketRocket.framework/SocketRocket</key>
-		<data>
-		urJYfUWayJyQwPTQpIOb1B9Pf/E=
-		</data>
-		<key>Frameworks/SocketRocket.framework/_CodeSignature/CodeResources</key>
-		<data>
-		dMoRjNnD9wqxY3SZ3/I5oWT5Sd4=
-		</data>
-		<key>Frameworks/WebRTC.framework/Info.plist</key>
-		<data>
-		IjPL/FSdFzkemI2As5KI5K0Qkak=
-		</data>
-		<key>Frameworks/WebRTC.framework/WebRTC</key>
-		<data>
-		fuuoYucT1Cw0jEIHMx3VHiAUD9k=
-		</data>
-		<key>Frameworks/WebRTC.framework/_CodeSignature/CodeResources</key>
-		<data>
-		rdwoSMLt3vtpzthtC6F0IjQ01e4=
-		</data>
 		<key>Headers/FlipFlopSDK-Swift.h</key>
 		<data>
-		Wx+Lo8XU1actqnw+TRHc491vQUY=
+		4w+xQrGLvL/ndEeDR2QbLPcfwuk=
 		</data>
 		<key>Headers/FlipFlopSDK_IOS.h</key>
 		<data>
@@ -78,31 +14,31 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		yAfUOtfsBmejDll8Q3tjTswKdCs=
+		rbYQxySL+7DnCtnR9Y7se3Ec478=
 		</data>
 		<key>Modules/FlipFlopSDK.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<data>
-		Wc/wu0mt6IBA5m5Y5mUjdjEFaPM=
+		tLS14HnlSjZhw+3qz0PU5oxbuVE=
 		</data>
 		<key>Modules/FlipFlopSDK.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		ckvCp6BwW4lNgmL06qIRSBXazq4=
+		a3LTowrQ7/L4W1hEEYZdWSK1vPE=
 		</data>
 		<key>Modules/FlipFlopSDK.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		im8cadI+6TqZi/lCM1lJaVZnGw8=
+		/E2siU1nBlmDiZhnzSP7XQLn+hE=
 		</data>
 		<key>Modules/FlipFlopSDK.swiftmodule/x86_64.swiftdoc</key>
 		<data>
-		Wc/wu0mt6IBA5m5Y5mUjdjEFaPM=
+		tLS14HnlSjZhw+3qz0PU5oxbuVE=
 		</data>
 		<key>Modules/FlipFlopSDK.swiftmodule/x86_64.swiftinterface</key>
 		<data>
-		ckvCp6BwW4lNgmL06qIRSBXazq4=
+		a3LTowrQ7/L4W1hEEYZdWSK1vPE=
 		</data>
 		<key>Modules/FlipFlopSDK.swiftmodule/x86_64.swiftmodule</key>
 		<data>
-		im8cadI+6TqZi/lCM1lJaVZnGw8=
+		/E2siU1nBlmDiZhnzSP7XQLn+hE=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -111,123 +47,11 @@
 	</dict>
 	<key>files2</key>
 	<dict>
-		<key>Frameworks/AWSCore.framework/AWSCore</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			l20te3kcv3h1efb3nRYN/oF7bEKYXnNsOwMA0xa/lZo=
-			</data>
-		</dict>
-		<key>Frameworks/AWSCore.framework/Info.plist</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			hbojKYcm2Xwi7tczCLB/ZCtyjwicmkgpt2zfDEeZ2go=
-			</data>
-		</dict>
-		<key>Frameworks/AWSCore.framework/_CodeSignature/CodeResources</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			hNp4bZ8VvfkrKMI9xNSsfqaXF0oYu3tOo9TCG5LPONg=
-			</data>
-		</dict>
-		<key>Frameworks/AWSCore.framework/strip-frameworks.sh</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			TdoX67LzludHG3MJM/ykgPmTswRtyXdokveq/f6XloI=
-			</data>
-		</dict>
-		<key>Frameworks/AWSLogs.framework/AWSLogs</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			7RF2B08thqs1uJM4VCwVDGMhe8g0kjKwk/O4+OUJ8Yk=
-			</data>
-		</dict>
-		<key>Frameworks/AWSLogs.framework/Info.plist</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			9W25e8qVm/eB7xke7yYG4qqZKkjPx0Shn0qxHRW7qps=
-			</data>
-		</dict>
-		<key>Frameworks/AWSLogs.framework/_CodeSignature/CodeResources</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			2buwCE8MiJKfVhKzBdZyU47WXO3rIiOuLEDE0dsRL90=
-			</data>
-		</dict>
-		<key>Frameworks/AWSS3.framework/AWSS3</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			M15NDQIlLiq+ovvPHN5hAOd+m1RcUlA/C3vpiP1zZWk=
-			</data>
-		</dict>
-		<key>Frameworks/AWSS3.framework/Info.plist</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			d69/vwjT+E4tYAHikOZFLlzEAYBMDt1VthsI3sPt9qU=
-			</data>
-		</dict>
-		<key>Frameworks/AWSS3.framework/_CodeSignature/CodeResources</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			xQGCnK9s3o/DX3V+Fsk/kzXtVrMGQl85aL6YVpPtoJQ=
-			</data>
-		</dict>
-		<key>Frameworks/SocketRocket.framework/Info.plist</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			6v4yF4eHrMy0tacJb6MX4EvRXfsP0fYZEOe/JIyoZ9k=
-			</data>
-		</dict>
-		<key>Frameworks/SocketRocket.framework/SocketRocket</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			IEaRZfFgNQcr7snlsNPT3Sfeugv1GxSEvu/B1r+PH0U=
-			</data>
-		</dict>
-		<key>Frameworks/SocketRocket.framework/_CodeSignature/CodeResources</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			4bWDavACiG8mhxemrM6CD6cMOieykBZ6gxYuUytiPSw=
-			</data>
-		</dict>
-		<key>Frameworks/WebRTC.framework/Info.plist</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			+DnaarFMiki8AMOekF7vKnF2qefetgO9Llc0ILGQTEI=
-			</data>
-		</dict>
-		<key>Frameworks/WebRTC.framework/WebRTC</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			uV0F2DHpNRefVpA8M4sHeKtWk2KkqgsESkJL0VYIASI=
-			</data>
-		</dict>
-		<key>Frameworks/WebRTC.framework/_CodeSignature/CodeResources</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			u/OzvGfEmziypCV2EACM7FGoLD998WG+qQ/iIwZJveM=
-			</data>
-		</dict>
 		<key>Headers/FlipFlopSDK-Swift.h</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			V9H7a1fja1aZwBMbLXjSrEXSziLGe9q8cMkJ3ql4TjA=
+			+eZqG6P409yoEA0nmPF7uBp3VxmzgG7L8hbHrcFC20Y=
 			</data>
 		</dict>
 		<key>Headers/FlipFlopSDK_IOS.h</key>
@@ -241,42 +65,42 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			x/ZMUi1jjAYEKfhc8DPUNk5s2uRNU+zFiOSWQvG7HNY=
+			AhSP34JDUJW89asDxX2XnBL3pkV23nE9XsWpiQtzlwc=
 			</data>
 		</dict>
 		<key>Modules/FlipFlopSDK.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			Nq3W0puLsnSfFWy9AtVPVaazOxAmInPQW2Cy/HHknDg=
+			DD0bgcF2IgvcYPTeJKIIe+Y4npk2+oE1w6MIznTK4Wg=
 			</data>
 		</dict>
 		<key>Modules/FlipFlopSDK.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			k/anS9HmHy6TkcEKkhenFPplAxqQTXqJwo+/3jT+E/Y=
+			WhtuEUTWXd2WnnaDPRulrZMM8oenNpR2MgrmWOTJsCc=
 			</data>
 		</dict>
 		<key>Modules/FlipFlopSDK.swiftmodule/x86_64.swiftdoc</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			x/ZMUi1jjAYEKfhc8DPUNk5s2uRNU+zFiOSWQvG7HNY=
+			AhSP34JDUJW89asDxX2XnBL3pkV23nE9XsWpiQtzlwc=
 			</data>
 		</dict>
 		<key>Modules/FlipFlopSDK.swiftmodule/x86_64.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			Nq3W0puLsnSfFWy9AtVPVaazOxAmInPQW2Cy/HHknDg=
+			DD0bgcF2IgvcYPTeJKIIe+Y4npk2+oE1w6MIznTK4Wg=
 			</data>
 		</dict>
 		<key>Modules/FlipFlopSDK.swiftmodule/x86_64.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			k/anS9HmHy6TkcEKkhenFPplAxqQTXqJwo+/3jT+E/Y=
+			WhtuEUTWXd2WnnaDPRulrZMM8oenNpR2MgrmWOTJsCc=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
